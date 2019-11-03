@@ -3,10 +3,10 @@
  * @author Qingcheng You
  * @since 10.31.2019
  */
-import * as firebase from "firebase/app";
+import * as firebase from 'firebase/app';
 
-import "firebase/auth";
-import "firebase/firestore";
+import 'firebase/auth';
+import 'firebase/firestore';
 
 // Firebase configuration
 const firebaseConfig = {
