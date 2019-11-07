@@ -1,5 +1,6 @@
 /**
  * This is the CreateNewHabit class file.
+ * @author Vincent Nguyen, Qingcheng You
  * @since 11.3.2019
  */
 import React, {Component} from 'react';
@@ -46,8 +47,7 @@ export default class CreateHabit extends Component {
     handleConfirm = () => {
         try {
             const {name, category, visible, description} = this.state;
-            var habit;
-            habit = new Habit('what', "user_id1", "12/12/2019", 'is going on', 'true', 'sport');
+            var habit = new Habit('what', "user_id1", "12/12/2019", 'is going on', 'true', 'sport');
             habit.pushToFirestore();
         } catch (err) {
             console.log("Something went wrong: ", err)
@@ -76,18 +76,6 @@ export default class CreateHabit extends Component {
                            autoCapitalize={"none"}
                            onChange={val => this.onChangeText('name', val)}
                 />
-                <Text>Category:</Text>
-                <Picker
-                    selectedValue={this.state.category}
-                    style={{height: 50, width: 100}}
-                    onValueChange={(itemValue, itemIndex) =>
-                        this.setState({category: itemValue})
-                    }>
-                    <Picker.Item label="health" value="health" />
-                    <Picker.Item label="sport/exercise" value="sport/exercise" />
-                    <Picker.Item label="study/work" value="study/work" />
-                    <Picker.Item label="others" value="others" />
-                </Picker>
                 <Text>Description:</Text>
                 <TextInput style={styles.input}
                            placeholder="Write a short description of your habit."
