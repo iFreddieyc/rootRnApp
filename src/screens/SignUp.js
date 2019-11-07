@@ -77,7 +77,7 @@ export default class SignUp extends Component {
                 <TextInput style={styles.input}
                            placeholder="Email"
                            autoCapitalize={"none"}
-                           value={this.state.email}
+                           //value={this.state.email}
                            onChangeText={val => this.onChangeText('email', val)}
                 />
                 <Text>Password:</Text>
@@ -85,7 +85,7 @@ export default class SignUp extends Component {
                            placeholder="Password"
                            secureTextEntry={true}
                            autoCapitalize={"none"}
-                           value={this.state.password}
+                           //value={this.state.password}
                            onChangeText={val => this.onChangeText('password', val)}
                 />
                 <Button
