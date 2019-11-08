@@ -7,12 +7,18 @@ export default class HabitView extends Component{
         super(props);
         console.log(this.props);
     }
+    //currDate;
+    currDate = new Date(); // get current date
+    startDate = new Date(this.props.date);
+    //startDate;
 
+    // get start date
+    days = Math.ceil((this.currDate.getTime() - this.startDate.getTime())/(1000*3600*24));
     render() {
         return(
             <View style={styles.container}>
                 <Text style={styles.habitName}>{this.props.name}</Text>
-                <Text style={styles.habitDate}>{this.props.date}</Text>
+                <Text style={styles.habitDate}>{this.days}</Text>
             </View>
 
         );
@@ -21,8 +27,9 @@ export default class HabitView extends Component{
 
 const styles = StyleSheet.create({
     container:{
-        //flex: 1,
-        //alignItems: 'center',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
         //marginTop: '30%',
         //marginBottom: '30%',
         //width: '30%',
