@@ -14,17 +14,16 @@ export default class HabitView extends Component{
                 <Text style={styles.habitName}>{this.props.name}</Text>
                 <Text style={styles.habitDate}>{this.props.date}</Text>
             </View>
-
         );
     }
 }
 
 const styles = StyleSheet.create({
     container:{
-        //flex: 1,
+        flex: 1,
         //alignItems: 'center',
-        //marginTop: '30%',
-        //marginBottom: '30%',
+        marginTop: '30%',
+        marginBottom: '30%',
         //width: '30%',
         //height: '30%',
         //padding: 100,

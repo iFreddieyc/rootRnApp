@@ -1,15 +1,15 @@
 /**
- * This is the SignUp screen class file.
+ * This is the SignIn screen class file.
  * @author Qingcheng You TODO
- * @since 10.31.2019
+ * @since 11.02.2019
  */
 import React, {Component} from 'react';
-import {StyleSheet, View, TextInput, Button, Text, Alert} from 'react-native';
+import {StyleSheet, View, TextInput, Button, Text} from 'react-native';
 import db from "../base";
 
-export default class SignUp extends Component {
+export default class SignIn extends Component {
     /**
-     * Constructor for class SignUp
+     * Constructor for class SignIn
      * @param props properties to initialize this class with
      */
     constructor(props) {
@@ -27,38 +27,43 @@ export default class SignUp extends Component {
     }
 
     /**
-     * handleSignUp is called when "Sign Up" button is pressed.
-     * Connect to Firebase Authentication
+     * handleLogin is called when "Sign Up" button is pressed.
+     * Connect to Firebase Authentication TODO
      */
-    handleSignUp = () => {
+    handleLogin = () => {
         try {
             const {email, password} = this.state;
             // This is where to add Firebase authentication function
-            db.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
-                // Handle Errors here
+
+            db.auth().signInWithEmailAndPassword(email, password)
+                .then(
+                    () => this.props.navigation.navigate('Main')
+                )
+                .catch(function(error) {
                 const errorCode = error.code;
                 let errorMessage;
-                if(errorCode == 'auth/weak-password'){
-                    errorMessage = 'This password is too weak.'
-                }else if(errorCode == 'auth/email-already-in-use'){
-                    errorMessage = 'This email is already in use.'
+                if(errorCode == 'auth/wrong-password'){
+                    errorMessage = 'Wrong password.'
                 }else if(errorCode == 'auth/invalid-email'){
                     errorMessage = 'This email is not valid.'
+                }else if(errorCode == 'auth/user-not-found'){
+                    errorMessage = 'User not found.'
                 }
                 // For debugging purposes only
                 console.log("db.auth().error caught: ", errorCode, errorMessage);
                 // Alert User Error Message
                 Alert.alert(
                     'Alert',
-                    errorMessage,
+                    {errorMessage},
                     [{
                         text: 'Ok', onPress:() => console.log('Ok is pressed')
                     }],
                     {cancelable: true}
                 );
             });
+
             // For testing and debugging purposes only
-            console.log("Sign up button is pressed");
+            console.log("SignIn button is pressed");
             console.log("Email: ", email, password);
         } catch (err) {
             console.log("Something went wrong: ", err)
@@ -73,11 +78,12 @@ export default class SignUp extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <Text>Login</Text>
                 <Text>Email:</Text>
                 <TextInput style={styles.input}
                            placeholder="Email"
                            autoCapitalize={"none"}
-                           //value={this.state.email}
+                           value={this.state.email}
                            onChangeText={val => this.onChangeText('email', val)}
                 />
                 <Text>Password:</Text>
@@ -85,12 +91,12 @@ export default class SignUp extends Component {
                            placeholder="Password"
                            secureTextEntry={true}
                            autoCapitalize={"none"}
-                           //value={this.state.password}
+                           value={this.state.password}
                            onChangeText={val => this.onChangeText('password', val)}
                 />
                 <Button
-                    title={"Sign Up"}
-                    onPress={this.handleSignUp}
+                    title={"Log In"}
+                    onPress={this.handleLogin}
                 />
             </View>
         );
