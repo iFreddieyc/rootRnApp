@@ -5,7 +5,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, TextInput, Button, Text, Alert, Picker, Switch} from 'react-native';
 import user from "../auth";
-import Habit from "../components/Habit";
+import Habit from "../data/Habit";
 
 export default class CreateHabit extends Component {
     /**

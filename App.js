@@ -1,12 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import SignUp from "./src/screens/SignUp";
-import CreateHabit from "./src/screens/CreateHabit";
+import SignUp from "./src/views/SignUp";
+import CreateHabit from "./src/views/CreateHabit";
 
 export default function App() {
   return(
-    //<SignUp />
-      <CreateHabit />
+      <SignUp />
+      //<CreateHabit />
   );
 }
 
