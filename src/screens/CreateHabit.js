@@ -5,8 +5,9 @@
  */
 import React, {Component} from 'react';
 import {StyleSheet, View, TextInput, Button, Text, Alert, Picker, Switch} from 'react-native';
-import user from "../auth";
-import Habit from "../components/Habit";
+import Habit from "../Habit";
+import db from "../base";
+import util from "../util";
 
 export default class CreateHabit extends Component {
     /**
@@ -16,10 +17,9 @@ export default class CreateHabit extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
-            category: '',
-            visible: false,
-            description: '',
+            name: 'Habit',
+            visible: true,
+            description: 'Description',
         };
     }
 
@@ -46,21 +46,16 @@ export default class CreateHabit extends Component {
      */
     handleConfirm = () => {
         try {
-            const {name, category, visible, description} = this.state;
-            var habit = new Habit('what', "user_id1", "12/12/2019", 'is going on', 'true', 'sport');
+            const {name, visible, description} = this.state;
+            let userid = db.auth().currentUser.uid;
+            let startDate = util.getCurrentDate();
+            let habit = new Habit(name, userid, startDate, description, visible);
             habit.pushToFirestore();
+            this.props.navigation.navigate('Habits');
         } catch (err) {
             console.log("Something went wrong: ", err)
+            this.props.navigation.navigate('Habits');
         }
-
-    }
-
-    /**
-     * handleCancel triggers when cancel is pressed
-     * TODO
-     */
-    handleCancel = () => {
-        console.log("Cancel is pressed.")
     }
 
     /**
@@ -72,9 +67,9 @@ export default class CreateHabit extends Component {
             <View style={styles.container}>
                 <Text>Name:</Text>
                 <TextInput style={styles.input}
-                           placeholder="What's you habit?"
+                           placeholder="The name of your habit"
                            autoCapitalize={"none"}
-                           onChange={val => this.onChangeText('name', val)}
+                           onChangeText={val => this.onChangeText('name', val)}
                 />
                 <Text>Description:</Text>
                 <TextInput style={styles.input}
@@ -86,11 +81,7 @@ export default class CreateHabit extends Component {
                 />
                 <Text>Visible to friends?</Text>
                 <Switch onValueChange={this.toggleSwitch}
-                        switch1Value = {this.state.visible}
-                />
-                <Button
-                    title={"Cancel"}
-                    onPress={this.handleCancel}
+                        value={this.state.visible}
                 />
                 <Button
                     title={"Confirm"}

@@ -1,15 +1,10 @@
-/**
- * This is the placeholder for the ranking screen
- * @author Qingcheng You TODO
- * @since 11.8.2019
- */
 import React, {Component} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 export default class Ranking extends Component {
     render(){
         return(
-            <View sytle={styles.container}>
+            <View>
                 <Text>Ranking</Text>
             </View>
         )

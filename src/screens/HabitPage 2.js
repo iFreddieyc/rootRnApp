@@ -1,6 +1,6 @@
 /**
  * This is the HabitPage screen class file.
- * @author Qiuling Chen, Qingcheng You
+ * @author Qiuling Chen TODO
  * @since 11.3.2019
  */
 import React, {Component} from 'react';
@@ -24,11 +24,10 @@ export default class HabitPage extends Component {
     constructor(props) {
         super(props);
         this.unsubscribe = null;
-        this.ref = db.firestore().collection("habits").where("userid", "==", db.auth().currentUser.uid);
+        this.ref = db.firestore().collection("habits").where("userid", "==", "user_id1");
         this.state = {
             isLoading: true,
-            habits: [],
-            message: "You are not forming any habits now, press the plus button to start one."
+            habits: []
         };
     }
 
@@ -39,21 +38,14 @@ export default class HabitPage extends Component {
     onCollectionUpdate = (querySnapshot) => {
         const habits = [];
         querySnapshot.forEach(function (doc) {
+            // doc.data() is never undefined for query doc snapshots
+            // console.log(doc.id, " => ", doc.data().userid);
             habits.push(doc.data());
         });
         this.setState({
             habits,
             isLoading: false,
         });
-        if(habits.length > 0){
-            this.setState({
-                message: "Here are all your current habits."
-            });
-        }
-    }
-
-    directToCreateNewHabit = () => {
-        this.props.navigation.navigate('CreateNew');
     }
 
     render() {
@@ -65,26 +57,18 @@ export default class HabitPage extends Component {
                 </View>
             )
         }
-        // If loading is finished.
         return (
             <SafeAreaView style={styles.container}>
-                <Text style={styles.title}>
-                    {this.state.message}
-                </Text>
+                <Text>Hello</Text>
+                {console.log(this.state.habits)}
                 <FlatList
                     data={this.state.habits}
                     renderItem={({item}) =>
                         <HabitView
                             name={item.name}
                             date={item.startDate}
-                            description={item.description}
                         />
                     }
-                    keyExtractor={(item, index) => index.toString()}
-                />
-                <Button
-                    title={"+"}
-                    onPress={this.directToCreateNewHabit}
                 />
             </SafeAreaView>
         );
