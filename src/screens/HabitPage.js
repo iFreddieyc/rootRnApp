@@ -1,43 +1,90 @@
 /**
  * This is the HabitPage screen class file.
- * @author Qiuling Chen TODO
+ * @author Qiuling Chen, Qingcheng You
  * @since 11.3.2019
  */
 import React, {Component} from 'react';
-import {FlatList, StyleSheet, SafeAreaView, View, TextInput, Button, Text, Alert} from 'react-native';
+import {
+    FlatList,
+    StyleSheet,
+    SafeAreaView,
+    View,
+    TextInput,
+    Button,
+    Text,
+    Alert,
+    ActivityIndicator
+} from 'react-native';
 import db from "../base";
 import HabitView from "./HabitView";
 
-var habits;
-habits = [];
+
 export default class HabitPage extends Component {
 
-    componentDidMount() {
-        db.firestore().collection("habits").where("userid", "==", "user_id1")
-            .get().then(function (querySnapshot) {
-            querySnapshot.forEach(function (doc) {
-                // doc.data() is never undefined for query doc snapshots
-                console.log(doc.id, " => ", doc.data().userid);
-                habits.push(doc.data());
-            });
-        }).catch(function (error) {
-            console.log("Error getting documents: ", error);
-        });
+    constructor(props) {
+        super(props);
+        this.unsubscribe = null;
+        this.ref = db.firestore().collection("habits").where("userid", "==", db.auth().currentUser.uid);
+        this.state = {
+            isLoading: true,
+            habits: [],
+            message: "You are not forming any habits now, press the plus button to start one."
+        };
     }
 
+    componentDidMount() {
+        this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
+    }
+
+    onCollectionUpdate = (querySnapshot) => {
+        const habits = [];
+        querySnapshot.forEach(function (doc) {
+            habits.push(doc.data());
+        });
+        this.setState({
+            habits,
+            isLoading: false,
+        });
+        if(habits.length > 0){
+            this.setState({
+                message: "Here are all your current habits."
+            });
+        }
+    }
+
+    directToCreateNewHabit = () => {
+        this.props.navigation.navigate('CreateNew');
+    }
 
     render() {
+        if (this.state.isLoading) {
+            console.log("Loading");
+            return (
+                <View style={styles.activity}>
+                    <ActivityIndicator size="large" color="#0000ff"/>
+                </View>
+            )
+        }
+        // If loading is finished.
         return (
             <SafeAreaView style={styles.container}>
-                <Text>Hello</Text>
+                <Text style={styles.title}>
+                    {this.state.message}
+                </Text>
                 <FlatList
-                    data={habits}
-                    renderItem={({ item }) =>
+                    data={this.state.habits}
+                    renderItem={({item}) =>
                         <HabitView
                             name={item.name}
                             date={item.startDate}
+                            description={item.description}
                         />
                     }
+                    keyExtractor={(item, index) => index.toString()}
+                />
+                <Button
+                    title={"+"}
+                    onPress={this.directToCreateNewHabit}
                 />
             </SafeAreaView>
         );
@@ -61,5 +108,14 @@ const styles = StyleSheet.create({
         fontSize: 30,
         color: 'black',
         fontWeight: 'bold', alignItems: 'center',
+    },
+    activity: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 });

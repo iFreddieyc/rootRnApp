@@ -1,6 +1,6 @@
 /**
- * This is the SignUp screen class file.
- * @author Qingcheng You TODO
+ * SignUp screen class file, to sign up a user.
+ * @author Qingcheng You
  * @since 10.31.2019
  */
 import React, {Component} from 'react';
@@ -8,6 +8,7 @@ import {StyleSheet, View, TextInput, Button, Text, Alert} from 'react-native';
 import db from "../base";
 
 export default class SignUp extends Component {
+
     /**
      * Constructor for class SignUp
      * @param props properties to initialize this class with
@@ -34,25 +35,28 @@ export default class SignUp extends Component {
         try {
             const {email, password} = this.state;
             // This is where to add Firebase authentication function
-            db.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
-                // Handle Errors here
+            db.auth().createUserWithEmailAndPassword(email, password).then(
+                // User is created, go to Main
+                () => this.props.navigation.navigate('App')
+            ).catch(function (error) {
+                // Some error occurred, handle Errors here
                 const errorCode = error.code;
                 let errorMessage;
-                if(errorCode == 'auth/weak-password'){
+                if (errorCode == 'auth/weak-password') {
                     errorMessage = 'This password is too weak.'
-                }else if(errorCode == 'auth/email-already-in-use'){
+                } else if (errorCode == 'auth/email-already-in-use') {
                     errorMessage = 'This email is already in use.'
-                }else if(errorCode == 'auth/invalid-email'){
+                } else if (errorCode == 'auth/invalid-email') {
                     errorMessage = 'This email is not valid.'
                 }
                 // For debugging purposes only
-                console.log("db.auth().error caught: ", errorCode, errorMessage);
+                console.log("db.auth().error caught during signup: ", errorCode, errorMessage);
                 // Alert User Error Message
                 Alert.alert(
                     'Alert',
                     errorMessage,
                     [{
-                        text: 'Ok', onPress:() => console.log('Ok is pressed')
+                        text: 'Ok', onPress: () => console.log('Ok is pressed')
                     }],
                     {cancelable: true}
                 );
@@ -77,7 +81,7 @@ export default class SignUp extends Component {
                 <TextInput style={styles.input}
                            placeholder="Email"
                            autoCapitalize={"none"}
-                           //value={this.state.email}
+                    //value={this.state.email}
                            onChangeText={val => this.onChangeText('email', val)}
                 />
                 <Text>Password:</Text>
@@ -85,17 +89,23 @@ export default class SignUp extends Component {
                            placeholder="Password"
                            secureTextEntry={true}
                            autoCapitalize={"none"}
-                           //value={this.state.password}
+                    //value={this.state.password}
                            onChangeText={val => this.onChangeText('password', val)}
                 />
                 <Button
                     title={"Sign Up"}
                     onPress={this.handleSignUp}
                 />
+                <Text>Already have an account?</Text>
+                <Button
+                    title={"Sign In"}
+                    onPress={()=> this.props.navigation.navigate("SignIn")}
+                />
             </View>
         );
     }
 }
+
 // UI Design TODO
 const styles = StyleSheet.create({
     input: {

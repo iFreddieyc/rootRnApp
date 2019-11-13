@@ -1,41 +1,66 @@
+/**
+ * This file renders the habit component onto habit page
+ * @author Qiuling Chen, Qingcheng You
+ */
 import React, {Component} from 'react';
-import {FlatList, StyleSheet, View, TextInput, Button, Text, Alert} from 'react-native';
-import db from "../base";
+import {
+    FlatList,
+    StyleSheet,
+    View,
+    TextInput,
+    Button,
+    Text,
+    Modal,
+    TouchableHighlight,
+    TouchableOpacity
+} from 'react-native';
 
-export default class HabitView extends Component{
+export default class HabitView extends Component {
     constructor(props) {
         super(props);
-        console.log(this.props);
     }
     //currDate;
     currDate = new Date(); // get current date
     startDate = new Date(this.props.date);
     //startDate;
 
-    // get start date
-    days = Math.ceil((this.currDate.getTime() - this.startDate.getTime())/(1000*3600*24));
-    render() {
-        return(
-            <View style={styles.container}>
-                <Text style={styles.habitName}>{this.props.name}</Text>
-                <Text style={styles.habitDate}>{this.days}</Text>
-            </View>
-
-        );
+    handleOnPress = () => {
+        console.log(this.props.description);
     }
+
+    render() {
+        return (
+            <TouchableHighlight style={styles.container}
+                                onPress={this.handleOnPress}
+            >
+                <View>
+                    <Text style={styles.habitName}>
+                        {this.props.name}
+                    </Text>
+                    <Text style={styles.habitDate}>
+                        {this.props.date}
+                    </Text>
+                </View>
+            </TouchableHighlight>
+        );
+
+    }
+
 }
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        //marginTop: '30%',
-        //marginBottom: '30%',
-        //width: '30%',
-        //height: '30%',
+        //alignItems: 'center',
+        marginTop: '30%',
+        marginBottom: '30%',
+        width: '100%',
+        height: '30%',
         //padding: 100,
-        backgroundColor: 'cyan'
+        backgroundColor: 'cyan',
+        borderRadius: 4,
+        borderWidth: 0.5,
+        borderColor: '#d6d7da',
     },
     habitName: {
         fontSize: 14,
