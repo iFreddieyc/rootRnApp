@@ -19,6 +19,10 @@ export default class HabitView extends Component {
     constructor(props) {
         super(props);
     }
+    //currDate;
+    currDate = new Date(); // get current date
+    startDate = new Date(this.props.date);
+    //startDate;
 
     handleOnPress = () => {
         console.log(this.props.description);
