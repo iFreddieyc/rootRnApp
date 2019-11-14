@@ -11,7 +11,7 @@ export default class util{
         let today = new Date();
         let date = (today.getMonth()+1)+'/'+today.getDate()+'/'+today.getFullYear();
         return date;
-    }0
+    }0 //这个0是啥玩意儿？
     // /**
     // /* 我咋发觉current Date其实是date object呢？ 所以我没写convert 成int 再计算duration
     // /* 我直接写了个method算两个date的差，method看的网上的reference
