@@ -4,24 +4,21 @@
  */
 import React, {Component} from 'react';
 import {
-    FlatList,
     StyleSheet,
     View,
-    TextInput,
-    Button,
     Text,
     Modal,
     TouchableHighlight,
     TouchableOpacity
 } from 'react-native';
+import util from "../util";
 
 export default class HabitView extends Component {
     constructor(props) {
         super(props);
     }
 
-    currDate = new Date(); // get current date
-    startDate = new Date(this.props.date);
+    days = util.getDifference(this.props.date)
 
     handleOnPress = () => {
         console.log(this.props.description);
@@ -37,7 +34,7 @@ export default class HabitView extends Component {
                         {this.props.name}
                     </Text>
                     <Text style={styles.habitDate}>
-                        {this.props.date}
+                        {this.days}
                     </Text>
                 </View>
             </TouchableHighlight>
