@@ -29,6 +29,7 @@ function compare( a, b ) {
   }
 //var Ranking;
 //Ranking = [];
+const habits = []; //arrays of habits
 export default class Ranking extends Component {
 
     componentDidMount() {
@@ -48,7 +49,7 @@ export default class Ranking extends Component {
               .get().then(function (querySnapshot) { 
                   querySnapshot.forEach(function (doc) {
                       // doc.data() is never undefined for query doc snapshots
-                      const habits = []; //arrays of habits
+                      
                       var maxDurationName = "" //empty maxDurationName
                       var max = 0; //intialize max duration
                       console.log(doc.id, " => ", doc.data().userid); //idk it's just there
