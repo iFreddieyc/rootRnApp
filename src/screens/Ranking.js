@@ -27,8 +27,8 @@ function compare( a, b ) {
     }
     return 0;
   }
-var Ranking;
-Ranking = [];
+//var Ranking;
+//Ranking = [];
 export default class Ranking extends Component {
 
     componentDidMount() {
