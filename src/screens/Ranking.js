@@ -1,6 +1,6 @@
 /**
  * This is the HabitPage screen class file.
- * @author Qiuling Chen TODO
+ * @author Yiyun Zhang, Yining Chen, Lydia Gui, Melody Song
  * @since 11.3.2019
  */
 import React, {Component} from 'react';
@@ -12,9 +12,9 @@ users_friends = [];
 //define a class called rankObject, storing user's id, his max habit name, and his habit duration
 class rankObject {
     constructor(id, habitName, Duration) {
-        this.id = id;
-        this.habitName = habitName;
-        this.Duration = Duartion;
+        this.id = id; //user's id, may change to username in later stage
+        this.habitName = habitName; //best habit's name
+        this.Duration = Duartion; //best habit's duration 
     }
 }
 //function to compare by duration
