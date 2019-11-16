@@ -9,7 +9,7 @@ import db from "../base";
 
 var users_friends;
 users_friends = [];
-
+//define a class called rankObject, storing user's id, his max habit name, and his habit duration
 class rankObject {
     constructor(id, habitName, Duration) {
         this.id = id;
@@ -17,6 +17,7 @@ class rankObject {
         this.Duration = Duartion;
     }
 }
+//function to compare by duration
 function compare( a, b ) {
     if ( a.duration < b.duration ){
       return -1;
@@ -44,23 +45,23 @@ export default class Ranking extends Component {
 
         for(var i = 0; i < users_friends.length; i++){
           db.firestore().collection("habits").where("userid", "==", users_friends[i])
-              .get().then(function (querySnapshot) {
+              .get().then(function (querySnapshot) { 
                   querySnapshot.forEach(function (doc) {
                       // doc.data() is never undefined for query doc snapshots
-                      const habits = [];
-                      var maxDurationName = ""
-                      var max = 0;
-                      console.log(doc.id, " => ", doc.data().userid);
-                      for (var j = 0; j < querySnapshot.size(); j++)
-                        if(visible == true){
-                         var num = getDifference(doc.data().startDate);
-                            if (num > max){
-                                max = num;
-                                maxDurationName = doc.data().name;
+                      const habits = []; //arrays of habits
+                      var maxDurationName = "" //empty maxDurationName
+                      var max = 0; //intialize max duration
+                      console.log(doc.id, " => ", doc.data().userid); //idk it's just there
+                      for (var j = 0; j < querySnapshot.size(); j++) //for loop, querySnapSHot.size() returns the document size(by google)
+                        if(visible == true){//if visible is true
+                         var num = getDifference(doc.data().startDate);//get duration number
+                            if (num > max){//get max
+                                max = num; //update max Duration
+                                maxDurationName = doc.data().name; //update max duration habit's name
                             }
                         }
-                      habits.push(new rankObject(users_friends[i], max, maxDurationName));
-                      habits.sort(compare);
+                      habits.push(new rankObject(users_friends[i], max, maxDurationName)); //push the max DUration rankObject to habits array
+                      habits.sort(compare); //sort by comparing duration
                   });
               }).catch(function (error) {
               console.log("Error getting documents: ", error);
