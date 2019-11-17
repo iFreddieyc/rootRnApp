@@ -68,10 +68,11 @@ export default class Ranking extends Component {
         });
         //Add myself
         friends.push(selfId);
+        getRanking(friends);
         this.setState({
             friends,
             isLoading: false,
-            ranking: getRanking(friends),
+            ranking: habits,
             message: "Your ranking is here."
         });
     }
