@@ -63,8 +63,8 @@ export default class Ranking extends Component {
             console.log(doc.id, " => ", doc.data());
            //friends.push(doc.data());
             //get database friends array here
-            friends = data.friends;
-            selfId = data.userid;
+            friends = doc.data().friends;
+            selfId = doc.data().userid;
         });
         //Add myself
         friends.push(selfId);
