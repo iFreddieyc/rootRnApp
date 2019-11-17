@@ -21,7 +21,7 @@ import util from "../util";
 
 let friends = [];
 let selfId;
-const habits = []; //arrays of habits
+var habits = []; //arrays of habits
 
 class rankObject {
     constructor(id, habitName, Duration) {
@@ -31,14 +31,17 @@ class rankObject {
     }
 }
 //function to compare by duration
-function compare( a, b ) {
-    if ( a.duration < b.duration ){
-        return -1;
-    }
-    if ( a.duation > b.duration ){
-        return 1;
-    }
-    return 0;
+//function compare( a, b ) {
+  //  if ( a.duration < b.duration ){
+    //    return -1;
+    //}
+    //if ( a.duration > b.duration ){
+      //  return 1;
+    //}
+  //  return 0;
+//}
+function compare(a, b){
+    return (b.duration - a.duration);
 }
 
 export default class Ranking extends Component {
@@ -61,7 +64,7 @@ export default class Ranking extends Component {
     onCollectionUpdate = (querySnapshot) => {
         querySnapshot.forEach(function (doc) {
             console.log(doc.id, " => ", doc.data());
-           //friends.push(doc.data());
+            //friends.push(doc.data());
             //get database friends array here
             friends = doc.data().friends;
             selfId = doc.data().userid;
@@ -112,25 +115,32 @@ export default class Ranking extends Component {
 //function to get habits ranking
 function getRanking(friends) {
     for(var i = 0; i < friends.length; i++){
+        console.log("friends id" + friends[i]);
         db.firestore().collection("habits").where("userid", "==", friends[i])
             .get().then(function (querySnapshot) {
+            var max = 0;
+            var maxDurationName = "";
             querySnapshot.forEach(function (doc) {
                 // doc.data() is never undefined for query doc snapshots
 
-                var maxDurationName = "" //empty maxDurationName
-                var max = 0; //intialize max duration
+                //empty maxDurationName
+                 //intialize max duration
                 console.log(doc.id, " => ", doc.data().userid); //idk it's just there
-                for (var j = 0; j < querySnapshot.size; j++) //for loop, querySnapSHot.size() returns the document size(by google)
-                    if(doc.data().visible == true){//if visible is true
+                console.log("size " + querySnapshot.size);
+                    if (doc.data().visible == true) {//if visible is true
                         var num = util.getDifference(doc.data().startDate);//get duration number
-                        if (num > max){//get max
+                        console.log("out" + max);
+                        if (num > max) {//get max
                             max = num; //update max Duration
+                            console.log(max);
                             maxDurationName = doc.data().name; //update max duration habit's name
                         }
                     }
-                habits.push(new rankObject(friends[i], max, maxDurationName)); //push the max DUration rankObject to habits array
-                habits.sort(compare); //sort by comparing duration
+                console.log(habits);
             });
+            if(max != 0)
+                habits.push(new rankObject(friends[i], maxDurationName, max)); //push the max DUration rankObject to habits array
+            habits.sort(compare);
         }).catch(function (error) {
             console.log("Error getting documents: ", error);
         });
