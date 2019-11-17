@@ -63,8 +63,8 @@ export default class Ranking extends Component {
             console.log(doc.id, " => ", doc.data());
            //friends.push(doc.data());
             //get database friends array here
-            friends = data.friends;
-            selfId = data.userid;
+            friends = doc.data().friends;
+            selfId = doc.data().userid;
         });
         //Add myself
         friends.push(selfId);
@@ -120,8 +120,8 @@ function getRanking(friends) {
                 var maxDurationName = "" //empty maxDurationName
                 var max = 0; //intialize max duration
                 console.log(doc.id, " => ", doc.data().userid); //idk it's just there
-                for (var j = 0; j < querySnapshot.size(); j++) //for loop, querySnapSHot.size() returns the document size(by google)
-                    if(visible == true){//if visible is true
+                for (var j = 0; j < querySnapshot.size; j++) //for loop, querySnapSHot.size() returns the document size(by google)
+                    if(doc.data().visible == true){//if visible is true
                         var num = util.getDifference(doc.data().startDate);//get duration number
                         if (num > max){//get max
                             max = num; //update max Duration
