@@ -1,7 +1,7 @@
 /**
  * This is the Ranking screen class file.
  * @author Yiyun Zhang, Yining Chen, Lydia Gui, Melody Song
- * @since 11.3.2019
+ * @since 11.8.2019
  */
 import React, {Component} from 'react';
 import {
@@ -30,16 +30,8 @@ class rankObject {
         this.duration = Duration; //best habit's duration
     }
 }
+
 //function to compare by duration
-//function compare( a, b ) {
-  //  if ( a.duration < b.duration ){
-    //    return -1;
-    //}
-    //if ( a.duration > b.duration ){
-      //  return 1;
-    //}
-  //  return 0;
-//}
 function compare(a, b){
     return (b.duration - a.duration);
 }
@@ -71,7 +63,6 @@ export default class Ranking extends Component {
         });
         //Add myself
         friends.push(selfId);
-        getRanking(friends);
         this.setState({
             friends,
             isLoading: false,
@@ -91,6 +82,8 @@ export default class Ranking extends Component {
             )
         }
         // If loading is finished.
+        habits = [];
+        getRanking(friends);
         return (
             <SafeAreaView style={styles.container}>
                 <Text style={styles.title}>
@@ -121,12 +114,7 @@ function getRanking(friends) {
             var max = 0;
             var maxDurationName = "";
             querySnapshot.forEach(function (doc) {
-                // doc.data() is never undefined for query doc snapshots
-
-                //empty maxDurationName
                  //intialize max duration
-                console.log(doc.id, " => ", doc.data().userid); //idk it's just there
-                console.log("size " + querySnapshot.size);
                     if (doc.data().visible == true) {//if visible is true
                         var num = util.getDifference(doc.data().startDate);//get duration number
                         console.log("out" + max);
@@ -136,11 +124,12 @@ function getRanking(friends) {
                             maxDurationName = doc.data().name; //update max duration habit's name
                         }
                     }
-                console.log(habits);
+
             });
             if(max != 0)
                 habits.push(new rankObject(friends[i], maxDurationName, max)); //push the max DUration rankObject to habits array
             habits.sort(compare);
+            console.log(habits);
         }).catch(function (error) {
             console.log("Error getting documents: ", error);
         });
