@@ -14,6 +14,7 @@ import HabitPage from "./screens/HabitPage";
 import Profile from "./screens/Profile";
 import Ranking from "./screens/Ranking";
 import CreateHabit from "./screens/CreateHabit";
+import EditProfile from "./screens/EditProfile";
 
 // Stack Navigator for HabitPage and CreateHabit
 export const HabitNavigator = createStackNavigator({
