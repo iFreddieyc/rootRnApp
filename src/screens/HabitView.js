@@ -4,8 +4,11 @@
  */
 import React, {Component} from 'react';
 import {
+    FlatList,
     StyleSheet,
     View,
+    TextInput,
+    Button,
     Text,
     Modal,
     TouchableHighlight,
@@ -48,26 +51,32 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         //alignItems: 'center',
-        marginTop: '30%',
-        marginBottom: '30%',
-        width: '100%',
-        height: '30%',
+        marginTop: '5%',
+        marginBottom: '5%',
+        width: 350,
+        height: 120,
         //padding: 100,
-        backgroundColor: 'cyan',
-        borderRadius: 4,
-        borderWidth: 0.5,
+        borderRadius: 6,
+        borderWidth: 0.6,
         borderColor: '#d6d7da',
+        backgroundColor: '#E0EBCB'
     },
     habitName: {
-        fontSize: 14,
+        fontSize: 30,
         color: 'pink',
         fontWeight: 'bold',
-        alignItems: 'center'
+        alignItems: 'center',
+        fontFamily: 'Cochin',
+        top: '10%',
+        left: 10
     },
     habitDate: {
-        fontSize: 14,
+        fontSize: 18,
         color: 'black',
         fontWeight: 'bold',
         alignItems: 'center',
+        fontFamily: 'Cochin',
+        top: '95%',
+        left: 10
     }
 });
