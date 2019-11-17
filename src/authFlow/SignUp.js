@@ -4,7 +4,7 @@
  * @since 10.31.2019
  */
 import React, {Component} from 'react';
-import {StyleSheet, View, TextInput, Button, Text, Alert} from 'react-native';
+import {StyleSheet, View, TextInput, Button, Text, Alert } from 'react-native';
 import db from "../base";
 
 export default class SignUp extends Component {
@@ -77,16 +77,18 @@ export default class SignUp extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>Email:</Text>
+                <Text> </Text>
+                <Text style={{top: -45, fontFamily: 'Cochin', fontWeight: 'bold', fontSize: 16}}>Email:</Text>
                 <TextInput style={styles.input}
-                           placeholder="Email"
+                           placeholder=" Email"
                            autoCapitalize={"none"}
                     //value={this.state.email}
                            onChangeText={val => this.onChangeText('email', val)}
                 />
-                <Text>Password:</Text>
+                <Text> </Text>
+                <Text style={{top: -45, fontFamily: 'Cochin', fontWeight: 'bold', fontSize: 16}}>Password:</Text>
                 <TextInput style={styles.input}
-                           placeholder="Password"
+                           placeholder=" Password"
                            secureTextEntry={true}
                            autoCapitalize={"none"}
                     //value={this.state.password}
@@ -109,13 +111,16 @@ export default class SignUp extends Component {
 // UI Design TODO
 const styles = StyleSheet.create({
     input: {
-        width: 350,
-        height: 55
+        width: 250,
+        height: 30,
+        backgroundColor: '#E0EBCB',
+        top: -40
     },
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: '#D4DBAD'
     }
 });
 
