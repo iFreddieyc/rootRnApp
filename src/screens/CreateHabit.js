@@ -65,28 +65,42 @@ export default class CreateHabit extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>Name:</Text>
+                <View style={styles.littleContainer}>
+                <View style={{left:'15%', position:'absolute', top:'15%'}}>
+                <Text style={{left:0, top: '40%', fontFamily: 'Cochin', fontWeight: 'bold', fontSize: 16}}>Name:</Text>
                 <TextInput style={styles.input}
-                           placeholder="The name of your habit"
+                           placeholder=""
                            autoCapitalize={"none"}
                            onChangeText={val => this.onChangeText('name', val)}
                 />
-                <Text>Description:</Text>
+                </View>
+                <Text> </Text>
+                <Text> </Text>
+                <Text> </Text>
+                <View style={{left:'15%', position:'absolute', top:'30%'}}>
+                <Text style={{left:0, top: '40%',fontFamily: 'Cochin', fontWeight: 'bold', fontSize: 16}}>Description:</Text>
                 <TextInput style={styles.input}
-                           placeholder="Write a short description of your habit."
+                           placeholder=" "
                            autoCapitalize={"none"}
                            onChangeText={val => this.onChangeText('description', val)}
                            multiline={true}
                            maxLength={50}
                 />
-                <Text>Visible to friends?</Text>
+                </View>
+                <Text> </Text>
+                <Text style={{left:0, top: '5%',fontFamily: 'Cochin', fontWeight: 'bold', fontSize: 16}}>Visible to friends?</Text>
+                <View style={{top: '5%'}}>
                 <Switch onValueChange={this.toggleSwitch}
                         value={this.state.visible}
                 />
+                </View>
+                <View style={{bottom: '-15%'}}>
                 <Button
                     title={"Confirm"}
                     onPress={this.handleConfirm}
                 />
+                </View>
+                </View>
             </View>
         );
     }
@@ -95,12 +109,26 @@ export default class CreateHabit extends Component {
 // UI Design TODO
 const styles = StyleSheet.create({
     input: {
-        width: 350,
-        height: 55
+        width: 200,
+        height: 30,
+        top: '40%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderBottomWidth:2,
+        borderBottomColor: 'black'
     },
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: '#D4DBAD'
+    },
+    littleContainer:{
+        height:'50%',
+        width: '80%',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#E0EBCB'
     }
 });

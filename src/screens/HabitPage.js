@@ -47,7 +47,7 @@ export default class HabitPage extends Component {
         });
         if(habits.length > 0){
             this.setState({
-                message: "Here are all your current habits."
+                message: "MY HABITS"
             });
         }
     }
@@ -67,7 +67,7 @@ export default class HabitPage extends Component {
         }
         // If loading is finished.
         return (
-            <SafeAreaView style={styles.container}>
+            <SafeAreaView style={styles.container} forceInset={{bottom: 'never'}}>
                 <Text style={styles.title}>
                     {this.state.message}
                 </Text>
@@ -83,8 +83,8 @@ export default class HabitPage extends Component {
                     keyExtractor={(item, index) => index.toString()}
                 />
                 <Button
-                    title={"+"}
                     onPress={this.directToCreateNewHabit}
+                    title={"+"}
                 />
             </SafeAreaView>
         );
@@ -96,13 +96,15 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: '#D4DBAD'
     },
     title: {
-        fontSize: 30,
+        fontSize: 35,
         color: 'black',
         fontWeight: 'bold',
-        alignItems: 'center'
+        alignItems: 'center',
+        fontFamily: 'Cochin'
     },
     habitStyle: {
         fontSize: 30,
