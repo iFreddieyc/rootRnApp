@@ -42,8 +42,8 @@ export default class util{
      * @param {*} p1 habit start date
      * @param {*} p2 current date
      */
-    static getDuration(p1, p2){
-        var diffTime = Math.abs(p2 - p1);
+    static getDuration(date1, date2){
+        var diffTime = Math.abs(date2 - date1);
         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
         return diffDays;
     }
