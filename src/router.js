@@ -54,5 +54,19 @@ export const AppNavigator = createSwitchNavigator({
     Auth: SignedOut,
 }, {
     initialRouteName: 'AuthLoading'
+});
+
+export const  ProfileNavigator = createStackNavigator({
+    Profile:{
+        screen: Profile,
+        navigationOptions: () => ({
+            headerBackTitle: 'Cancel',
+        }),
+    },
+    CreateNew: {
+        screen: EditProfile,
+    }
+}, {
+    initialRouteName: "Profile"
 })
 

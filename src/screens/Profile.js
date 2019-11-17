@@ -15,9 +15,25 @@ export default class Profile extends Component {
     }
 
     render(){
+        var usersRef = db.firestore().collection('users');
+        var userRef = usersRef.where('userId', '==', db.auth().currentUser.uid);
+        var userName;
+        var email;
+        var phoneNumber;
+        var picUrl;
+        userRef.get().then(function(doc) {
+          userName = doc.data().userName;
+          email = doc.data().email;
+          phoneNumber = doc.data().phoneNumber;
+          picUrl = doc.data().userPicUrl;
+        })
         return(
             <View style={styles.container}>
+                <img src="gs://rootappcse110ntl.appspot.com" + picUrl;/>
                 <Text>Profile</Text>
+                <Text>userName</Text>
+                <Text>email</Text>
+                <Text>phoneNumber</Text>
                 <Button
                     title={"Click me to sign out"}
                     onPress={this.handleSignOut}
