@@ -16,7 +16,7 @@ import Ranking from "./screens/Ranking";
 import CreateHabit from "./screens/CreateHabit";
 
 // Stack Navigator for HabitPage and CreateHabit
-export const HabitNavigator = createStackNavigator({
+export const HabitNavigator = createSwitchNavigator({
     Habits:{
         screen: HabitPage,
         navigationOptions: () => ({
@@ -44,7 +44,22 @@ export const SignedIn = createBottomTabNavigator({
     Rankings: Ranking,
     Profiles: Profile,
 }, {
-    initialRouteName: 'Habits'
+    initialRouteName: 'Habits',
+    tabBarOptions:{
+        activeTintColor: "white",
+        activeBackgroundColor:"#C1D1AC",
+        inactiveBackgroundColor: "#C1D1AC",
+        adaptive:'true',
+        inactiveTintColor: '#3A512B',
+        labelStyle:{
+            fontSize: 18,
+            fontWeight: 'bold',
+            fontFamily:'Cochin'
+        },
+        style:{
+            backgroundColor: "#C1D1AC"
+        }
+    }
 });
 
 // Default Switch Navigator for our app
