@@ -17,10 +17,7 @@ export default class EditProfile extends Component {
      */
     constructor(props) {
         super(props);
-        this.state = {name: '', phoneNum:-1};
-        fileButton.addEventListener('change', function(e) {
-            
-        })
+        this.state = {name: '', phoneNum:-1, password: ''};
     }
 
     /**
@@ -33,7 +30,7 @@ export default class EditProfile extends Component {
     }
 
     saveProfile() {
-      const {name, phoneNum} = this.state;
+      const {name, phoneNum,_} = this.state;
       var usersRef = db.firestore().collection('users');
       var userRef = usersRef.where('userid', '==', db.auth().currentUser.uid);
       userRef.update({name:name,phoneNum:phoneNum});
@@ -51,7 +48,7 @@ export default class EditProfile extends Component {
                            autoCapitalize={"none"}
                            onChangeText={val => this.onChangeText('name', val)}
                 />
-                <Text>Password:</Text>
+                <Text>PhoneNum:</Text>
                 <TextInput style={styles.input}
                            placeholder="phoneNum"
                            secureTextEntry={true}
@@ -72,6 +69,19 @@ export default class EditProfile extends Component {
                       var usersRef = db.firestore().collection('users');
                       var userRef = usersRef.where('userid', '==', db.auth().currentUser.uid);
                       userRef.update({userPicUrl:filePath});
+                      }}
+                />
+                <TextInput style={styles.input}
+                           placeholder="New Password"
+                           secureTextEntry={true}
+                           autoCapitalize={"none"}
+                           onChangeText={val => this.onChangeText('password', val)}
+                />
+                <Button
+                    title={"Save New Password"}
+                    onchange={(e)=>{
+                      const {_,phoneNum,password} = this.state;
+                      firebase.auth().currentUser.updatePassword(password);
                       }}
                 />
             </View>
