@@ -4,7 +4,7 @@
  * @since 11.8.2019
  */
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, Image } from 'react-native';
 import db from "../base";
 
 export default class Profile extends Component {
@@ -28,19 +28,20 @@ export default class Profile extends Component {
           phoneNumber = doc.data().phoneNumber;
           picUrl = doc.data().userPicUrl;
         })
-        return(
-            <View style={styles.container}>
-                <img src={url}/>
+        
+	return (
+	    <View style={styles.container}>
+                <Image source={url}/>
                 <Text>Profile</Text>
-                <Text>userName</Text>
-                <Text>email</Text>
-                <Text>phoneNumber</Text>
+                <Text>Username</Text>
+                <Text>Email</Text>
+                <Text>Phone Number</Text>
                 <Button
-                    title={"Click me to sign out"}
+                    title="Click me to sign out"
                     onPress={this.handleSignOut}
                 />
             </View>
-        )
+        );
     }
 }
 

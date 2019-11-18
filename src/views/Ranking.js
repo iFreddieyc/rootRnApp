@@ -3,13 +3,13 @@
  * @author Qingcheng You TODO
  * @since 11.8.2019
  */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 export default class Ranking extends Component {
-    render(){
+    render() {
         return(
-            <View sytle={styles.container}>
+            <View style={styles.container}>
                 <Text>Ranking</Text>
             </View>
         )

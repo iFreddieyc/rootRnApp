@@ -6,6 +6,8 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, TextInput, Button, Text, Alert } from 'react-native';
 import db from "../base";
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
 
 export default class SignUp extends Component {
 
@@ -37,8 +39,18 @@ export default class SignUp extends Component {
             // This is where to add Firebase authentication function
             db.auth().createUserWithEmailAndPassword(email, password).then(
                 // User is created, go to Main
-                () => this.props.navigation.navigate('App')
-            ).catch(function (error) {
+                () => {var user = firebase.auth().currentUser;
+                       var userId = user.uid;
+                       db.collection("users").add({
+                           email:email,
+                           userName: "User Name",
+                           userId:userId,
+                           phoneNumber: -1,
+                           userPicUrl:"Capture.PNG"
+                       })
+                       this.props.navigation.navigate('App')
+                }
+	    ).catch(function (error) {
                 // Some error occurred, handle Errors here
                 const errorCode = error.code;
                 let errorMessage;

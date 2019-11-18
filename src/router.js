@@ -7,13 +7,14 @@ import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createSwitchNavigator} from "react-navigation";
 
-import Loading from "./authFlow/Loading";
-import SignUp from "./authFlow/SignUp";
-import SignIn from "./authFlow/SignIn";
+import Loading from "./auth/Loading";
+import SignUp from "./auth/SignUp";
+import SignIn from "./auth/SignIn";
 import HabitPage from "./views/HabitPage";
 import Profile from "./views/Profile";
 import Ranking from "./views/Ranking";
 import CreateHabit from "./views/CreateHabit";
+import EditProfile from "./views/EditProfile";
 
 // Stack Navigator for HabitPage and CreateHabit
 export const HabitNavigator = createSwitchNavigator({
@@ -38,11 +39,25 @@ export const SignedOut = createSwitchNavigator({
     initialRouteName: 'SignIn'
 });
 
+export const ProfileNavigator = createStackNavigator({
+    Profile:{
+        screen: Profile,
+        navigationOptions: () => ({
+            headerBackTitle: 'Cancel',
+        }),
+    },
+    CreateNew: {
+        screen: EditProfile,
+    }
+}, {
+    initialRouteName: "Profile"
+});
+
 // Tab Navigator for HabitNavigator, Ranking and Profile
 export const SignedIn = createBottomTabNavigator({
     Habits: HabitNavigator,
     Rankings: Ranking,
-    Profiles: Profile,
+    Profiles: ProfileNavigator,
 }, {
     initialRouteName: 'Habits',
     tabBarOptions:{
@@ -69,5 +84,5 @@ export const AppNavigator = createSwitchNavigator({
     Auth: SignedOut,
 }, {
     initialRouteName: 'AuthLoading'
-})
+});
 

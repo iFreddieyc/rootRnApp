@@ -6,7 +6,6 @@
 import React, { Component } from 'react';
 import { FlatList, StyleSheet, SafeAreaView, View, TextInput, Button, Text, Alert } from 'react-native';
 import db from "../base";
-import auth from "../auth"
 import * as firebase from 'firebase/app';
 
 export default class EditProfile extends Component {

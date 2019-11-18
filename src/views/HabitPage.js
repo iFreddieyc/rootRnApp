@@ -3,7 +3,7 @@
  * @author Qiuling Chen, Qingcheng You
  * @since 11.3.2019
  */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
     FlatList,
     StyleSheet,
@@ -17,7 +17,6 @@ import {
 } from 'react-native';
 import db from "../base";
 import HabitView from "./HabitView";
-
 
 export default class HabitPage extends Component {
 
@@ -68,7 +67,7 @@ export default class HabitPage extends Component {
         // If loading is finished.
         return (
             <SafeAreaView style={styles.container} forceInset={{bottom: 'never'}}>
-                <Text style={styles.title}>
+		<Text style={styles.title}>
                     {this.state.message}
                 </Text>
                 <FlatList
