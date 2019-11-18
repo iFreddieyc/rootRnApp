@@ -1,52 +1,82 @@
+/**
+ * This file renders the habit component onto habit page
+ * @author Qiuling Chen, Qingcheng You
+ */
 import React, {Component} from 'react';
-import {FlatList, StyleSheet, View, TextInput, Button, Text, Alert} from 'react-native';
-import db from "../base";
+import {
+    FlatList,
+    StyleSheet,
+    View,
+    TextInput,
+    Button,
+    Text,
+    Modal,
+    TouchableHighlight,
+    TouchableOpacity
+} from 'react-native';
+import util from "../util";
 
-export default class HabitView extends Component{
+export default class HabitView extends Component {
     constructor(props) {
         super(props);
-        console.log(this.props);
     }
-    //currDate;
-    currDate = new Date(); // get current date
-    startDate = new Date(this.props.date);
-    //startDate;
 
-    // get start date
-    days = Math.ceil((this.currDate.getTime() - this.startDate.getTime())/(1000*3600*24));
+    days = util.getDifference(this.props.date)
+
+    handleOnPress = () => {
+        console.log(this.props.description);
+    }
+
     render() {
-        return(
-            <View style={styles.container}>
-                <Text style={styles.habitName}>{this.props.name}</Text>
-                <Text style={styles.habitDate}>{this.days}</Text>
-            </View>
-
+        return (
+            <TouchableHighlight style={styles.container}
+                                onPress={this.handleOnPress}
+            >
+                <View>
+                    <Text style={styles.habitName}>
+                        {this.props.name}
+                    </Text>
+                    <Text style={styles.habitDate}>
+                        {this.days}
+                    </Text>
+                </View>
+            </TouchableHighlight>
         );
+
     }
+
 }
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        //marginTop: '30%',
-        //marginBottom: '30%',
-        //width: '30%',
-        //height: '30%',
+        //alignItems: 'center',
+        marginTop: '5%',
+        marginBottom: '5%',
+        width: 350,
+        height: 120,
         //padding: 100,
-        backgroundColor: 'cyan'
+        borderRadius: 6,
+        borderWidth: 0.6,
+        borderColor: '#d6d7da',
+        backgroundColor: '#E0EBCB'
     },
     habitName: {
-        fontSize: 14,
+        fontSize: 30,
         color: 'pink',
         fontWeight: 'bold',
-        alignItems: 'center'
+        alignItems: 'center',
+        fontFamily: 'Cochin',
+        top: '10%',
+        left: 10
     },
     habitDate: {
-        fontSize: 14,
+        fontSize: 18,
         color: 'black',
         fontWeight: 'bold',
         alignItems: 'center',
+        fontFamily: 'Cochin',
+        top: '95%',
+        left: 10
     }
 });

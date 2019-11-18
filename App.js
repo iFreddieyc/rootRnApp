@@ -1,20 +1,20 @@
-import React from 'react';
+/**
+ * Entry point of the application
+ * @author Qingcheng You
+ */
+import React, {Component}from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import SignUp from "./src/views/SignUp";
-import CreateHabit from "./src/views/CreateHabit";
+import { AppNavigator} from "./src/router";
+import {createAppContainer} from "react-navigation";
 
-export default function App() {
-  return(
-      <SignUp />
-      //<CreateHabit />
-  );
-}
+export default createAppContainer(AppNavigator);
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 });
+

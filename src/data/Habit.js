@@ -1,62 +1,41 @@
+/**
+ * Class File for Habit
+ * @author Qingcheng You, Qiuling Chen
+ * @since Nov.3.2019
+ */
+
 import db from "../base";
 
 export default class Habit{
 
     // Constructor (I did not include endDate due to ECMAScript only allow one constructor)
-    constructor(name, userid, startDate, description, visible, category){
+    constructor(name, userid, startDate, description, visible){
         this.name = name;
         this.userid = userid;
         this.startDate = startDate;
         this.description = description;
         this.visible = visible;
-        //this.endDate = endDate;
-        this.category = category;
-    }
-    /*
-    // Setters
-    set visible(boolVal){
-        this.visible = boolVal;
-    }
-    set endDate(val){
-        this.endDate = val;
-    }
-    set description(val){
-        this.description = val;
+        console.log(this.name, this.userid, this.startDate, this.description, this.visible);
     }
 
-    // Getters
-    get name(){
-        return this.name;
-    }
-    get userid(){
-        return this.userid;
-    }
-    get startDate(){
-        return this.startDate;
-    }
-    get description(){
-        return this.description;
-    }
-    get visible(){
-        return this.visible;
-    }
-    get endDate(){
-        return this.endDate;
-    }
-    */
+    // Function to push object into Firebase Firestore
     pushToFirestore = () => {
-        console.log("Hey");
         db.firestore().collection("habits").add({
             name: this.name,
             userid: this.userid,
             startDate: this.startDate,
             description: this.description,
             visible: this.visible,
-            category: this.category
-            //endDate: this.endDate
         }).catch(function(error){
             console.error("Error adding document: ", error);
         })
     };
+
+    /*
+    // Function to change visibility of the habit TODO
+    changeVisibility = () => {
+
+    }
+    */
 }
 
