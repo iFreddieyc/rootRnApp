@@ -1,6 +1,6 @@
 /**
  * This file renders the rank component onto ranking page
- * @author Yiyun Zhang, Yining Chen, Lydia Gui, Melody Song
+ * @author Yiyun Zhang, Yining Chen, Lydia Gui
  * @since 11.8.2019
  */
 import React, {Component} from 'react';
