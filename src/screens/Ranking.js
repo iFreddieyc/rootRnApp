@@ -1,6 +1,6 @@
 /**
  * This is the Ranking screen class file.
- * @author Yiyun Zhang, Yining Chen, Lydia Gui, Melody Song
+ * @author Yiyun Zhang, Yining Chen, Lydia Gui
  * @since 11.8.2019
  */
 import React, {Component} from 'react';
