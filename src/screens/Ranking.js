@@ -1,6 +1,6 @@
 /**
  * This is the Ranking screen class file.
- * @author Yiyun Zhang, Yining Chen, Lydia Gui
+ * @author Yiyun Zhang, Yining Chen, Lydia Gui, Qingcheng You
  * @since 11.8.2019
  */
 import React, {Component} from 'react';
@@ -9,132 +9,140 @@ import {
     StyleSheet,
     SafeAreaView,
     View,
-    TextInput,
-    Button,
     Text,
-    Alert,
     ActivityIndicator
 } from 'react-native';
+
 import db from "../base";
 import RankView from "./RankView";
+import Habit from "../Habit";
 import util from "../util";
 
-let friends = [];
-let selfId;
-var habits = []; //arrays of habits
-
-class rankObject {
-    constructor(id, habitName, Duration) {
-        this.id = id; //user's id, may change to username in later stage
-        this.habitName = habitName; //best habit's name
-        this.duration = Duration; //best habit's duration
-    }
-}
-
-//function to compare by duration
-function compare(a, b){
-    return (b.duration - a.duration);
-}
-
 export default class Ranking extends Component {
+
     constructor(props) {
         super(props);
-        this.unsubscribe = null;
-        this.ref = db.firestore().collection("users").where("userid", "==", db.auth().currentUser.uid);
         this.state = {
             isLoading: true,
             friends: [],
             ranking: [],
-            message: "You do not have any friends now."
+            message: "Add a friend to see their progress!"
         };
     }
 
     componentDidMount() {
-        this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
+        this.getRanking();
     }
 
-    onCollectionUpdate = (querySnapshot) => {
-        querySnapshot.forEach(function (doc) {
-            console.log(doc.id, " => ", doc.data());
-            //friends.push(doc.data());
-            //get database friends array here
-            friends = doc.data().friends;
-            selfId = doc.data().userid;
-        });
-        //Add myself
-        friends.push(selfId);
-        this.setState({
-            friends,
-            isLoading: false,
-            ranking: habits,
-            message: "Your ranking is here."
+    getRanking() {
+        this.getFriendList().then((friendsList) => {
+            this.setState({
+                friends: friendsList,
+            });
+            const arr = [];
+            for (const id of friendsList) {
+                console.log(id);
+                arr.push(this.getHabitFromUid(id));
+            }
+            Promise.all(arr).then((values) => {
+                values = values.filter(
+                    item => item !== undefined
+                );
+                values.sort(util.compare);
+                //console.log("Done");
+                //console.log(values);
+                this.setState({
+                    ranking: values,
+                    isLoading: false,
+                });
+                if(values.length > 0){
+                    this.setState({
+                        message: "HabitRank",
+                    });
+                }
+                console.log(values);
+            }).catch(function (error) {
+                    console.log("Something went wrong", error);
+                }
+            );
         });
     }
 
+    getFriendList = () => {
+        return new Promise((resolve, reject) => {
+            let friendList = [];
+            db.firestore().collection("users")
+                .where("userid", "==", db.auth().currentUser.uid)
+                .get()
+                .then(function (querySnapshot) {
+                    querySnapshot.forEach(function (doc) {
+                        // doc.data() is never undefined for query doc snapshots
+                        friendList = doc.data().friends;
+                        console.log(friendList);
+                    });
+                    resolve(friendList);
+                })
+                .catch(function (error) {
+                    console.log("Inside getFriendList, error getting documents: ", error);
+                });
+        })
+    }
+
+    getHabitFromUid = (uid) => {
+        let habit;
+        return new Promise((resolve, reject) => {
+            db.firestore().collection("habits")
+                .where("visible", "==", true).where("userid", "==", uid)
+                //.orderBy("name", "asc")
+                .get()
+                .then(function (querySnapshot) {
+                    querySnapshot.forEach(function (doc) {
+                        if (doc.exists) {
+                            habit = new Habit(doc.data().name, doc.data().userid,
+                                doc.data().startDate, doc.data().description, doc.data().visible);
+                            console.log(habit);
+                        }
+                    });
+                    resolve(habit);
+                })
+                .catch(function (error) {
+                    console.log("Inside getHabitFromUid, error getting documents: ", error);
+                });
+        });
+
+    }
 
     render() {
         if (this.state.isLoading) {
-            console.log("Loading");
+            console.log("Hello");
             return (
                 <View style={styles.activity}>
                     <ActivityIndicator size="large" color="#0000ff"/>
                 </View>
             )
-        }
-        // If loading is finished.
-        habits = [];
-        getRanking(friends);
-        return (
-            <SafeAreaView style={styles.container}>
-                <Text style={styles.title}>
-                    {this.state.message}
-                </Text>
-                <FlatList
-                    data={this.state.ranking}
-                    renderItem={({item}) =>
-                        <RankView
-                            authorName={item.id}
-                            habitName={item.habitName}
-                            duration={item.duration}
-                        />
-                    }
-                    keyExtractor={(item, index) => index.toString()}
-                />
-            </SafeAreaView>
-        );
-    }
-}
-
-//function to get habits ranking
-function getRanking(friends) {
-    for(var i = 0; i < friends.length; i++){
-        console.log("friends id" + friends[i]);
-        db.firestore().collection("habits").where("userid", "==", friends[i])
-            .get().then(function (querySnapshot) {
-            var max = 0;
-            var maxDurationName = "";
-            querySnapshot.forEach(function (doc) {
-                 //intialize max duration
-                    if (doc.data().visible == true) {//if visible is true
-                        var num = util.getDifference(doc.data().startDate);//get duration number
-                        console.log("out" + max);
-                        if (num > max) {//get max
-                            max = num; //update max Duration
-                            console.log(max);
-                            maxDurationName = doc.data().name; //update max duration habit's name
+        } else {
+            return (
+                <SafeAreaView style={styles.container}>
+                    <Text style={styles.title}>
+                        {this.state.message}
+                    </Text>
+                    <FlatList
+                        data={this.state.ranking}
+                        renderItem={({item}) =>
+                            <RankView
+                                authorName={item.userid}
+                                habitName={item.name}
+                                duration={item.duration}
+                            />
                         }
-                    }
-
-            });
-            if(max != 0)
-                habits.push(new rankObject(friends[i], maxDurationName, max)); //push the max DUration rankObject to habits array
-            habits.sort(compare);
-            console.log(habits);
-        }).catch(function (error) {
-            console.log("Error getting documents: ", error);
-        });
+                        keyExtractor={(item, index) => index.toString()}
+                    />
+                </SafeAreaView>
+            );
+        }
     }
 }
+
 
 const styles = StyleSheet.create({
     container: {
