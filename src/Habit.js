@@ -5,6 +5,7 @@
  */
 
 import db from "./base";
+import util from "./util";
 
 export default class Habit{
 
@@ -15,7 +16,7 @@ export default class Habit{
         this.startDate = startDate;
         this.description = description;
         this.visible = visible;
-        console.log(this.name, this.userid, this.startDate, this.description, this.visible);
+        //console.log(this.name, this.userid, this.startDate, this.description, this.visible);
     }
 
     // Function to push object into Firebase Firestore
@@ -30,6 +31,10 @@ export default class Habit{
             console.error("Error adding document: ", error);
         })
     };
+
+    get duration(){
+        return util.getDifference(this.startDate);
+    }
 
     /*
     // Function to change visibility of the habit TODO
