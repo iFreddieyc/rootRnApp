@@ -148,13 +148,15 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: '#D4DBAD'
     },
     title: {
-        fontSize: 30,
+        fontSize: 35,
         color: 'black',
         fontWeight: 'bold',
-        alignItems: 'center'
+        alignItems: 'center',
+        fontFamily: 'Cochin',
     },
     habitStyle: {
         fontSize: 30,
