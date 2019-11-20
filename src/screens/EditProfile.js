@@ -6,8 +6,7 @@
 import React, {Component} from 'react';
 import {FlatList, StyleSheet, SafeAreaView, View, TextInput, Button, Text, Alert} from 'react-native';
 import db from "../base";
-import auth from "../auth"
-import * as firebase from 'firebase/app';
+ import * as firebase from 'firebase/app';
 
 export default class EditProfile extends Component {
 
@@ -17,7 +16,7 @@ export default class EditProfile extends Component {
      */
     constructor(props) {
         super(props);
-        this.state = {name: '', phoneNum:-1, password: ''};
+        this.state = {name: '', phoneNum: -1, password: ''};
     }
 
     /**
@@ -29,15 +28,14 @@ export default class EditProfile extends Component {
         this.setState({[key]: val});
     }
 
-    saveProfile() {
-      const {name, phoneNum,_} = this.state;
-      var usersRef = db.firestore().collection('users');
-      var userRef = usersRef.where('userid', '==', db.auth().currentUser.uid);
-      userRef.update({name:name,phoneNum:phoneNum});
+    saveProfile = () => {
+      const {name, phoneNum, password} = this.state;
+      var userRef = db.firestore().collection('users').doc(db.auth().currentUser.uid);
+      userRef.update({
+        userName: name,
+        phoneNumber: phoneNum
+        });
     }
-    
-    
-
 
   render() {
     return (
@@ -80,14 +78,14 @@ export default class EditProfile extends Component {
                 <Button
                     title={"Save New Password"}
                     onchange={(e)=>{
-                      const {_,phoneNum,password} = this.state;
+                      const {name,phoneNum,password} = this.state;
                       firebase.auth().currentUser.updatePassword(password);
                       }}
                 />
             </View>
         );
   }
-  
+
 }
 
 // UI Design TODO

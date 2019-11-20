@@ -8,33 +8,62 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import db from "../base";
 
 export default class Profile extends Component {
+    constructor(props){
+      super(props);
+      this.state = {
+        username: "",
+        email:"",
+        phoneNumber:"",
+        picurl:"",
+      }
+    }
+
+    componentDidMount(){
+      let promise = new Promise((resolve, reject) => {
+        var id = db.auth().currentUser.uid;
+        docRef = db.firestore().collection('users').doc(id);
+        docRef.onSnapshot(function(doc) {
+          if (doc.exists) {
+            console.log(doc.data);
+            resolve(doc.data());
+          } else {
+            console.log("No such document!");
+          }
+        }).catch(function(error) {
+          console.log("Error getting document:", error);
+        });
+      });
+
+      promise.then((docData) => {
+        this.setState({
+          username: docData.userName,
+          email: docData.email,
+          phoneNumber: docData.phoneNumber
+        })
+      })
+    }
+
+
+
     handleSignOut = () =>{
         db.auth().signOut().then(
             () => this.props.navigation.navigate('Auth')
         )
     }
 
+    
+
     render(){
-        var usersRef = db.firestore().collection('users');
-        var userRef = usersRef.where('userId', '==', db.auth().currentUser.uid);
-        var userName;
-        var email;
-        var phoneNumber;
-        var picUrl;
-        var url = "gs://rootappcse110ntl.appspot.com" + picUrl;
-        userRef.get().then(function(doc) {
-          userName = doc.data().userName;
-          email = doc.data().email;
-          phoneNumber = doc.data().phoneNumber;
-          picUrl = doc.data().userPicUrl;
-        })
+
+
         return(
             <View style={styles.container}>
-                <img src={url}/>
-                <Text>Profile</Text>
-                <Text>userName</Text>
-                <Text>email</Text>
-                <Text>phoneNumber</Text>
+                <Text>{this.state.username}</Text>
+                <Text>{this.state.email}</Text>
+                <Button
+                    title={"EditProfile"}
+                    onPress={()=> this.props.navigation.navigate("EditProfile")}
+                />
                 <Button
                     title={"Click me to sign out"}
                     onPress={this.handleSignOut}
