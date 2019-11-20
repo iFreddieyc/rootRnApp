@@ -8,11 +8,15 @@ import { StyleSheet, Text, View, Button, Image } from 'react-native';
 import db from "../base";
 
 export default class Profile extends Component {
-    handleSignOut = () =>{
+    handleEditProfile = () => {
+        this.props.navigation.navigate('EditProfile')
+    };
+
+    handleSignOut = () => {
         db.auth().signOut().then(
             () => this.props.navigation.navigate('Auth')
         )
-    }
+    };
 
     render(){
         var usersRef = db.firestore().collection('users');
@@ -36,6 +40,10 @@ export default class Profile extends Component {
                 <Text>Username</Text>
                 <Text>Email</Text>
                 <Text>Phone Number</Text>
+                <Button
+                    title="Edit Profile"
+                    onPress={this.handleEditProfile}
+                />
                 <Button
                     title="Click me to sign out"
                     onPress={this.handleSignOut}

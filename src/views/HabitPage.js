@@ -1,7 +1,7 @@
 /**
  * This is the HabitPage screen class file.
  * @author Qiuling Chen, Qingcheng You
- * @since 11.3.2019
+ * @since 11.17.2019
  */
 import React, { Component } from 'react';
 import {

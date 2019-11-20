@@ -1,10 +1,10 @@
 /**
  * This file is for connecting to Firebase
- * @author Qingcheng You
- * @since 10.31.2019
+ * @author Qingcheng You, Andy Duong
+ * @since  11.17.2019
  */
-import * as firebase from 'firebase/app';
 
+import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/storage';
@@ -22,6 +22,5 @@ const firebaseConfig = {
 
 // Initialize firebase
 const db = firebase.initializeApp(firebaseConfig);
-
 
 export default db;

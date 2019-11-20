@@ -17,9 +17,7 @@ export default class EditProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {name: '', phoneNum:-1};
-        fileButton.addEventListener('change', function(e) {
-            
-        })
+        //fileButton.addEventListener('change', function(e) {})
     }
 
     /**
@@ -37,12 +35,9 @@ export default class EditProfile extends Component {
       var userRef = usersRef.where('userid', '==', db.auth().currentUser.uid);
       userRef.update({name:name,phoneNum:phoneNum});
     }
-    
-    
 
-
-  render() {
-    return (
+    render() {
+        return (
             <View style={styles.container}>
                 <Text>Name:</Text>
                 <TextInput style={styles.input}
@@ -63,19 +58,19 @@ export default class EditProfile extends Component {
                 />
                 <Button
                     title={"Upload Picture"}
-                    onchange={(e)=>{
-                      var file = e.target.files[0];
-                      var filePath = 'pics/'+file.name;
-                      var storageRef = firebase.storage().ref(filePath);
-                      var task = storageRef.put(file);
-                      var usersRef = db.firestore().collection('users');
-                      var userRef = usersRef.where('userid', '==', db.auth().currentUser.uid);
-                      userRef.update({userPicUrl:filePath});
-                      }}
+                    onchange={(e) => {
+                        var file = e.target.files[0];
+                        var filePath = 'pics/'+file.name;
+                        var storageRef = firebase.storage().ref(filePath);
+                        var task = storageRef.put(file);
+                        var usersRef = db.firestore().collection('users');
+                        var userRef = usersRef.where('userid', '==', db.auth().currentUser.uid);
+                        userRef.update({userPicUrl:filePath});
+                    }}
                 />
             </View>
         );
-  }
+    }
   
 }
 

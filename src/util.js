@@ -1,29 +1,31 @@
 /**
  * Utility class for fun?
  * @author Qingcheng You
- * @since 11.11.2019
+ * @since 11.17.2019
  */
-export default class util{
+export default class util {
     /**
      * Function to return current date in "mm/dd/yyyy" format
      */
     static getCurrentDate() {
         let today = new Date();
-        let date = (today.getMonth()+1)+'/'+today.getDate()+'/'+today.getFullYear();
+        let date = (today.getMonth() + 1) + '/' + today.getDate() + '/'
+	  + today.getFullYear();
         return date;
     }
 
     /**
-     * Function to get difference in dates between a start date and now
-     * @param startDate
+     * Function to get difference in dates between a start date and the current
+     * @param   startDate
      * @returns {number} the difference in days
      */
     static getDifference(startDate){
         let now = new Date();
         let start = new Date(startDate);
-        return Math.ceil((now.getTime() - start.getTime()) / (1000 * 3600 * 24));
+        return Math.ceil((now - start) / (1000 * 60 * 60 * 24));
     }
 
+    // TODO: Remove extraneous comments
     // /**
     // /* 我咋发觉current Date其实是date object呢？ 所以我没写convert 成int 再计算duration
     // /* 我直接写了个method算两个date的差，method看的网上的reference
@@ -42,9 +44,9 @@ export default class util{
      * @param {*} p1 habit start date
      * @param {*} p2 current date
      */
-    static getDuration(date1, date2){
-        var diffTime = Math.abs(date2 - date1);
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        return diffDays;
+    static getDuration(startDate, endDate) {
+        var timeDifference = Math.abs(endDate - startDate);
+        var dayDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+        return dayDifference;
     }
 }

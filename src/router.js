@@ -1,7 +1,7 @@
 /**
  * This file controls the navigation for all of our apps
- * @author Qingcheng You
- * @since 11.6.2019
+ * @author Qingcheng You, Andy Duong
+ * @since 11.17.2019
  */
 import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
@@ -17,7 +17,7 @@ import CreateHabit from "./views/CreateHabit";
 import EditProfile from "./views/EditProfile";
 
 // Stack Navigator for HabitPage and CreateHabit
-export const HabitNavigator = createSwitchNavigator({
+export const HabitNavigator = createStackNavigator({
     Habits:{
         screen: HabitPage,
         navigationOptions: () => ({
@@ -31,7 +31,7 @@ export const HabitNavigator = createSwitchNavigator({
     initialRouteName: 'Habits'
 })
 
-// Switch Navigator for SignUp and SignIn
+// Sign Up and Sign In Screens
 export const SignedOut = createSwitchNavigator({
     SignUp: SignUp,
     SignIn: SignIn,
@@ -39,6 +39,7 @@ export const SignedOut = createSwitchNavigator({
     initialRouteName: 'SignIn'
 });
 
+// Profile Screen
 export const ProfileNavigator = createStackNavigator({
     Profile:{
         screen: Profile,
@@ -46,7 +47,7 @@ export const ProfileNavigator = createStackNavigator({
             headerBackTitle: 'Cancel',
         }),
     },
-    CreateNew: {
+    EditProfile: {
         screen: EditProfile,
     }
 }, {
