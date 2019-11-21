@@ -4,7 +4,7 @@
  * @since 10.31.2019
  */
 import React, {Component} from 'react';
-import {StyleSheet, View, TextInput, Button, Text, Alert } from 'react-native';
+import {StyleSheet, View, TextInput, Button, Text, Alert, Image} from 'react-native';
 import db from "../base";
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
@@ -89,6 +89,7 @@ export default class SignUp extends Component {
     render() {
         return (
             <View style={styles.container}>
+                <Image source={require('./my-icon.png')} style={{width: 150, height: 150, top: -55, opacity: 0.8 }} />
                 <Text> </Text>
                 <Text style={{top: -45, fontFamily: 'Cochin', fontWeight: 'bold', fontSize: 16}}>Email:</Text>
                 <TextInput style={styles.input}

@@ -80,7 +80,6 @@ export default class SignIn extends Component {
             <View style={styles.container}>
                 <Image source={require('./my-icon.png')} style={{width: 150, height: 150, top: -55, opacity: 0.8 }} />
                 <Text> </Text>
-                <Text style={styles.title}>ROOT</Text>
                 <Text> </Text>
                 <Text style={{top: -45, fontFamily: 'Cochin', fontWeight: 'bold', fontSize: 16}}>Email:</Text>
                 <TextInput style={styles.input}

@@ -49,4 +49,9 @@ export default class util {
         var dayDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
         return dayDifference;
     }
+
+    //function to compare by duration
+    static compare(a, b) {
+        return (b.duration - a.duration);
+    }
 }
