@@ -1,6 +1,6 @@
 /**
  * This is the Ranking screen class file.
- * @author Yiyun Zhang, Yining Chen, Lydia Gui, Qingcheng You
+ * @author Yiyun Zhang, Yining Chen, Liying Gui, Qingcheng You
  * @since 11.8.2019
  */
 import React, {Component} from 'react';
@@ -80,6 +80,7 @@ export default class Ranking extends Component {
                         friendList = doc.data().friends;
                         console.log(friendList);
                     });
+                    friendList.push(db.auth().currentUser.uid);
                     resolve(friendList);
                 })
                 .catch(function (error) {
@@ -90,6 +91,7 @@ export default class Ranking extends Component {
 
     getHabitFromUid = (uid) => {
         let habit;
+        var highestDuration = 0;
         return new Promise((resolve, reject) => {
             db.firestore().collection("habits")
                 .where("visible", "==", true).where("userid", "==", uid)
@@ -97,9 +99,11 @@ export default class Ranking extends Component {
                 .get()
                 .then(function (querySnapshot) {
                     querySnapshot.forEach(function (doc) {
-                        if (doc.exists) {
+                        var currentDuration = util.getDifference(doc.data().startDate);
+                        if (doc.exists && (highestDuration < currentDuration)) {
                             habit = new Habit(doc.data().name, doc.data().userid,
                                 doc.data().startDate, doc.data().description, doc.data().visible);
+                            highestDuration = currentDuration;
                             console.log(habit);
                         }
                     });
@@ -148,13 +152,15 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: '#D4DBAD'
     },
     title: {
-        fontSize: 30,
+        fontSize: 35,
         color: 'black',
         fontWeight: 'bold',
-        alignItems: 'center'
+        alignItems: 'center',
+        fontFamily: 'Cochin',
     },
     habitStyle: {
         fontSize: 30,
