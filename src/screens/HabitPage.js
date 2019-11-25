@@ -46,7 +46,7 @@ export default class HabitPage extends Component {
         });
         if(habits.length > 0){
             this.setState({
-                message: "MY HABITS"
+                message: "My Habits"
             });
         }
     }
