@@ -4,21 +4,25 @@
  * @since 11.8.2019
  */
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button,Image } from 'react-native';
 import db from "../base";
 
 export default class Profile extends Component {
     constructor(props){
       super(props);
+      var id = db.auth().currentUser.uid;
+      console.log(id);
+      var docRef = db.firestore().collection('users').where("userId","==",id);
+      this.ref = docRef
       this.state = {
         username: "",
         email:"",
-        phoneNumber:"",
         picurl:"",
       }
     }
 
-    componentDidMount(){
+/*    componentDidMount(){
+      console.log("CDM");
       let promise = new Promise((resolve, reject) => {
         var id = db.auth().currentUser.uid;
         docRef = db.firestore().collection('users').doc(id);
@@ -32,9 +36,12 @@ export default class Profile extends Component {
         }).catch(function(error) {
           console.log("Error getting document:", error);
         });
-      });
-
+      })
       promise.then((docData) => {
+        console.log("------")
+        console.log(docData);
+        console.log(docData());
+        console.log("------")
         this.setState({
           username: docData.userName,
           email: docData.email,
@@ -42,7 +49,23 @@ export default class Profile extends Component {
         })
       })
     }
+*/
+  componentDidMount(){
+    this.ref.onSnapshot(this.reloadProfile);
+  }
 
+  reloadProfile = (querySnapshot) =>{
+
+      let data = null;
+      querySnapshot.forEach(function (doc) {
+        data = doc.data();
+      });
+      this.setState({
+        username: data.userName,
+        email:data.email,
+        picurl:data.userPicUrl,
+      });
+  }
 
 
     handleSignOut = () =>{
@@ -51,7 +74,7 @@ export default class Profile extends Component {
         )
     }
 
-    
+
 
     render(){
 
@@ -68,7 +91,11 @@ export default class Profile extends Component {
                     title={"Click me to sign out"}
                     onPress={this.handleSignOut}
                 />
-            </View>
+                <Image
+                          style={{width: 50, height: 50}}
+                          source={{uri: 'https://facebook.github.io/react-native/img/tiny_logo.png'}}
+                />
+           </View>
         )
     }
 }
