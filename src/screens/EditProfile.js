@@ -123,8 +123,6 @@ export default class EditProfile extends Component {
                       this.props.navigation.navigate('Profile');
                       }}
                 />
-                <Camera  ref={cam => {this.camera = cam}}  style={styles.preview}  aspect={Camera.constants.Aspect.fill}>  <Text style={styles.capture} onPress={this.takePicture.bind(this)}>    [CAPTURE]  </Text></Camera>
-
             </View>
         );
   }
