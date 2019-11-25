@@ -14,6 +14,8 @@ import HabitPage from "./screens/HabitPage";
 import Profile from "./screens/Profile";
 import Ranking from "./screens/Ranking";
 import CreateHabit from "./screens/CreateHabit";
+import EditHabit from "./screens/EditHabit";
+import HabitView from "./screens/HabitView";
 
 // Stack Navigator for HabitPage and CreateHabit
 export const HabitNavigator = createSwitchNavigator({
@@ -25,6 +27,12 @@ export const HabitNavigator = createSwitchNavigator({
     },
     CreateNew: {
         screen: CreateHabit,
+    },
+    Edit: {
+        screen: EditHabit,
+    },
+    View: {
+        screen: HabitView,
     }
 }, {
     initialRouteName: 'Habits'
@@ -61,6 +69,8 @@ export const SignedIn = createBottomTabNavigator({
         }
     }
 });
+
+// AppRegistry.registerComponent('HabitNavigator', () => WhateverYouWantToCallMe);
 
 // Default Switch Navigator for our app
 export const AppNavigator = createSwitchNavigator({

@@ -7,32 +7,50 @@
 import db from "./base";
 import util from "./util";
 
-export default class Habit{
+export default class Habit {
 
     // Constructor (I did not include endDate due to ECMAScript only allow one constructor)
-    constructor(name, userid, startDate, description, visible){
+    constructor(name, userid, startDate, description, visible, lastCheckoffDate, archived) {
         this.name = name;
         this.userid = userid;
         this.startDate = startDate;
         this.description = description;
         this.visible = visible;
-        //console.log(this.name, this.userid, this.startDate, this.description, this.visible);
+        this.lastCheckoffDate = lastCheckoffDate;
+        this.archived = archived;
     }
 
     // Function to push object into Firebase Firestore
     pushToFirestore = () => {
-        db.firestore().collection("habits").add({
-            name: this.name,
-            userid: this.userid,
-            startDate: this.startDate,
-            description: this.description,
-            visible: this.visible,
-        }).catch(function(error){
-            console.error("Error adding document: ", error);
-        })
+        return new Promise((resolve, reject) => {
+            db.firestore().collection("habits").add({
+                name: this.name,
+                userid: this.userid,
+                startDate: this.startDate,
+                description: this.description,
+                visible: this.visible,
+                lastCheckoffDate: this.lastCheckoffDate,
+                archived: this.archived,
+                habitId: "",
+            }).then(function (docRef) {
+                return docRef.update({
+                    habitId: docRef.id,
+                })
+                    .then(function () {
+                        console.log("Document successfully updated!");
+                        resolve(true)
+                    })
+                    .catch(function (error) {
+                        // The document probably doesn't exist.
+                        console.error("Error updating document: ", error);
+                    });
+            }).catch(function (error) {
+                console.error("Error adding document: ", error);
+            })
+        });
     };
 
-    get duration(){
+    get duration() {
         return util.getDifference(this.startDate);
     }
 
