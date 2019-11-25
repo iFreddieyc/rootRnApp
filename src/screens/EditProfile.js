@@ -33,7 +33,7 @@ export default class EditProfile extends Component {
     }
 
 
-    handleChoosePhoto = () => {
+    /*handleChoosePhoto = () => {
       const options = {
         noData: true,
       };
@@ -60,7 +60,7 @@ export default class EditProfile extends Component {
            console.log("got permission");
          }
        }
-     }
+     }*/
 
 
 
@@ -72,11 +72,12 @@ export default class EditProfile extends Component {
 
 
     saveProfile = () => {
-      const {name, phoneNum, password} = this.state;
+      const {name, password, filePath} = this.state;
       var userRef = db.firestore().collection('users').doc(db.auth().currentUser.uid);
       userRef.update({
         userName: name
-        });
+      });
+      this.props.navigation.navigate('Profile');
     }
 
   render() {
@@ -91,6 +92,7 @@ export default class EditProfile extends Component {
                 <Button
                     title={"Save Change"}
                     onPress={this.saveProfile}
+
                 />
                 <Button
                     title={"Upload Picture"}
@@ -98,12 +100,12 @@ export default class EditProfile extends Component {
                       //var file = e.target.files[0];
                       //var filePath = 'pics/'+file.name;
                       this.handleChoosePhoto();
-                      /*var filePath = this.state.filePath;
+                      var filePath = this.state.filePath;
                       var storageRef = firebase.storage().ref(filePath);
                       var task = storageRef.put(file);
                       var usersRef = db.firestore().collection('users');
                       var userRef = usersRef.where('userid', '==', db.auth().currentUser.uid);
-                      userRef.update({userPicUrl:filePath});*/
+                      userRef.update({userPicUrl:filePath});
                       }}
                 />
                 <TextInput style={styles.input}
@@ -115,9 +117,10 @@ export default class EditProfile extends Component {
                 <Button
                     title={"Save New Password"}
                     onPress={(e)=>{
-                      const {name,phoneNum,password} = this.state;
+                      const {name, password, filePath} = this.state;
                       console.log(password);
                       firebase.auth().currentUser.updatePassword(password);
+                      this.props.navigation.navigate('Profile');
                       }}
                 />
                 <Camera  ref={cam => {this.camera = cam}}  style={styles.preview}  aspect={Camera.constants.Aspect.fill}>  <Text style={styles.capture} onPress={this.takePicture.bind(this)}>    [CAPTURE]  </Text></Camera>
