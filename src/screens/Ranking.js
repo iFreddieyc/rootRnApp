@@ -95,14 +95,15 @@ export default class Ranking extends Component {
         return new Promise((resolve, reject) => {
             db.firestore().collection("habits")
                 .where("visible", "==", true).where("userid", "==", uid)
-                //.orderBy("name", "asc")
+                .where("archived", "==", false)
                 .get()
                 .then(function (querySnapshot) {
                     querySnapshot.forEach(function (doc) {
                         var currentDuration = util.getDifference(doc.data().startDate);
                         if (doc.exists && (highestDuration < currentDuration)) {
-                            habit = new Habit(doc.data().name, doc.data().userid,
-                                doc.data().startDate, doc.data().description, doc.data().visible);
+                            habit = new Habit(doc.data().name, doc.data().userid, doc.data().startDate,
+                                doc.data().description, doc.data().visible,
+                                doc.data().lastCheckoffDate, doc.data().archived);
                             highestDuration = currentDuration;
                             console.log(habit);
                         }
