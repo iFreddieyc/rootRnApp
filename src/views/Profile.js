@@ -12,6 +12,10 @@ export default class Profile extends Component {
         this.props.navigation.navigate('EditProfile')
     };
 
+    handleFriends = () => {
+        this.props.navigation.navigate('Friends')
+    }
+
     handleSignOut = () => {
         db.auth().signOut().then(
             () => this.props.navigation.navigate('Auth')
@@ -43,6 +47,10 @@ export default class Profile extends Component {
                 <Button
                     title="Edit Profile"
                     onPress={this.handleEditProfile}
+                />
+                <Button
+                    title="Friends"
+                    onPress={this.handleFriends}
                 />
                 <Button
                     title="Click me to sign out"

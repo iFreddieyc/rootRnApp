@@ -15,6 +15,7 @@ import Profile from "./views/Profile";
 import Ranking from "./views/Ranking";
 import CreateHabit from "./views/CreateHabit";
 import EditProfile from "./views/EditProfile";
+import Friends from "./views/Friends";
 
 // Stack Navigator for HabitPage and CreateHabit
 export const HabitNavigator = createStackNavigator({
@@ -49,6 +50,9 @@ export const ProfileNavigator = createStackNavigator({
     },
     EditProfile: {
         screen: EditProfile,
+    },
+    Friends: {
+        screen: Friends,
     }
 }, {
     initialRouteName: "Profile"

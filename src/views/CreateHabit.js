@@ -3,8 +3,8 @@
  * @author Vincent Nguyen, Qingcheng You
  * @since 11.3.2019
  */
-import React, { Component } from 'react';
-import { StyleSheet, View, TextInput, Button, Text, Alert, Picker, Switch } from 'react-native';
+import React, {Component} from 'react';
+import {StyleSheet, View, TextInput, Button, Text, Alert, Picker, Switch} from 'react-native';
 import Habit from "../data/Habit";
 import db from "../base";
 import util from "../util";
@@ -106,7 +106,7 @@ export default class CreateHabit extends Component {
     }
 }
 
-// UI Design TODO
+// UI Design
 const styles = StyleSheet.create({
     input: {
         width: 200,
