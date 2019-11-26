@@ -10,13 +10,13 @@ import util from "./util";
 export default class Habit {
 
     // Constructor (I did not include endDate due to ECMAScript only allow one constructor)
-    constructor(name, userid, startDate, description, visible, lastCheckoffDate, archived) {
+    constructor(name, userid, startDate, description, visible, numOfDays, archived) {
         this.name = name;
         this.userid = userid;
         this.startDate = startDate;
         this.description = description;
         this.visible = visible;
-        this.lastCheckoffDate = lastCheckoffDate;
+        this.numOfDays = numOfDays;
         this.archived = archived;
     }
 
@@ -29,7 +29,7 @@ export default class Habit {
                 startDate: this.startDate,
                 description: this.description,
                 visible: this.visible,
-                lastCheckoffDate: this.lastCheckoffDate,
+                numOfDays: this.numOfDays,
                 archived: this.archived,
                 habitId: "",
             }).then(function (docRef) {
@@ -54,11 +54,8 @@ export default class Habit {
         return util.getDifference(this.startDate);
     }
 
-    /*
-    // Function to change visibility of the habit TODO
-    changeVisibility = () => {
-
+    get days(){
+        return this.numOfDays;
     }
-    */
 }
 

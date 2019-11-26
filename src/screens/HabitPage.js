@@ -13,7 +13,7 @@ import {
     Text,
     ActivityIndicator
 } from 'react-native';
-import Swipeable from 'react-native-gesture-handler/Swipeable';
+
 import db from "../base";
 import HabitView from "./HabitView";
 

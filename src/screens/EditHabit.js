@@ -5,7 +5,7 @@
  */
 
 import React, {Component} from 'react';
-import {StyleSheet, View, TextInput, Button, Text, Alert, SafeAreaView, Switch, ActivityIndicator} from 'react-native';
+import {StyleSheet, View, Button, Text, Alert, SafeAreaView, Switch, ActivityIndicator} from 'react-native';
 import db from "../base";
 
 export default class EditHabit extends Component {
@@ -22,7 +22,6 @@ export default class EditHabit extends Component {
             startDate: "",
             visible: "",
         }
-        //this.handleConfirm = this.handleConfirm.bind(this);
     }
 
 

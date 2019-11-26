@@ -109,7 +109,6 @@ export default class Ranking extends Component {
                     console.log("Inside getHabitFromUid, error getting documents: ", error);
                 });
         });
-
     }
 
     render() {
@@ -142,7 +141,6 @@ export default class Ranking extends Component {
         }
     }
 }
-
 
 const styles = StyleSheet.create({
     container: {
