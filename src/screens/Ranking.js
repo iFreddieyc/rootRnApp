@@ -1,6 +1,6 @@
 /**
  * This is the Ranking screen class file.
- * @author Yiyun Zhang, Yining Chen, Lydia Gui, Qingcheng You
+ * @author Yiyun Zhang, Yining Chen, Liying Gui, Qingcheng You
  * @since 11.8.2019
  */
 import React, {Component} from 'react';
@@ -55,7 +55,7 @@ export default class Ranking extends Component {
                     ranking: values,
                     isLoading: false,
                 });
-                if(values.length > 0){
+                if (values.length > 0) {
                     this.setState({
                         message: "HabitRank",
                     });
@@ -80,6 +80,7 @@ export default class Ranking extends Component {
                         friendList = doc.data().friends;
                         console.log(friendList);
                     });
+                    friendList.push(db.auth().currentUser.uid);
                     resolve(friendList);
                 })
                 .catch(function (error) {
@@ -90,16 +91,20 @@ export default class Ranking extends Component {
 
     getHabitFromUid = (uid) => {
         let habit;
+        var highestDuration = 0;
         return new Promise((resolve, reject) => {
             db.firestore().collection("habits")
                 .where("visible", "==", true).where("userid", "==", uid)
-                //.orderBy("name", "asc")
+                .where("archived", "==", false)
                 .get()
                 .then(function (querySnapshot) {
                     querySnapshot.forEach(function (doc) {
-                        if (doc.exists) {
-                            habit = new Habit(doc.data().name, doc.data().userid,
-                                doc.data().startDate, doc.data().description, doc.data().visible);
+                        var currentDuration = util.getDifference(doc.data().startDate);
+                        if (doc.exists && (highestDuration < currentDuration)) {
+                            habit = new Habit(doc.data().name, doc.data().userid, doc.data().startDate,
+                                doc.data().description, doc.data().visible,
+                                doc.data().lastCheckoffDate, doc.data().archived);
+                            highestDuration = currentDuration;
                             console.log(habit);
                         }
                     });
@@ -109,6 +114,7 @@ export default class Ranking extends Component {
                     console.log("Inside getHabitFromUid, error getting documents: ", error);
                 });
         });
+
     }
 
     render() {
@@ -141,6 +147,7 @@ export default class Ranking extends Component {
         }
     }
 }
+
 
 const styles = StyleSheet.create({
     container: {
