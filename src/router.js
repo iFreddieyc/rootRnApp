@@ -16,6 +16,7 @@ import Ranking from "./views/Ranking";
 import CreateHabit from "./views/CreateHabit";
 import EditProfile from "./views/EditProfile";
 import Friends from "./views/Friends";
+import FriendRequests from "./views/FriendRequests";
 
 // Stack Navigator for HabitPage and CreateHabit
 export const HabitNavigator = createStackNavigator({
@@ -42,7 +43,7 @@ export const SignedOut = createSwitchNavigator({
 
 // Profile Screen
 export const ProfileNavigator = createStackNavigator({
-    Profile:{
+    Profile: {
         screen: Profile,
         navigationOptions: () => ({
             headerBackTitle: 'Cancel',
@@ -53,7 +54,10 @@ export const ProfileNavigator = createStackNavigator({
     },
     Friends: {
         screen: Friends,
-    }
+    },
+    FriendRequests: {
+        screen: FriendRequests,
+    },
 }, {
     initialRouteName: "Profile"
 });

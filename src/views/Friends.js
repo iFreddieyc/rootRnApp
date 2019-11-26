@@ -1,19 +1,16 @@
 /*
  * Screen to display a user's friends list.
- * @author Andy Duong
+ * @author Vincent Nguyen, Andy Duong
  * @since  11.23.2019
  */
 import React, {Component} from 'react';
-import {StyleSheet, View, TextInput, Button, Text, Alert, Picker, Switch} from 'react-native';
+import {StyleSheet, SafeAreaView, Button, Text, Alert} from 'react-native';
 import db from "../base";
 import util from "../util";
+import AddFriend from "./AddFriend";
 
 export default class Friends extends Component {
 
-    /**
-     * Constructor for Friends
-     * @param props arguments passed in from parent
-     */
     constructor(props) {
         super(props);
         this.state = {
@@ -42,8 +39,8 @@ export default class Friends extends Component {
      * Updates the friends list screen as friends are added or removed from the database
      */
     onUserDocumentUpdate = (documentSnapshot) => {
-        const friends = (documentSnapshot.get("friends") === undefined) ? [] : documentSnapshot.get("friends");
-        this.setState({friends: friends});
+        const friends = (documentSnapshot.get("friends") == null) ? [] : documentSnapshot.get("friends");
+        this.setState({friends: friends,});
     }
 
     /**
@@ -51,15 +48,16 @@ export default class Friends extends Component {
      */
     render() {
         return (
-            <View style={styles.container}>
+            <SafeAreaView style={styles.container}>
                 <Text>Friends:</Text>
+                <AddFriend/>
                 <Text style={{left:0, top: '40%', fontFamily: 'Cochin', fontWeight: 'bold', fontSize: 16}}>{this.state.friends}</Text>
-            </View>
+            </SafeAreaView>
         );
     }
 }
 
-// UI Design
+// UI Design TODO
 const styles = StyleSheet.create({
     input: {
         width: 200,

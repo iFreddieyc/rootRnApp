@@ -40,13 +40,17 @@ export default class SignUp extends Component {
             db.auth().createUserWithEmailAndPassword(email, password).then(
                 // User is created, go to Main
                 () => {var user = firebase.auth().currentUser;
-                       var userId = user.uid;
+                       var userid = user.uid;
+                       // TODO: There is a bug here.
                        db.collection("users").add({
-                           email:email,
-                           userName: "User Name",
-                           userId:userId,
+                           userid: userid,
+                           username: email,
+                           email: email,
                            phoneNumber: -1,
-                           userPicUrl:"Capture.PNG"
+                           userPicUrl: "Capture.PNG",
+                           friends: ["a"],
+                           incoming: ["b"],
+                           outgoing: ["c"],
                        })
                        this.props.navigation.navigate('App')
                 }

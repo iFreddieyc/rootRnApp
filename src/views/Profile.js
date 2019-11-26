@@ -16,6 +16,10 @@ export default class Profile extends Component {
         this.props.navigation.navigate('Friends')
     }
 
+    handleFriendRequests = () => {
+        this.props.navigation.navigate('FriendRequests')
+    }
+
     handleSignOut = () => {
         db.auth().signOut().then(
             () => this.props.navigation.navigate('Auth')
@@ -51,6 +55,10 @@ export default class Profile extends Component {
                 <Button
                     title="Friends"
                     onPress={this.handleFriends}
+                />
+                <Button
+                    title="Friend Requests"
+                    onPress={this.handleFriendRequests}
                 />
                 <Button
                     title="Click me to sign out"
