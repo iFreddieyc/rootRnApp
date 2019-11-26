@@ -43,7 +43,7 @@ export const SignedOut = createSwitchNavigator({
 export const SignedIn = createBottomTabNavigator({
     Habits: HabitNavigator,
     Rankings: Ranking,
-    Profiles: Profile,
+    Profiles: ProfileNavigator,
 }, {
     initialRouteName: 'Habits'
 });
@@ -64,7 +64,7 @@ export const  ProfileNavigator = createStackNavigator({
             headerBackTitle: 'Cancel',
         }),
     },
-    CreateNew: {
+    EditProfile: {
         screen: EditProfile,
     }
 }, {
