@@ -101,6 +101,10 @@ export default class SignIn extends Component {
                     title={"Sign In"}
                     onPress={this.handleLogin}
                 />
+                <Button
+                    title={"Forgot Password"}
+                    onPress={() => this.props.navigation.navigate('Forget')}
+                />
                 <View style={{position: 'absolute', bottom:50, right:10}}>
                 <Button
                     title={"Sign up"}
