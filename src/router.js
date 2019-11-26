@@ -16,6 +16,7 @@ import Ranking from "./screens/Ranking";
 import CreateHabit from "./screens/CreateHabit";
 import EditHabit from "./screens/EditHabit";
 import HabitView from "./screens/HabitView";
+import forgetPassword from "./authFlow/forgetPassword";
 
 // Stack Navigator for HabitPage and CreateHabit
 export const HabitNavigator = createSwitchNavigator({
@@ -42,6 +43,7 @@ export const HabitNavigator = createSwitchNavigator({
 export const SignedOut = createSwitchNavigator({
     SignUp: SignUp,
     SignIn: SignIn,
+    Forget: forgetPassword,
 }, {
     initialRouteName: 'SignIn'
 });
