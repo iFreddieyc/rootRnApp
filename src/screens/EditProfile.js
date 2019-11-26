@@ -8,6 +8,8 @@ import {FlatList, StyleSheet, SafeAreaView, View, TextInput, Button, Text, Alert
 import db from "../base";
  import * as firebase from 'firebase/app';
  import * as ImagePicker from 'react-native-image-picker';
+ import Constants from 'expo-constants';
+import * as Permissions from 'expo-permissions';
 
 
 export default class EditProfile extends Component {
@@ -33,7 +35,7 @@ export default class EditProfile extends Component {
     }
 
 
-    /*handleChoosePhoto = () => {
+    handleChoosePhoto = () => {
       const options = {
         noData: true,
       };
@@ -60,7 +62,7 @@ export default class EditProfile extends Component {
            console.log("got permission");
          }
        }
-     }*/
+     }
 
 
 
