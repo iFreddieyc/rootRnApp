@@ -147,15 +147,23 @@ export default class EditHabit extends Component {
             )
         }
         return (
-            <SafeAreaView>
-                <Text>{this.state.name}</Text>
-                <Text>{this.state.description}</Text>
-                <Text>{this.state.startDate}</Text>
+            <SafeAreaView style={styles.container}>
+                <View style={styles.top}>
+                    <Text style={styles.habitName}>{this.state.name}</Text>
+                    <Text>  </Text>
+                    <View style={{top:'10%', alignItems: 'center'}}>
+                        <Text>{this.state.description}</Text>
+                        <Text>  </Text>
+                        <Text> started since {this.state.startDate}</Text>
+                    </View>
+                </View>
+                <View style={styles.bottom}>
+                    <Text>  </Text>
                 <Switch onValueChange={this.toggleSwitch}
                         value={this.state.visible}
                 />
                 <Button
-                    title={"Confirm change"}
+                    title={"Confirm"}
                     onPress={this.handleConfirm}
                 />
                 <Button
@@ -170,12 +178,37 @@ export default class EditHabit extends Component {
                     title={"Delete"}
                     onPress={this.handleDelete}
                 />
+                </View>
             </SafeAreaView>
         );
     }
 }
 
 const styles = StyleSheet.create({
+    top:{
+        position: 'absolute',
+        top: 120,
+        alignItems: 'center',
+        fontFamily: 'Cochin',
+        backgroundColor: '#E0EBCB',
+        height: '70%',
+        width: '80%',
+        flex: 1
+    },
+    bottom:{
+        alignItems: 'center',
+        position: 'absolute',
+        bottom: 180
+    },
+    habitName: {
+        fontSize: 30,
+        color: 'black',
+        fontWeight: 'bold',
+        alignItems: 'center',
+        fontFamily: 'Cochin',
+        left: 10,
+        top: 30
+    },
     input: {
         width: 200,
         height: 30,
