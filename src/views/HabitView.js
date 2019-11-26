@@ -14,9 +14,10 @@ import {
     TouchableHighlight,
     TouchableOpacity
 } from 'react-native';
+import { withNavigation } from 'react-navigation';
 import util from "../util";
 
-export default class HabitView extends Component {
+class HabitView extends Component {
     constructor(props) {
         super(props);
     }
@@ -25,6 +26,10 @@ export default class HabitView extends Component {
 
     handleOnPress = () => {
         console.log(this.props.description);
+    }
+
+    handleEdit = () => {
+        this.props.navigation.navigate('Edit', {text: this.props.id});
     }
 
     render() {
@@ -39,6 +44,13 @@ export default class HabitView extends Component {
                     <Text style={styles.habitDate}>
                         {this.days}
                     </Text>
+                    <View style={styles.editButton}>
+                    <Button
+                        style={{width:50, height: 50}}
+                        title={"..."}
+                        onPress={this.handleEdit}
+                    />
+                    </View>
                 </View>
             </TouchableHighlight>
         );
@@ -47,7 +59,16 @@ export default class HabitView extends Component {
 
 }
 
+export default withNavigation(HabitView);
+
 const styles = StyleSheet.create({
+    editButton:{
+        //flex:1,
+        //flexDirection:'row',
+        position: 'absolute',
+        right: 10,
+        marginTop: 80,
+    },
     container: {
         flex: 1,
         //alignItems: 'center',
@@ -76,7 +97,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         alignItems: 'center',
         fontFamily: 'Cochin',
-        top: '95%',
+        top: '30%',
         left: 10
     }
 });

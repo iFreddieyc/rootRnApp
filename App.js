@@ -10,7 +10,8 @@ import {createAppContainer} from "react-navigation";
 
 export default createAppContainer(AppNavigator);
 
-// TODO: Move this to an external CSS file
+console.disableYellowBox = true;
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,

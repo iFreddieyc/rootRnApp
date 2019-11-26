@@ -9,12 +9,11 @@ import {
     StyleSheet,
     SafeAreaView,
     View,
-    TextInput,
     Button,
     Text,
-    Alert,
     ActivityIndicator
 } from 'react-native';
+
 import db from "../base";
 import HabitView from "./HabitView";
 
@@ -46,7 +45,7 @@ export default class HabitPage extends Component {
         });
         if(habits.length > 0){
             this.setState({
-                message: "MY HABITS"
+                message: "My Habits"
             });
         }
     }
@@ -57,7 +56,6 @@ export default class HabitPage extends Component {
 
     render() {
         if (this.state.isLoading) {
-            console.log("Loading");
             return (
                 <View style={styles.activity}>
                     <ActivityIndicator size="large" color="#0000ff"/>
@@ -77,6 +75,7 @@ export default class HabitPage extends Component {
                             name={item.name}
                             date={item.startDate}
                             description={item.description}
+                            id = {item.habitId}
                         />
                     }
                     keyExtractor={(item, index) => index.toString()}

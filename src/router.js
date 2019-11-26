@@ -17,6 +17,9 @@ import CreateHabit from "./views/CreateHabit";
 import EditProfile from "./views/EditProfile";
 import Friends from "./views/Friends";
 import FriendRequests from "./views/FriendRequests";
+import EditHabit from "./screens/EditHabit";
+import HabitView from "./screens/HabitView";
+import forgetPassword from "./authFlow/forgetPassword";
 
 // Stack Navigator for HabitPage and CreateHabit
 export const HabitNavigator = createStackNavigator({
@@ -28,6 +31,12 @@ export const HabitNavigator = createStackNavigator({
     },
     CreateNew: {
         screen: CreateHabit,
+    },
+    Edit: {
+        screen: EditHabit,
+    },
+    View: {
+        screen: HabitView,
     }
 }, {
     initialRouteName: 'Habits'
@@ -37,6 +46,7 @@ export const HabitNavigator = createStackNavigator({
 export const SignedOut = createSwitchNavigator({
     SignUp: SignUp,
     SignIn: SignIn,
+    Forget: forgetPassword,
 }, {
     initialRouteName: 'SignIn'
 });
@@ -85,6 +95,8 @@ export const SignedIn = createBottomTabNavigator({
         }
     }
 });
+
+// AppRegistry.registerComponent('HabitNavigator', () => WhateverYouWantToCallMe);
 
 // Default Switch Navigator for our app
 export const AppNavigator = createSwitchNavigator({
