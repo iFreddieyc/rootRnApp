@@ -31,6 +31,20 @@ export const HabitNavigator = createStackNavigator({
     initialRouteName: 'Habits'
 })
 
+export const  ProfileNavigator = createStackNavigator({
+    Profile:{
+        screen: Profile,
+        navigationOptions: () => ({
+            headerBackTitle: 'Cancel',
+        }),
+    },
+    EditProfile: {
+        screen: EditProfile,
+    }
+}, {
+    initialRouteName: "Profile"
+})
+
 // Switch Navigator for SignUp and SignIn
 export const SignedOut = createSwitchNavigator({
     SignUp: SignUp,
@@ -57,17 +71,5 @@ export const AppNavigator = createSwitchNavigator({
     initialRouteName: 'AuthLoading'
 });
 
-export const  ProfileNavigator = createStackNavigator({
-    Profile:{
-        screen: Profile,
-        navigationOptions: () => ({
-            headerBackTitle: 'Cancel',
-        }),
-    },
-    EditProfile: {
-        screen: EditProfile,
-    }
-}, {
-    initialRouteName: "Profile"
-})
+
 
