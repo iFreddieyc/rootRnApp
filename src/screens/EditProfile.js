@@ -33,18 +33,6 @@ export default class EditProfile extends Component {
         this.setState({[key]: val});
     }
 
-
-    /*handleChoosePhoto = () => {
-        const options = {
-            noData: true,
-        };
-        ImagePicker.launchImageLibrary(options, response => {
-            if (response.uri) {
-                this.setState({ filePath: response });
-            }
-        });
-    };*/
-
     onChooseImagePress = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -67,7 +55,7 @@ export default class EditProfile extends Component {
     uploadImage = async (uri, imageName) => {
         const response = await fetch(uri);
         const blob = await response.blob();
-        var ref = firebase.storage().ref().child("images/" + imageName);
+        let ref = firebase.storage().ref().child("images/" + imageName);
         return ref.put(blob);
     }
 
@@ -91,7 +79,7 @@ export default class EditProfile extends Component {
     }
 
     getImageFromFirebase = async () => {
-        var storageRef = firebase.storage().ref('images/' + db.auth().currentUser.uid);
+        let storageRef = firebase.storage().ref('images/' + db.auth().currentUser.uid);
         const imageurl = await storageRef.getDownloadURL();
         console.log("url: " + imageurl);
         this.setState({filePath: imageurl});
@@ -100,7 +88,7 @@ export default class EditProfile extends Component {
 
     saveProfile = () => {
         const {name, password, filePath} = this.state;
-        var userRef = db.firestore().collection('users').doc(db.auth().currentUser.uid);
+        let userRef = db.firestore().collection('users').doc(db.auth().currentUser.uid);
         userRef.update({
             userName: name
         });
@@ -125,7 +113,7 @@ export default class EditProfile extends Component {
                 <Button
                     title={"Upload Picture"}
                     onPress={(e) => {
-                        this.onChooseImagePress;
+                        this.onChooseImagePress();
                     }}
                 />
                 <TextInput style={styles.input}
