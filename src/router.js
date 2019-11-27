@@ -3,7 +3,7 @@
  * @author Qingcheng You
  * @since 11.6.2019
  */
-// import {createStackNavigator} from 'react-navigation-stack';
+import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createSwitchNavigator} from "react-navigation";
 
@@ -18,6 +18,7 @@ import EditHabit from "./screens/EditHabit";
 import HabitView from "./screens/HabitView";
 import forgetPassword from "./authFlow/forgetPassword";
 import Welcome from "./screens/Welcome";
+import EditProfile from "./screens/EditProfile";
 
 // Stack Navigator for HabitPage and CreateHabit
 export const HabitNavigator = createSwitchNavigator({
@@ -46,13 +47,25 @@ export const SignedOut = createSwitchNavigator({
     initialRouteName: 'SignIn'
 });
 
-
+export const ProfileNavigator = createStackNavigator({
+    Profile:{
+        screen: Profile,
+        navigationOptions: () => ({
+            headerBackTitle: 'Cancel',
+        }),
+    },
+    EditProfile: {
+        screen: EditProfile,
+    }
+}, {
+    initialRouteName: "Profile"
+})
 
 // Tab Navigator for HabitNavigator, Ranking and Profile
 export const Tabs = createBottomTabNavigator({
     Habits: HabitNavigator,
     Rankings: Ranking,
-    Profiles: Profile,
+    Profiles: ProfileNavigator,
 }, {
     initialRouteName: 'Habits',
     tabBarOptions: {
