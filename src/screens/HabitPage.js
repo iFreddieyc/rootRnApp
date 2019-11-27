@@ -58,9 +58,9 @@ export default class HabitPage extends Component {
     render() {
         if (this.state.isLoading) {
             return (
-                <View style={styles.activity}>
+                <SafeAreaView style={styles.activity}>
                     <ActivityIndicator size="large" color="#0000ff"/>
-                </View>
+                </SafeAreaView>
             )
         }
         // If loading is finished.

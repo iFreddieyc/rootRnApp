@@ -3,7 +3,7 @@
  * @author Qingcheng You
  * @since 11.6.2019
  */
-import {createStackNavigator} from 'react-navigation-stack';
+// import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createSwitchNavigator} from "react-navigation";
 
@@ -17,14 +17,12 @@ import CreateHabit from "./screens/CreateHabit";
 import EditHabit from "./screens/EditHabit";
 import HabitView from "./screens/HabitView";
 import forgetPassword from "./authFlow/forgetPassword";
+import Welcome from "./screens/Welcome";
 
 // Stack Navigator for HabitPage and CreateHabit
 export const HabitNavigator = createSwitchNavigator({
-    Habits:{
+    Habits: {
         screen: HabitPage,
-        navigationOptions: () => ({
-            headerBackTitle: 'Cancel',
-        }),
     },
     CreateNew: {
         screen: CreateHabit,
@@ -48,28 +46,37 @@ export const SignedOut = createSwitchNavigator({
     initialRouteName: 'SignIn'
 });
 
+
+
 // Tab Navigator for HabitNavigator, Ranking and Profile
-export const SignedIn = createBottomTabNavigator({
+export const Tabs = createBottomTabNavigator({
     Habits: HabitNavigator,
     Rankings: Ranking,
     Profiles: Profile,
 }, {
     initialRouteName: 'Habits',
-    tabBarOptions:{
+    tabBarOptions: {
         activeTintColor: "white",
-        activeBackgroundColor:"#C1D1AC",
+        activeBackgroundColor: "#C1D1AC",
         inactiveBackgroundColor: "#C1D1AC",
-        adaptive:'true',
+        adaptive: 'true',
         inactiveTintColor: '#3A512B',
-        labelStyle:{
+        labelStyle: {
             fontSize: 18,
             fontWeight: 'bold',
-            fontFamily:'Cochin'
+            fontFamily: 'Cochin'
         },
-        style:{
+        style: {
             backgroundColor: "#C1D1AC"
         }
     }
+});
+
+export const SignedIn = createSwitchNavigator({
+    Welcome: Welcome,
+    Tabs: Tabs,
+},{
+    initialRouteName: "Welcome"
 });
 
 // AppRegistry.registerComponent('HabitNavigator', () => WhateverYouWantToCallMe);

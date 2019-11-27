@@ -4,7 +4,7 @@
  * @since 11.3.2019
  */
 import React, {Component} from 'react';
-import {StyleSheet, View, TextInput, Button, Text, Alert, Picker, Switch} from 'react-native';
+import {StyleSheet, View, TextInput, Button, Text, Alert, Switch} from 'react-native';
 import Habit from "../Habit";
 import db from "../base";
 import util from "../util";

@@ -1,9 +1,9 @@
 /**
- * SignUp screen class file, to sign up a user.
- * @author Qingcheng You
- * @since 10.31.2019
- */
-import React, {Component} from 'react';
+     * SignUp screen class file, to sign up a user.
+     * @author Qingcheng You
+     * @since 10.31.2019
+     */
+    import React, {Component} from 'react';
 import {StyleSheet, View, TextInput, Button, Text, Alert, Image} from 'react-native';
 import db from "../base";
 
