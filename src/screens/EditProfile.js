@@ -1,26 +1,29 @@
 /**
  * This is the Profile screen class file.
- * @author Mufan Lei TODO
+ * @author Mufan Lei, Yining Chen, Yiyun Zhang
  * @since 11.8.2019
  */
 import React, {Component} from 'react';
-import {FlatList, StyleSheet, SafeAreaView, View, TextInput, Button, Text, Alert, Camera} from 'react-native';
+import { FlatList, StyleSheet, SafeAreaView, View, TextInput, Button, Text, Alert, Image } from 'react-native';
 import db from "../base";
- import * as firebase from 'firebase/app';
- import * as ImagePicker from 'react-native-image-picker';
- import Constants from 'expo-constants';
+import * as firebase from 'firebase/app';
+//import * as ImagePicker from 'react-native-image-picker';
+import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
+import * as ImagePicker from 'expo-image-picker';
+//import {ImagePicker} from 'expo';
 
 
 export default class EditProfile extends Component {
 
-   /**
+    /**
      * Constructor for class SignUp
      * @param props properties to initialize this class with
      */
     constructor(props) {
         super(props);
         this.state = {name: '', password: '', filePath: ''};
+
     }
 
 
@@ -35,56 +38,74 @@ export default class EditProfile extends Component {
     }
 
 
-    handleChoosePhoto = () => {
-      const options = {
-        noData: true,
-      };
-      ImagePicker.launchImageLibrary(options, response => {
-        if (response.uri) {
-          this.setState({ filePath: response });
-        }
-      });
-    };
+    /*handleChoosePhoto = () => {
+        const options = {
+            noData: true,
+        };
+        ImagePicker.launchImageLibrary(options, response => {
+            if (response.uri) {
+                this.setState({ filePath: response });
+            }
+        });
+    };*/
 
+    onChooseImagePress = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync();
+
+        if (!result.cancelled) {
+            this.uploadImage(result.uri, db.auth().currentUser.uid)
+                .then(() => {
+                    this.setState({filePath: result.uri});
+                    Alert.alert("Success");
+                })
+                .catch((error) => {
+                    Alert.alert( "error" + error);
+                });
+        }
+    }
+    uploadImage = async (uri,imageName) => {
+        const response = await fetch(uri);
+        const blob = await response.blob();
+        var ref = firebase.storage().ref().child("images/" + imageName);
+        return ref.put(blob);
+}
+
+    getPermissionAsync = async () => {
+        if (Constants.platform.ios) {
+            const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+            if (status !== 'granted') {
+                alert('Sorry, we need camera roll permissions to make this work!');
+            }
+        }
+    }
 
     componentDidMount() {
-       this.getPermissionAsync();
-       console.log('hi');
-     }
+        this.getPermissionAsync();
+        console.log('hi');
+        this.getImageFromFirebase();
+    }
 
-     getPermissionAsync = async () => {
-       if (Constants.platform.ios) {
-         const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-         if (status !== 'granted') {
-           alert('Sorry, we need camera roll permissions to make this work!');
-         }
-         else{
-           console.log("got permission");
-         }
-       }
-     }
-
-
-
-
-
-
-
-
+    getImageFromFirebase = async () => {
+        var storageRef = firebase.storage().ref('images/' + db.auth().currentUser.uid);
+        const imageurl = await storageRef.getDownloadURL();
+        console.log("url: "+imageurl);
+        this.setState({filePath: imageurl});
+    }
 
 
     saveProfile = () => {
-      const {name, password, filePath} = this.state;
-      var userRef = db.firestore().collection('users').doc(db.auth().currentUser.uid);
-      userRef.update({
-        userName: name
-      });
-      this.props.navigation.navigate('Profile');
+        const {name, password, filePath} = this.state;
+        var userRef = db.firestore().collection('users').doc(db.auth().currentUser.uid);
+        userRef.update({
+            userName: name
+        });
+        this.props.navigation.navigate('Profile');
     }
 
-  render() {
-    return (
+    render() {
+        return (
             <View style={styles.container}>
+                <Image source={{ uri: this.state.filePath }} style={{ width: 200, height: 200 }} />
                 <Text>Name:</Text>
                 <TextInput style={styles.input}
                            placeholder="Name"
@@ -99,16 +120,8 @@ export default class EditProfile extends Component {
                 <Button
                     title={"Upload Picture"}
                     onPress={(e)=>{
-                      //var file = e.target.files[0];
-                      //var filePath = 'pics/'+file.name;
-                      this.handleChoosePhoto();
-                      var filePath = this.state.filePath;
-                      var storageRef = firebase.storage().ref(filePath);
-                      var task = storageRef.put(file);
-                      var usersRef = db.firestore().collection('users');
-                      var userRef = usersRef.where('userid', '==', db.auth().currentUser.uid);
-                      userRef.update({userPicUrl:filePath});
-                      }}
+                        this.onChooseImagePress();
+                    }}
                 />
                 <TextInput style={styles.input}
                            placeholder="New Password"
@@ -119,15 +132,15 @@ export default class EditProfile extends Component {
                 <Button
                     title={"Save New Password"}
                     onPress={(e)=>{
-                      const {name, password, filePath} = this.state;
-                      console.log(password);
-                      firebase.auth().currentUser.updatePassword(password);
-                      this.props.navigation.navigate('Profile');
-                      }}
+                        const {name, password, filePath} = this.state;
+                        console.log(password);
+                        firebase.auth().currentUser.updatePassword(password);
+                        this.props.navigation.navigate('Profile');
+                    }}
                 />
             </View>
         );
-  }
+    }
 
 }
 
