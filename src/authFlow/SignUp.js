@@ -115,7 +115,8 @@ const styles = StyleSheet.create({
         width: 250,
         height: 30,
         backgroundColor: '#E0EBCB',
-        top: -40
+        top: -40,
+        borderRadius: 10
     },
     container: {
         flex: 1,
