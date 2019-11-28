@@ -106,21 +106,30 @@ export default class Welcome extends Component {
 
         return (
             <View style={styles.container}>
-                <Text>
-                    Welcome to root!
+                <Image source={require('../authFlow/my-icon.png')} style={{width: 150, height: 150, position: 'absolute', top: '20%', opacity: 0.8 }} />
+                <Text style={styles.title}>
+                    Welcome to Root!
                 </Text>
-                <Text>
-                    Begin your journey be choosing a username first.
+                <Text> </Text>
+                <Text> </Text>
+                <Text> </Text>
+                <Text> </Text>
+                <Text style={{color: 'black', fontFamily: 'Cochin', fontSize: 18, padding: 10, position: 'absolute', bottom: '50%'}}>
+                    Begin your journey by choosing a username first.
                 </Text>
+
                 <TextInput style={styles.input}
                            placeholder="Username"
                            autoCapitalize={"none"}
                            onChangeText={val => this.onChangeText('username', val)}
                 />
+                <Text> </Text>
+                <View style={styles.button}>
                 <Button
                     title={"Submit"}
                     onPress={this.handleSubmit}
                 />
+                </View>
             </View>
         );
     }
@@ -129,6 +138,31 @@ export default class Welcome extends Component {
 
 // UI Design TODO
 const styles = StyleSheet.create({
+    button: {
+        position: 'absolute',
+        bottom: '30%',
+    },
+    title:{
+        fontFamily: 'Cochin',
+        fontSize: 40,
+        fontWeight: 'bold',
+        position: 'absolute',
+        top: '40%',
+
+    },
+    input: {
+        width: '70%',
+        height: '5%',
+        backgroundColor: '#E0EBCB',
+        justifyContent: 'center',
+        textAlign: 'center',
+        borderRadius: 10,
+        position: 'absolute',
+        bottom: '44%',
+        fontSize: 24,
+        fontFamily: 'Cochin',
+        fontWeight: 'bold'
+    },
     container: {
         flex: 1,
         justifyContent: 'center',

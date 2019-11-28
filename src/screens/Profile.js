@@ -60,7 +60,7 @@ export default class Profile extends Component {
             data = doc.data();
         });
         this.setState({
-            username: data.userName,
+            username: data.username,
             email:data.email,
             picurl:data.userPicUrl,
         });
@@ -78,8 +78,9 @@ export default class Profile extends Component {
     render(){
         return(
             <View style={styles.container}>
-                <Text>{this.state.username}</Text>
-                <Text>{this.state.email}</Text>
+                <Image source={{uri: this.state.filePath}} style={{width: 100, height: 100, borderRadius:20}}/>
+                <Text style={styles.info}>{this.state.username}</Text>
+                <Text style={styles.info}>{this.state.email}</Text>
                 <Button
                     title={"EditProfile"}
                     onPress={()=> this.props.navigation.navigate("EditProfile")}
@@ -90,7 +91,7 @@ export default class Profile extends Component {
                 />
                 <Image
                     style={{width: 50, height: 50}}
-                    source={{uri: 'https://facebook.github.io/react-native/img/tiny_logo.png'}}
+                    source={require('../authFlow/my-icon.png')}
                 />
             </View>
         )
@@ -99,10 +100,15 @@ export default class Profile extends Component {
 
 
 const styles = StyleSheet.create({
+    info:{
+        fontFamily: 'Cochin',
+        fontSize: 25,
+        margin: 10
+    },
     container: {
         flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
         justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#D4DBAD'
     },
 });
