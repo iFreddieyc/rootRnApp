@@ -18,6 +18,7 @@ export default class Habit {
         this.visible = visible;
         this.numOfDays = numOfDays;
         this.archived = archived;
+        this.latest = ""
     }
 
     // Function to push object into Firebase Firestore
@@ -32,6 +33,7 @@ export default class Habit {
                 numOfDays: this.numOfDays,
                 archived: this.archived,
                 habitId: "",
+                latest: this.latest,
             }).then(function (docRef) {
                 return docRef.update({
                     habitId: docRef.id,
@@ -51,11 +53,8 @@ export default class Habit {
     };
 
     get duration() {
-        return util.getDifference(this.startDate);
-    }
-
-    get days(){
         return this.numOfDays;
     }
+
 }
 

@@ -39,6 +39,7 @@ export default class HabitPage extends Component {
         const habits = [];
         querySnapshot.forEach(function (doc) {
             habits.push(doc.data());
+            console.log("numOfDays: " + doc.data().numOfDays);
         });
         this.setState({
             habits,
@@ -74,7 +75,7 @@ export default class HabitPage extends Component {
                     renderItem={({item}) =>
                         <HabitView
                             name={item.name}
-                            date={item.startDate}
+                            numOfDays={item.numOfDays}
                             description={item.description}
                             id = {item.habitId}
                         />

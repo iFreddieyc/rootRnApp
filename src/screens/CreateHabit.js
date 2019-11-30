@@ -59,7 +59,7 @@ export default class CreateHabit extends Component {
             try {
                 let userid = db.auth().currentUser.uid;
                 let startDate = util.getCurrentDate();
-                let habit = new Habit(name, userid, startDate, description, visible, "",false);
+                let habit = new Habit(name, userid, startDate, description, visible, 0,false);
                 habit.pushToFirestore()
                     .then(this.props.navigation.navigate('Habits'))
                     .catch(function(error){
