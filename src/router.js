@@ -10,16 +10,16 @@ import {createSwitchNavigator} from "react-navigation";
 import Loading from "./auth/Loading";
 import SignUp from "./auth/SignUp";
 import SignIn from "./auth/SignIn";
-import HabitPage from "./views/HabitPage";
-import Profile from "./views/Profile";
-import Ranking from "./views/Ranking";
-import CreateHabit from "./views/CreateHabit";
-import EditProfile from "./views/EditProfile";
-import Friends from "./views/Friends";
-import FriendRequests from "./views/FriendRequests";
+import forgetPassword from "./auth/forgetPassword";
+import HabitPage from "./screens/HabitPage";
+import Profile from "./screens/Profile";
+import Ranking from "./screens/Ranking";
+import CreateHabit from "./screens/CreateHabit";
+import EditProfile from "./screens/EditProfile";
+import Friends from "./screens/Friends";
+import FriendRequests from "./screens/FriendRequests";
 import EditHabit from "./screens/EditHabit";
-import HabitView from "./screens/HabitView";
-import forgetPassword from "./authFlow/forgetPassword";
+import HabitView from "./views/HabitView";
 
 // Stack Navigator for HabitPage and CreateHabit
 export const HabitNavigator = createStackNavigator({

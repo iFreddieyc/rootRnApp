@@ -23,7 +23,7 @@ export default class AddFriend extends Component {
      * Updates the state with the username query so that it can be used to query Cloud Firestore
      */
     handleChangeText = (text) => {
-        this.setState({userquery: text,});
+        this.setState({usernameQuery: text,});
     }
 
     /**

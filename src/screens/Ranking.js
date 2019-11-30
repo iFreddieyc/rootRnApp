@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 
 import db from "../base";
-import RankView from "./RankView";
+import RankView from "../views/RankView";
 import Habit from "../data/Habit";
 import util from "../util";
 

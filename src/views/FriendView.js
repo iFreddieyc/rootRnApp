@@ -13,9 +13,11 @@ export default class FriendView extends Component {
     }
 
     render() {
-        // TODO: Check if functions need to be called in this way.
         switch (this.props.type) {
-            case "incoming":
+            case "incomingRequest":
+                // This class is responsible for calling the provided handlers with the friend's userid. However, we
+                //  don't want to call the function every time it is bound to the onPress attribute, so we create an
+                //  anonymous function to wrap the function.
                 return (
                     <View style={styles.container}>
                         <Text style={styles.container}>{this.props.friendUserid}</Text>
@@ -23,7 +25,7 @@ export default class FriendView extends Component {
                         <Button title={"Decline"} onPress={() => {this.props.handleDecline(this.props.friendUserid)}}/>
                     </View>
                 );
-            case "outgoing":
+            case "outgoingRequest":
                 return (
                     <View style={styles.container}>
                         <Text style={styles.authorName}>{this.props.friendUserid}</Text>

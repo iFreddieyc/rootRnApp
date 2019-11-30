@@ -4,9 +4,8 @@
  * @since  11.23.2019
  */
 import React, {Component} from 'react';
-import {StyleSheet, SafeAreaView, Button, Text, Alert} from 'react-native';
+import {StyleSheet, SafeAreaView, Button, Text} from 'react-native';
 import db from "../base";
-import util from "../util";
 import AddFriend from "./AddFriend";
 
 export default class Friends extends Component {
@@ -51,7 +50,7 @@ export default class Friends extends Component {
             <SafeAreaView style={styles.container}>
                 <Text>Friends:</Text>
                 <AddFriend/>
-                <Text style={{left:0, top: '40%', fontFamily: 'Cochin', fontWeight: 'bold', fontSize: 16}}>{this.state.friends}</Text>
+                <Text>{this.state.friends}</Text>
             </SafeAreaView>
         );
     }

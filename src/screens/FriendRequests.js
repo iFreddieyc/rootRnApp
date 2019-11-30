@@ -5,14 +5,10 @@
  */
 import React, {Component} from 'react';
 import {StyleSheet, SafeAreaView, TextInput, Button, Text, Alert, Picker, Switch, ActivityIndicator, FlatList} from 'react-native';
-import db from "../base";
-import FriendView from "./FriendView";
-
-// TODO: Figure out TODO statements for firebase FieldValue lines
+// TODO: Figure out a way to optimize the import statement for FieldValue#arrayUnion and #arrayRemove.
 import * as firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/firestore';
-import 'firebase/storage';
+import db from "../base";
+import FriendView from "../views/FriendView";
 
 export default class FriendRequests extends Component {
 
@@ -23,6 +19,7 @@ export default class FriendRequests extends Component {
             outgoing: [],
         };
 
+        // TODO: Figure out if there is a way for us to only need to query the userid once.
         this.userDocumentRef = db.firestore().collection("users").doc(db.auth().currentUser.uid);
     }
 
@@ -55,17 +52,16 @@ export default class FriendRequests extends Component {
     /* Incoming Friend Requests */
 
     handleAccept = (friendUserid) => {
-        // Atomically move the sender's userid from the current user's "incoming" array field to the current user's
-        //  "friends" array field
+        // Atomically move the friend's (sender) userid from the current user's (receiver) "incoming" array field to the
+        //  current user's (receiver) "friends" array field
         // Source: https://cloud.google.com/firestore/docs/manage-data/add-data#update_elements_in_an_array
         this.userDocumentRef.update({
             incoming: firebase.firestore.FieldValue.arrayRemove(friendUserid),
             friends: firebase.firestore.FieldValue.arrayUnion(friendUserid),
         })
 
-        // Performs the user query and atomically move the current user's (receiver) userid from the sender's "outgoing"
-        //  array field to the sender's "friends" array field
-        // Source: https://cloud.google.com/firestore/docs/manage-data/add-data#update_elements_in_an_array
+        // Performs the user query and atomically move the current user's (receiver) userid from the friend's (sender)
+        //  "outgoing" array field to the friend's (sender) "friends" array field
         const friendDocumentRef = db.firestore().collection("users").doc(friendUserid);
         friendDocumentRef.update({
             outgoing: firebase.firestore.FieldValue.arrayRemove(db.auth().currentUser.uid),
@@ -74,27 +70,41 @@ export default class FriendRequests extends Component {
     }
 
     handleDecline = (friendUserid) => {
-        // Atomically remove the sender's userid from the current user's "incoming" array field
-        // Source: https://cloud.google.com/firestore/docs/manage-data/add-data#update_elements_in_an_array
+        // Atomically remove the friend's (sender) userid from the current user's (receiver) "incoming" array field
         this.userDocumentRef.update({
             incoming: firebase.firestore.FieldValue.arrayRemove(friendUserid),
         })
 
-        // Performs the user query and atomically remove the current user's (receiver) userid from the sender's
+        // Performs the user query and atomically remove the current user's (receiver) userid from the friend's (sender)
         //  "outgoing" array field
-        // Source: https://cloud.google.com/firestore/docs/manage-data/add-data#update_elements_in_an_array
         const friendDocumentRef = db.firestore().collection("users").doc(friendUserid);
         friendDocumentRef.update({
             outgoing: firebase.firestore.FieldValue.arrayRemove(db.auth().currentUser.uid),
         })
     }
 
-    /* TODO: Outgoing Friend Requests */
+    /* Outgoing Friend Requests */
 
-    handleRemind = () => {}
-    handleCancel = () => {}
+    handleRemind = () => {
+        // TODO: Send a push notification. Disable Remind button for 24 hours.
+    }
+
+    handleCancel = (friendUserid) => {
+        // Atomically remove the friend's (receiver) userid from the current user's (sender) "outgoing" array field
+        this.userDocumentRef.update({
+            outgoing: firebase.firestore.FieldValue.arrayRemove(friendUserid),
+        })
+
+        // Performs the user query and atomically remove the current user's (sender) userid from the friend's (receiver)
+        //  "incoming" array field
+        const friendDocumentRef = db.firestore().collection("users").doc(friendUserid);
+        friendDocumentRef.update({
+            incoming: firebase.firestore.FieldValue.arrayRemove(db.auth().currentUser.uid),
+        })
+    }
 
     render() {
+        // TODO: Figure out keyExtractor attribute.
         return (
             <SafeAreaView style={styles.container} forceInset={{bottom: 'never'}}>
                 <FlatList
@@ -102,7 +112,7 @@ export default class FriendRequests extends Component {
                     renderItem={({item}) =>
                         <FriendView
                             friendUserid={item}
-                            type="incoming"
+                            type="incomingRequest"
                             handleAccept={this.handleAccept}
                             handleDecline={this.handleDecline}
                         />
@@ -114,7 +124,7 @@ export default class FriendRequests extends Component {
                     renderItem={({item}) =>
                         <FriendView
                             friendUserid={item}
-                            type="outgoing"
+                            type="outgoingRequest"
                             handleRemind={this.handleRemind}
                             handleCancel={this.handleCancel}
                         />

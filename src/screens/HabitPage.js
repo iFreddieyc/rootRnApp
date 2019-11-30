@@ -15,7 +15,7 @@ import {
 } from 'react-native';
 
 import db from "../base";
-import HabitView from "./HabitView";
+import HabitView from "../views/HabitView";
 
 export default class HabitPage extends Component {
 
