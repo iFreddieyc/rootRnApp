@@ -4,8 +4,13 @@
  * @since 11.3.2019
  */
 import React, {Component} from 'react';
+<<<<<<< HEAD
 import {StyleSheet, View, TextInput, Button, Text, Alert, Picker, Switch} from 'react-native';
 import Habit from "../data/Habit";
+=======
+import {StyleSheet, View, TextInput, Button, Text, Alert, Switch} from 'react-native';
+import Habit from "../Habit";
+>>>>>>> master
 import db from "../base";
 import util from "../util";
 
@@ -59,7 +64,7 @@ export default class CreateHabit extends Component {
             try {
                 let userid = db.auth().currentUser.uid;
                 let startDate = util.getCurrentDate();
-                let habit = new Habit(name, userid, startDate, description, visible, "",false);
+                let habit = new Habit(name, userid, startDate, description, visible, 0,false);
                 habit.pushToFirestore()
                     .then(this.props.navigation.navigate('Habits'))
                     .catch(function(error){
@@ -93,7 +98,7 @@ export default class CreateHabit extends Component {
                             fontSize: 16
                         }}>Name:</Text>
                         <TextInput style={styles.input}
-                                   placeholder=""
+                                   placeholder=" "
                                    autoCapitalize={"none"}
                                    onChangeText={val => this.onChangeText('name', val)}
                         />
@@ -109,7 +114,7 @@ export default class CreateHabit extends Component {
                             fontWeight: 'bold',
                             fontSize: 16
                         }}>Description:</Text>
-                        <TextInput style={styles.input}
+                        <TextInput style={styles.description}
                                    placeholder=" "
                                    autoCapitalize={"none"}
                                    onChangeText={val => this.onChangeText('description', val)}
@@ -118,21 +123,23 @@ export default class CreateHabit extends Component {
                         />
                     </View>
                     <Text> </Text>
-                    <Text style={{left: 0, top: '5%', fontFamily: 'Cochin', fontWeight: 'bold', fontSize: 16}}>Visible
+                    <Text style={{left: 0, top: '10%', fontFamily: 'Cochin', fontWeight: 'bold', fontSize: 16}}>Visible
                         to friends?</Text>
-                    <View style={{top: '5%'}}>
+                    <View style={{top: '12%'}}>
                         <Switch onValueChange={this.toggleSwitch}
                                 value={this.state.visible}
                         />
                     </View>
-                    <View style={{bottom: '-15%'}}>
-                        <Button
-                            title={"Confirm"}
-                            onPress={this.handleConfirm}
-                        />
+                    <View style={styles.buttons}>
                         <Button
                             title={"Cancel"}
+                            color="blue"
                             onPress={this.handleCancel}
+                        />
+                        <Button
+                            title={"Confirm"}
+                            color="green"
+                            onPress={this.handleConfirm}
                         />
                     </View>
                 </View>
@@ -143,14 +150,31 @@ export default class CreateHabit extends Component {
 
 // UI Design
 const styles = StyleSheet.create({
+    buttons: {
+        flex: 1,
+        position: 'absolute',
+        bottom: '10%',
+        flexDirection: 'row',
+    },
     input: {
-        width: 200,
+        width: 220,
         height: 30,
         top: '40%',
         justifyContent: 'center',
         alignItems: 'center',
-        borderBottomWidth: 2,
-        borderBottomColor: 'black'
+        borderRadius: 10,
+        borderWidth: 2,
+        borderColor: '#D4DBAD',
+    },
+    description: {
+        width: 220,
+        height: 60,
+        top: '40%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 10,
+        borderWidth: 2,
+        borderColor: '#D4DBAD',
     },
     container: {
         flex: 1,
@@ -159,11 +183,13 @@ const styles = StyleSheet.create({
         backgroundColor: '#D4DBAD'
     },
     littleContainer: {
-        height: '50%',
+        position: 'absolute',
+        height: '65%',
         width: '80%',
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#E0EBCB'
+        backgroundColor: '#E0EBCB',
+        borderRadius: 15,
     }
 });

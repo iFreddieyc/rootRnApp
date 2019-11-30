@@ -4,32 +4,78 @@
  */
 import React, {Component} from 'react';
 import {
-    FlatList,
     StyleSheet,
     View,
-    TextInput,
     Button,
     Text,
     Modal,
+    SafeAreaView,
     TouchableHighlight,
-    TouchableOpacity
+    Alert,
 } from 'react-native';
-import { withNavigation } from 'react-navigation';
+import {withNavigation} from 'react-navigation';
 import util from "../util";
+import db from "../base";
 
 class HabitView extends Component {
     constructor(props) {
         super(props);
+        this.state = {modalVisible: false};
     }
 
-    days = util.getDifference(this.props.date)
+    setModalVisible(visible) {
+        this.setState({modalVisible: visible});
+    }
 
     handleOnPress = () => {
-        console.log(this.props.description);
+        this.setModalVisible(true);
     }
 
     handleEdit = () => {
         this.props.navigation.navigate('Edit', {text: this.props.id});
+    }
+
+    /**
+     * EventHandler when the user click yes(checkoff)
+     * Function should check if the latest checkoff date is at least one day earlier than current date.
+     * If so, increment the numOfDays inside database and the latest field to the current date.
+     * Otherwise, alert the user that they can only checkoff once a day.
+     */
+    handleYes = () => {
+        let docRef = db.firestore().collection("habits").doc(this.props.id)
+        docRef.get().then(function (doc) {
+            if (doc.exists) {
+                let latest = doc.data().latest;
+                let days = doc.data().numOfDays;
+                if (latest === "" || util.getDifference(latest) > 1) {
+                    docRef.update({
+                        latest: util.getCurrentDate(),
+                        numOfDays: days + 1
+                    })
+                        .then(() => {
+                                console.log("Updated latest successful, current value is:" + util.getCurrentDate());
+                            }
+                        ).catch((error) => {
+                        console.log("Error updating document" + error);
+                    })
+                } else {
+                    Alert.alert(
+                        'Alert',
+                        'You can only checkoff once a day',
+                        [
+                            {text: 'OK', onPress: () => console.log("Ok Pressed")}
+                        ],
+                        {cancelable: false},
+                    );
+                }
+
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        }).catch(function (error) {
+            console.log("Error getting document:", error);
+        });
     }
 
     render() {
@@ -42,16 +88,52 @@ class HabitView extends Component {
                         {this.props.name}
                     </Text>
                     <Text style={styles.habitDate}>
-                        {this.days}
+                        {"" + (this.props.numOfDays)}
                     </Text>
                     <View style={styles.editButton}>
-                    <Button
-                        style={{width:50, height: 50}}
-                        title={"..."}
-                        onPress={this.handleEdit}
-                    />
+                        <Button
+                            style={{width: 50, height: 50}}
+                            title={"..."}
+                            onPress={this.handleEdit}
+                        />
                     </View>
+                    <Modal
+                        animationType="slide"
+                        transparent={true}
+                        visible={this.state.modalVisible}
+                        onRequestClose={() => {
+                            Alert.alert('Modal has been closed.');
+                        }}>
+                        <SafeAreaView style={styles.modalContent}>
+                            <Button
+                                title={"Back"}
+                                onPress={() => {
+                                    this.setModalVisible(!this.state.modalVisible);
+                                }}
+                            />
+                            <Text>
+                                {this.props.name}
+                            </Text>
+                            <Text>
+                                {this.props.description}
+                            </Text>
+                            <Text>
+                                Have you finished this habit today?
+                            </Text>
+                            <Button
+                                title="Yes"
+                                onPress={this.handleYes}
+                            />
+                            <Button
+                                title="Not yet"
+                                onPress={() => {
+                                    this.setModalVisible(!this.state.modalVisible);
+                                }}
+                            />
+                        </SafeAreaView>
+                    </Modal>
                 </View>
+
             </TouchableHighlight>
         );
 
@@ -62,7 +144,7 @@ class HabitView extends Component {
 export default withNavigation(HabitView);
 
 const styles = StyleSheet.create({
-    editButton:{
+    editButton: {
         //flex:1,
         //flexDirection:'row',
         position: 'absolute',
@@ -99,5 +181,17 @@ const styles = StyleSheet.create({
         fontFamily: 'Cochin',
         top: '30%',
         left: 10
+    },
+    modalContent: {
+        marginTop: 300,
+        marginLeft: 50,
+        marginRight: 50,
+        height: 300,
+        backgroundColor: "white",
+        padding: 22,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 10,
+        borderColor: "rgba(0, 0, 0, 0.1)"
     }
 });

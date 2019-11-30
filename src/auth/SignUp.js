@@ -1,9 +1,9 @@
 /**
- * SignUp screen class file, to sign up a user.
- * @author Qingcheng You
- * @since 10.31.2019
- */
-import React, {Component} from 'react';
+     * SignUp screen class file, to sign up a user.
+     * @author Qingcheng You
+     * @since 10.31.2019
+     */
+    import React, {Component} from 'react';
 import {StyleSheet, View, TextInput, Button, Text, Alert, Image} from 'react-native';
 import db from "../base";
 import * as firebase from 'firebase/app';
@@ -131,7 +131,8 @@ const styles = StyleSheet.create({
         width: 250,
         height: 30,
         backgroundColor: '#E0EBCB',
-        top: -40
+        top: -40,
+        borderRadius: 10
     },
     container: {
         flex: 1,
