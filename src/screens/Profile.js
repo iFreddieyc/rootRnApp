@@ -21,35 +21,6 @@ export default class Profile extends Component {
         }
     }
 
-    // componentDidMount() {
-    //     console.log("CDM");
-    //     let promise = new Promise((resolve, reject) => {
-    //         var id = db.auth().currentUser.uid;
-    //         docRef = db.firestore().collection('users').doc(id);
-    //         docRef.onSnapshot(function (doc) {
-    //             if (doc.exists) {
-    //                 console.log(doc.data);
-    //                 resolve(doc.data());
-    //             } else {
-    //                 console.log("No such document!");
-    //             }
-    //         }).catch(function (error) {
-    //             console.log("Error getting document:", error);
-    //         });
-    //     })
-    //     promise.then((docData) => {
-    //         console.log("------")
-    //         console.log(docData);
-    //         console.log(docData());
-    //         console.log("------")
-    //         this.setState({
-    //             username: docData.userName,
-    //             email: docData.email,
-    //             phoneNumber: docData.phoneNumber
-    //         })
-    //     })
-    // }
-
     componentDidMount(){
         this.ref.onSnapshot(this.reloadProfile);
     }
@@ -73,7 +44,9 @@ export default class Profile extends Component {
         )
     }
 
-
+    handleSetNotif = () => {
+        this.props.navigation.navigate('Notif');
+    }
 
     render(){
         return(
@@ -91,6 +64,10 @@ export default class Profile extends Component {
                 <Image
                     style={{width: 50, height: 50}}
                     source={{uri: 'https://facebook.github.io/react-native/img/tiny_logo.png'}}
+                />
+                <Button
+                    title={"Click me set notification"}
+                    onPress={this.handleSetNotif}
                 />
             </View>
         )

@@ -19,6 +19,7 @@ import HabitView from "./screens/HabitView";
 import forgetPassword from "./authFlow/forgetPassword";
 import Welcome from "./screens/Welcome";
 import EditProfile from "./screens/EditProfile";
+import Notification from "./Notification";
 
 // Stack Navigator for HabitPage and CreateHabit
 export const HabitNavigator = createSwitchNavigator({
@@ -56,6 +57,9 @@ export const ProfileNavigator = createStackNavigator({
     },
     EditProfile: {
         screen: EditProfile,
+    },
+    Notif:{
+        screen: Notification,
     }
 }, {
     initialRouteName: "Profile"
