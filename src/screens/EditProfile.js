@@ -98,26 +98,30 @@ export default class EditProfile extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Image source={{uri: this.state.filePath}} style={{width: 200, height: 200}}/>
-                <Text>Name:</Text>
-                <TextInput style={styles.input}
-                           placeholder="Name"
-                           autoCapitalize={"none"}
-                           onChangeText={val => this.onChangeText('name', val)}
-                />
-                <Button
-                    title={"Save Change"}
-                    onPress={this.saveProfile}
-
-                />
+                <View style={styles.picture}>
+                <Image source={{uri: this.state.filePath}} style={{width: 100, height: 100, borderRadius:20}}/>
                 <Button
                     title={"Upload Picture"}
                     onPress={(e) => {
                         this.onChooseImagePress();
                     }}
                 />
+                </View>
+                <View style={styles.name}>
                 <TextInput style={styles.input}
-                           placeholder="New Password"
+                           placeholder="What's Your New Name?"
+                           autoCapitalize={"none"}
+                           onChangeText={val => this.onChangeText('name', val)}
+                />
+                <Button
+                    title={"Save New Name"}
+                    onPress={this.saveProfile}
+
+                />
+                </View>
+                <View style={styles.password}>
+                <TextInput style={styles.input}
+                           placeholder="What's Your New Password?"
                            secureTextEntry={true}
                            autoCapitalize={"none"}
                            onChangeText={val => this.onChangeText('password', val)}
@@ -131,6 +135,7 @@ export default class EditProfile extends Component {
                         this.props.navigation.navigate('Profile');
                     }}
                 />
+                </View>
             </View>
         );
     }
@@ -139,13 +144,36 @@ export default class EditProfile extends Component {
 
 // UI Design TODO
 const styles = StyleSheet.create({
+    picture: {
+        position: 'absolute',
+        top: '10%',
+        alignItems: 'center',
+    },
+    name: {
+        position: 'absolute',
+        top: '35%',
+        alignItems: 'center',
+    },
+    password: {
+        position: 'absolute',
+        top: '50%',
+        alignItems: 'center',
+    },
     input: {
-        width: 350,
-        height: 55
+        width: 288,
+        height: 37,
+        backgroundColor: '#E0EBCB',
+        justifyContent: 'center',
+        borderRadius: 10,
+        fontSize: 20,
+        fontFamily: 'Cochin',
+        fontWeight: 'bold',
+        margin: 10,
     },
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: '#D4DBAD'
     }
 });

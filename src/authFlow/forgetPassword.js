@@ -59,22 +59,25 @@ export default class ForgotPassword extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.inputTitle}>Enter your Email:</Text>
+                <Text style={styles.inputTitle}>Please Enter your Email:</Text>
                 <TextInput style={styles.input}
                            placeholder=" Email"
                            autoCapitalize={"none"}
                            onChangeText={val => this.onChangeText('email', val)}
                 />
-                <Button
+                <View style={styles.buttons}>
+                    <Button
+                        title={"Back"}
+                        color="blue"
+                        onPress={()=> this.props.navigation.navigate("SignIn")}
+                    />
+                    <Button
                     title={"Send"}
+                    color="green"
                     onPress={
-
                         this.handleForgotPassword}
-                />
-                <Button
-                    title={"Back"}
-                    onPress={()=> this.props.navigation.navigate("SignIn")}
-                />
+                    />
+                </View>
             </View>
         );
     }
@@ -84,13 +87,23 @@ const styles = StyleSheet.create({
     inputTitle: {
         width: 250,
         height: 30,
-        alignItems: 'center'
+        alignItems: 'center',
+        fontFamily: 'Cochin',
+        fontSize: 20
+    },
+    buttons: {
+        flex: 1,
+        position: 'absolute',
+        bottom: '35%',
+        flexDirection: 'row',
     },
     input: {
         width: 250,
         height: 30,
         backgroundColor: '#E0EBCB',
-        alignItems: 'center'
+        alignItems: 'center',
+        fontFamily: 'Cochin',
+        borderRadius: 10,
     },
     container: {
         flex: 1,
