@@ -101,10 +101,6 @@ export default class FriendHabitList extends Component {
                     }
                     keyExtractor={(item, index) => index.toString()}
                 />
-                <Button
-                    onPress={this.directToCreateNewHabit}
-                    title={"+"}
-                />
             </SafeAreaView>
         );
     }
