@@ -48,9 +48,7 @@ export default class Friends extends Component {
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                <Text>Friends:</Text>
                 <AddFriend/>
-                <Text>{this.state.friends}</Text>
             </SafeAreaView>
         );
     }

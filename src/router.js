@@ -21,6 +21,9 @@ import FriendRequests from "./screens/FriendRequests";
 import EditHabit from "./screens/EditHabit";
 import HabitView from "./views/HabitView";
 import Notification from "./Notification";
+import FriendProfileView from "./screens/FriendProfileView";
+import FriendList from "./screens/FriendList";
+import FriendHabitList from "./screens/FriendHabitList";
 import Welcome from "./screens/Welcome";
 
 // Stack Navigator for HabitPage and CreateHabit
@@ -69,7 +72,17 @@ export const ProfileNavigator = createStackNavigator({
     },
     Notif:{
         screen: Notification,
+    },
+    Friend: {
+        screen: FriendList,
+    },
+    FriendView: {
+        screen: FriendProfileView,
+    },
+    FriendHabit: {
+        screen: FriendHabitList,
     }
+
 }, {
     initialRouteName: "Profile"
 })

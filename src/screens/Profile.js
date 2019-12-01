@@ -62,16 +62,16 @@ export default class Profile extends Component {
                 <Text style={styles.info}>{this.state.username}</Text>
                 <Text style={styles.info}>{this.state.email}</Text>
                 <Button
-                    title={"EditProfile"}
+                    title={"Edit Profile"}
                     onPress={()=> this.props.navigation.navigate("EditProfile")}
                 />
                 <Button
-                    title="Edit Profile"
-                    onPress={this.handleEditProfile}
+                    title="Add Friends"
+                    onPress={this.handleFriends}
                 />
                 <Button
-                    title="Friends"
-                    onPress={this.handleFriends}
+                    title ="My Friends"
+                    onPress={()=> this.props.navigation.navigate("Friend", {props: this.props.navigation})}
                 />
                 <Button
                     title="Friend Requests"
