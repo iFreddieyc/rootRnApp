@@ -1,14 +1,5 @@
 /**
  * This is the Profile screen class file.
-<<<<<<< HEAD
- * @author Mufan Lei TODO
- * @since 11.8.2019
- */
-import React, { Component } from 'react';
-import { FlatList, StyleSheet, SafeAreaView, View, TextInput, Button, Text, Alert } from 'react-native';
-import db from "../base";
-import * as firebase from 'firebase/app';
-=======
  * @author Mufan Lei, Yining Chen, Yiyun Zhang
  * @since 11.8.2019
  */
@@ -20,8 +11,6 @@ import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 
->>>>>>> master
-
 export default class EditProfile extends Component {
 
     /**
@@ -30,13 +19,7 @@ export default class EditProfile extends Component {
      */
     constructor(props) {
         super(props);
-<<<<<<< HEAD
-        this.state = {name: '', phoneNum:-1};
-        //fileButton.addEventListener('change', function(e) {})
-=======
         this.state = {name: '', password: '', filePath: ''};
-
->>>>>>> master
     }
 
     /**
@@ -48,13 +31,6 @@ export default class EditProfile extends Component {
         this.setState({[key]: val});
     }
 
-<<<<<<< HEAD
-    saveProfile() {
-      const {name, phoneNum} = this.state;
-      var usersRef = db.firestore().collection('users');
-      var userRef = usersRef.where('userid', '==', db.auth().currentUser.uid);
-      userRef.update({name:name,phoneNum:phoneNum});
-=======
     onChooseImagePress = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -115,47 +91,11 @@ export default class EditProfile extends Component {
             userName: name
         });
         this.props.navigation.navigate('Profile');
->>>>>>> master
     }
 
     render() {
         return (
             <View style={styles.container}>
-<<<<<<< HEAD
-                <Text>Name:</Text>
-                <TextInput style={styles.input}
-                           placeholder="Name"
-                           autoCapitalize={"none"}
-                           onChangeText={val => this.onChangeText('name', val)}
-                />
-                <Text>Password:</Text>
-                <TextInput style={styles.input}
-                           placeholder="phoneNum"
-                           secureTextEntry={true}
-                           autoCapitalize={"none"}
-                           onChangeText={val => this.onChangeText('phoneNum', val)}
-                />
-                <Button
-                    title={"Save Change"}
-                    onPress={this.saveProfile}
-                />
-                <Button
-                    title={"Upload Picture"}
-                    onchange={(e) => {
-                        var file = e.target.files[0];
-                        var filePath = 'pics/'+file.name;
-                        var storageRef = firebase.storage().ref(filePath);
-                        var task = storageRef.put(file);
-                        var usersRef = db.firestore().collection('users');
-                        var userRef = usersRef.where('userid', '==', db.auth().currentUser.uid);
-                        userRef.update({userPicUrl:filePath});
-                    }}
-                />
-            </View>
-        );
-    }
-  
-=======
                 <View style={styles.picture}>
                 <Image source={{uri: this.state.filePath}} style={{width: 100, height: 100, borderRadius:20}}/>
                 <Button
@@ -197,17 +137,10 @@ export default class EditProfile extends Component {
             </View>
         );
     }
-
->>>>>>> master
 }
 
 // UI Design TODO
 const styles = StyleSheet.create({
-<<<<<<< HEAD
-    input: {
-        width: 350,
-        height: 55
-=======
     picture: {
         position: 'absolute',
         top: '10%',
@@ -233,18 +166,11 @@ const styles = StyleSheet.create({
         fontFamily: 'Cochin',
         fontWeight: 'bold',
         margin: 10,
->>>>>>> master
     },
     container: {
         flex: 1,
         justifyContent: 'center',
-<<<<<<< HEAD
-        alignItems: 'center'
-    }
-});
-=======
         alignItems: 'center',
         backgroundColor: '#D4DBAD'
     }
 });
->>>>>>> master

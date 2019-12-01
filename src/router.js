@@ -19,23 +19,13 @@ import EditProfile from "./screens/EditProfile";
 import Friends from "./screens/Friends";
 import FriendRequests from "./screens/FriendRequests";
 import EditHabit from "./screens/EditHabit";
-<<<<<<< HEAD
 import HabitView from "./views/HabitView";
+import Notification from "./Notification";
+import Welcome from "./screens/Welcome";
 
 // Stack Navigator for HabitPage and CreateHabit
 export const HabitNavigator = createStackNavigator({
     Habits:{
-=======
-import HabitView from "./screens/HabitView";
-import forgetPassword from "./authFlow/forgetPassword";
-import Welcome from "./screens/Welcome";
-import EditProfile from "./screens/EditProfile";
-import Notification from "./Notification";
-
-// Stack Navigator for HabitPage and CreateHabit
-export const HabitNavigator = createSwitchNavigator({
-    Habits: {
->>>>>>> master
         screen: HabitPage,
     },
     CreateNew: {
@@ -60,14 +50,9 @@ export const SignedOut = createSwitchNavigator({
     initialRouteName: 'SignIn'
 });
 
-<<<<<<< HEAD
 // Profile Screen
 export const ProfileNavigator = createStackNavigator({
     Profile: {
-=======
-export const ProfileNavigator = createStackNavigator({
-    Profile:{
->>>>>>> master
         screen: Profile,
         navigationOptions: () => ({
             headerBackTitle: 'Cancel',
@@ -76,24 +61,18 @@ export const ProfileNavigator = createStackNavigator({
     EditProfile: {
         screen: EditProfile,
     },
-<<<<<<< HEAD
     Friends: {
         screen: Friends,
     },
     FriendRequests: {
         screen: FriendRequests,
     },
-}, {
-    initialRouteName: "Profile"
-});
-=======
     Notif:{
         screen: Notification,
     }
 }, {
     initialRouteName: "Profile"
 })
->>>>>>> master
 
 // Tab Navigator for HabitNavigator, Ranking and Profile
 export const Tabs = createBottomTabNavigator({

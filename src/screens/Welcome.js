@@ -106,7 +106,7 @@ export default class Welcome extends Component {
 
         return (
             <View style={styles.container}>
-                <Image source={require('../authFlow/my-icon.png')} style={{width: 150, height: 150, position: 'absolute', top: '20%', opacity: 0.8 }} />
+                <Image source={require('../auth/my-icon.png')} style={{width: 150, height: 150, position: 'absolute', top: '20%', opacity: 0.8 }} />
                 <Text style={styles.title}>
                     Welcome to Root!
                 </Text>
