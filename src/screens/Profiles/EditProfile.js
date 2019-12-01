@@ -5,7 +5,7 @@
  */
 import React, {Component} from 'react';
 import {FlatList, StyleSheet, SafeAreaView, View, TextInput, Button, Text, Alert, Image} from 'react-native';
-import db from "../base";
+import db from "../../base";
 import * as firebase from 'firebase/app';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';

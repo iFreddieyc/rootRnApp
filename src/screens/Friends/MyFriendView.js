@@ -16,7 +16,7 @@ import {
     Image
 } from 'react-native';
 
-import db from "../base";
+import db from "../../base";
 import { withNavigation } from 'react-navigation';
 
 export default class MyFriendView extends Component {

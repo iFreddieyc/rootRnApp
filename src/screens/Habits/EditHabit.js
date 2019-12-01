@@ -6,7 +6,7 @@
 
 import React, {Component} from 'react';
 import {StyleSheet, View, Button, Text, Alert, SafeAreaView, Switch, ActivityIndicator} from 'react-native';
-import db from "../base";
+import db from "../../base";
 
 export default class EditHabit extends Component {
     constructor(props) {

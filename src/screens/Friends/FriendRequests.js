@@ -7,8 +7,8 @@ import React, {Component} from 'react';
 import {StyleSheet, SafeAreaView, TextInput, Button, Text, Alert, Picker, Switch, ActivityIndicator, FlatList} from 'react-native';
 // TODO: Figure out a way to optimize the import statement for FieldValue#arrayUnion and #arrayRemove.
 import * as firebase from 'firebase/app';
-import db from "../base";
-import FriendView from "../views/FriendView";
+import db from "../../base";
+import FriendView from "./FriendView";
 
 export default class FriendRequests extends Component {
 

@@ -15,8 +15,8 @@ import {
 } from 'react-native';
 
 import {withNavigation} from 'react-navigation';
-import util from "../util";
-import db from "../base";
+import util from "../../util";
+import db from "../../base";
 
 class HabitView extends Component {
     constructor(props) {

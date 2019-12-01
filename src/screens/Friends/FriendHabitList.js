@@ -14,8 +14,8 @@ import {
 } from 'react-native';
 
 import { withNavigation } from 'react-navigation';
-import db from "../base";
-import HabitViewFriend from "../views/HabitViewFriend";
+import db from "../../base";
+import HabitViewFriend from "../Habits/HabitViewFriend";
 
 
 export default class FriendHabitList extends Component {

@@ -14,8 +14,8 @@ import {
     ActivityIndicator
 } from 'react-native';
 
-import db from "../base";
-import MyFriendView from "../views/MyFriendView";
+import db from "../../base";
+import MyFriendView from "./MyFriendView";
 import { withNavigation } from 'react-navigation';
 
 

@@ -14,8 +14,8 @@ import {
     ActivityIndicator
 } from 'react-native';
 
-import db from "../base";
-import HabitView from "../views/HabitView";
+import db from "../../base";
+import HabitView from "./HabitView";
 
 export default class HabitPage extends Component {
 

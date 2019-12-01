@@ -13,9 +13,9 @@ import {
     ActivityIndicator
 } from 'react-native';
 
-import db from "../base";
+import db from "../../base";
 import { withNavigation } from 'react-navigation';
-import util from "../util";
+import util from "../../util";
 
 
 export default class FriendsProfile extends Component {
@@ -88,11 +88,6 @@ const styles = StyleSheet.create({
         margin: 10
    },
    habitContainer: {
-   /*
-        flex: 1,
-        marginTop: '5%',
-        marginBottom: '5%',
-    */
         width: 350,
         height: 80,
         borderRadius: 6,
@@ -124,18 +119,3 @@ const styles = StyleSheet.create({
         right: 10,
     }
 });
-/*
-  <View>
-                 <FlatList
-                    data={this.state.habits}
-                    renderItem={({item}) =>
-                        <HabitViewFriend
-                            name={item.name}
-                            date={item.startDate}
-                            description={item.description}
-                        />
-                    }
-                    keyExtractor={(item, index) => index.toString()}
-                 />
-            </View>
-*/

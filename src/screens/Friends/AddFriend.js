@@ -5,7 +5,7 @@
  */
 import React, {Component} from 'react';
 import {StyleSheet, SafeAreaView, TextInput, Button, Alert} from 'react-native';
-import db from "../base";
+import db from "../../base";
 
 export default class AddFriend extends Component {
 

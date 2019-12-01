@@ -5,9 +5,9 @@
  */
 import React, {Component} from 'react';
 import {StyleSheet, View, TextInput, Button, Text, Alert, Switch} from 'react-native';
-import Habit from "../data/Habit";
-import db from "../base";
-import util from "../util";
+import Habit from "../../data/Habit";
+import db from "../../base";
+import util from "../../util";
 
 export default class CreateHabit extends Component {
     /**

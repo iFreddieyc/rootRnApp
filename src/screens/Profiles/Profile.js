@@ -5,7 +5,7 @@
  */
 import React, {Component} from 'react';
 import { StyleSheet, Text, View, Button,Image } from 'react-native';
-import db from "../base";
+import db from "../../base";
 
 export default class Profile extends Component {
     constructor(props){
@@ -83,7 +83,7 @@ export default class Profile extends Component {
                 />
                 <Image
                     style={{width: 50, height: 50}}
-                    source={require('../auth/my-icon.png')}
+                    source={require('../../auth/my-icon.png')}
                 />
                 <Button
                     title={"Click me set notification"}

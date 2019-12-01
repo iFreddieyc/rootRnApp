@@ -17,6 +17,7 @@ import db from "../base";
 import RankView from "../views/RankView";
 import Habit from "../data/Habit";
 import util from "../util";
+import {ImageWrapper} from "../screens/ImageWrapper.js";
 
 export default class Ranking extends Component {
 
@@ -100,7 +101,7 @@ export default class Ranking extends Component {
                 .then(function (querySnapshot) {
                     querySnapshot.forEach(function (doc) {
                         let currentDuration = util.getDifference(doc.data().numOfDays);
-                        if (doc.exists && (highestDuration < currentDuration)) {
+                        if (doc.exists && (highestDuration <= currentDuration)) {
                             habit = new Habit(doc.data().name, doc.data().userid, doc.data().startDate,
                                 doc.data().description, doc.data().visible,
                                 doc.data().numOfDays, doc.data().archived);
@@ -135,7 +136,7 @@ export default class Ranking extends Component {
                         data={this.state.ranking}
                         renderItem={({item}) =>
                             <RankView
-                                authorName={item.userid}
+                                userId={item.userid}
                                 habitName={item.name}
                                 duration={item.duration}
                             />
