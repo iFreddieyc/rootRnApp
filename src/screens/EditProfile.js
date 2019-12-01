@@ -4,15 +4,12 @@
  * @since 11.8.2019
  */
 import React, {Component} from 'react';
-import { FlatList, StyleSheet, SafeAreaView, View, TextInput, Button, Text, Alert, Image } from 'react-native';
+import {FlatList, StyleSheet, SafeAreaView, View, TextInput, Button, Text, Alert, Image} from 'react-native';
 import db from "../base";
 import * as firebase from 'firebase/app';
-//import * as ImagePicker from 'react-native-image-picker';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
-//import {ImagePicker} from 'expo';
-
 
 export default class EditProfile extends Component {
 
@@ -22,11 +19,8 @@ export default class EditProfile extends Component {
      */
     constructor(props) {
         super(props);
-        this.state = {name: '', password: '', filePath: ''};
-
+        this.state = {name: '', password: '', filePath: 'https://firebasestorage.googleapis.com/v0/b/rootappcse110ntl.appspot.com/o/images%2Fdefault-profile.jpg?alt=media&token=e284258e-bb13-4a9b-88ea-d4bf1ccede3e'};
     }
-
-
 
     /**
      * Handles text input
@@ -37,20 +31,12 @@ export default class EditProfile extends Component {
         this.setState({[key]: val});
     }
 
-
-    /*handleChoosePhoto = () => {
-        const options = {
-            noData: true,
-        };
-        ImagePicker.launchImageLibrary(options, response => {
-            if (response.uri) {
-                this.setState({ filePath: response });
-            }
-        });
-    };*/
-
     onChooseImagePress = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync();
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            quality: 0.5
+        });
 
         if (!result.cancelled) {
             this.uploadImage(result.uri, db.auth().currentUser.uid)
@@ -59,20 +45,25 @@ export default class EditProfile extends Component {
                     Alert.alert("Success");
                 })
                 .catch((error) => {
-                    Alert.alert( "error" + error);
+                    Alert.alert("error" + error);
                 });
         }
     }
-    uploadImage = async (uri,imageName) => {
+    
+    uploadImage = async (uri, imageName) => {
         const response = await fetch(uri);
         const blob = await response.blob();
-        var ref = firebase.storage().ref().child("images/" + imageName);
+        let ref = firebase.storage().ref().child("images/" + imageName);
         return ref.put(blob);
-}
+    }
 
+    /**
+     * Function to get photo access permission from device
+     * @returns {Promise<void>}
+     */
     getPermissionAsync = async () => {
         if (Constants.platform.ios) {
-            const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+            const {status} = await Permissions.askAsync(Permissions.CAMERA_ROLL);
             if (status !== 'granted') {
                 alert('Sorry, we need camera roll permissions to make this work!');
             }
@@ -86,16 +77,16 @@ export default class EditProfile extends Component {
     }
 
     getImageFromFirebase = async () => {
-        var storageRef = firebase.storage().ref('images/' + db.auth().currentUser.uid);
+        let storageRef = firebase.storage().ref('images/' + db.auth().currentUser.uid);
         const imageurl = await storageRef.getDownloadURL();
-        console.log("url: "+imageurl);
+        console.log("url: " + imageurl);
         this.setState({filePath: imageurl});
     }
 
 
     saveProfile = () => {
         const {name, password, filePath} = this.state;
-        var userRef = db.firestore().collection('users').doc(db.auth().currentUser.uid);
+        let userRef = db.firestore().collection('users').doc(db.auth().currentUser.uid);
         userRef.update({
             userName: name
         });
@@ -105,54 +96,87 @@ export default class EditProfile extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Image source={{ uri: this.state.filePath }} style={{ width: 200, height: 200 }} />
-                <Text>Name:</Text>
+                <View style={styles.picture}>
+                <Image source={{uri: this.state.filePath}} style={{width: 100, height: 100, borderRadius:20}}/>
+                <Button
+                    title={"Upload Picture"}
+                    onPress={(e) => {
+                        this.onChooseImagePress();
+                        const {name, password, filePath} = this.state;
+                        console.log(filePath);
+                        let userRef = db.firestore().collection('users').doc(db.auth().currentUser.uid);
+                        userRef.update({
+                            userPicUrl: filePath
+                        });
+                    }}
+                />
+                </View>
+                <View style={styles.name}>
                 <TextInput style={styles.input}
-                           placeholder="Name"
+                           placeholder="What's Your New Name?"
                            autoCapitalize={"none"}
                            onChangeText={val => this.onChangeText('name', val)}
                 />
                 <Button
-                    title={"Save Change"}
+                    title={"Save New Name"}
                     onPress={this.saveProfile}
 
                 />
-                <Button
-                    title={"Upload Picture"}
-                    onPress={(e)=>{
-                        this.onChooseImagePress();
-                    }}
-                />
+                </View>
+                <View style={styles.password}>
                 <TextInput style={styles.input}
-                           placeholder="New Password"
+                           placeholder="What's Your New Password?"
                            secureTextEntry={true}
                            autoCapitalize={"none"}
                            onChangeText={val => this.onChangeText('password', val)}
                 />
                 <Button
                     title={"Save New Password"}
-                    onPress={(e)=>{
+                    onPress={(e) => {
                         const {name, password, filePath} = this.state;
                         console.log(password);
                         firebase.auth().currentUser.updatePassword(password);
                         this.props.navigation.navigate('Profile');
                     }}
                 />
+                </View>
             </View>
         );
     }
-
 }
 
 // UI Design TODO
 const styles = StyleSheet.create({
+    picture: {
+        position: 'absolute',
+        top: '10%',
+        alignItems: 'center',
+    },
+    name: {
+        position: 'absolute',
+        top: '35%',
+        alignItems: 'center',
+    },
+    password: {
+        position: 'absolute',
+        top: '50%',
+        alignItems: 'center',
+    },
     input: {
-        width: 350,
-        height: 55
+        width: 288,
+        height: 37,
+        backgroundColor: '#E0EBCB',
+        justifyContent: 'center',
+        borderRadius: 10,
+        fontSize: 20,
+        fontFamily: 'Cochin',
+        fontWeight: 'bold',
+        margin: 10,
     },
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: '#D4DBAD'
     }
 });

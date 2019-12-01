@@ -1,6 +1,6 @@
 /**
  * This is the placeholder for the profile screen
- * @author Mufan Lei TODO
+ * @author Mufan Lei, Andy Duong
  * @since 11.8.2019
  */
 import React, {Component} from 'react';
@@ -9,103 +9,108 @@ import db from "../base";
 
 export default class Profile extends Component {
     constructor(props){
-      super(props);
-      var id = db.auth().currentUser.uid;
-      console.log(id);
-      var docRef = db.firestore().collection('users').where("userId","==",id);
-      this.ref = docRef
-      this.state = {
-        username: "",
-        email:"",
-        picurl:"",
-      }
+        super(props);
+        let id = db.auth().currentUser.uid;
+        console.log(id);
+        let docRef = db.firestore().collection('users').where("userId","==",id);
+        this.ref = docRef
+        this.state = {
+            username: "",
+            email:"",
+            picurl:""
+        }
     }
 
-/*    componentDidMount(){
-      console.log("CDM");
-      let promise = new Promise((resolve, reject) => {
-        var id = db.auth().currentUser.uid;
-        docRef = db.firestore().collection('users').doc(id);
-        docRef.onSnapshot(function(doc) {
-          if (doc.exists) {
-            console.log(doc.data);
-            resolve(doc.data());
-          } else {
-            console.log("No such document!");
-          }
-        }).catch(function(error) {
-          console.log("Error getting document:", error);
+    componentDidMount(){
+        this.ref.onSnapshot(this.reloadProfile);
+    }
+
+    reloadProfile = (querySnapshot) =>{
+        let data = null;
+        querySnapshot.forEach(function (doc) {
+            data = doc.data();
         });
-      })
-      promise.then((docData) => {
-        console.log("------")
-        console.log(docData);
-        console.log(docData());
-        console.log("------")
-        this.setState({
-          username: docData.userName,
-          email: docData.email,
-          phoneNumber: docData.phoneNumber
-        })
-      })
+        if(data.userPicUrl) {
+            this.setState({
+                username: data.username,
+                email: data.email,
+                picurl: data.userPicUrl,
+            });
+        }
+        else{
+            this.setState({
+                username: data.username,
+                email: data.email,
+                picurl:"https://firebasestorage.googleapis.com/v0/b/rootappcse110ntl.appspot.com/o/images%2Fdefault-profile.jpg?alt=media&token=e284258e-bb13-4a9b-88ea-d4bf1ccede3e"
+            });
+        }
+        console.log(this.state);
     }
-*/
-  componentDidMount(){
-    this.ref.onSnapshot(this.reloadProfile);
-  }
 
-  reloadProfile = (querySnapshot) =>{
+    handleFriends = () => {
+        this.props.navigation.navigate('Friends')
+    }
 
-      let data = null;
-      querySnapshot.forEach(function (doc) {
-        data = doc.data();
-      });
-      this.setState({
-        username: data.userName,
-        email:data.email,
-        picurl:data.userPicUrl,
-      });
-  }
-
+    handleFriendRequests = () => {
+        this.props.navigation.navigate('FriendRequests')
+    }
 
     handleSignOut = () =>{
         db.auth().signOut().then(
             () => this.props.navigation.navigate('Auth')
         )
+    };
+
+    handleSetNotif = () => {
+        this.props.navigation.navigate('Notif');
     }
 
-
-
-    render(){
-
-
+    render() {
         return(
             <View style={styles.container}>
-                <Text>{this.state.username}</Text>
-                <Text>{this.state.email}</Text>
+                <Image source={{uri: this.state.picurl}} style={{width: 100, height: 100, borderRadius:20}}/>
+                <Text style={styles.info}>{this.state.username}</Text>
+                <Text style={styles.info}>{this.state.email}</Text>
                 <Button
-                    title={"EditProfile"}
+                    title={"Edit Profile"}
                     onPress={()=> this.props.navigation.navigate("EditProfile")}
                 />
                 <Button
-                    title={"Click me to sign out"}
+                    title="Friends"
+                    onPress={this.handleFriends}
+                />
+                <Button
+                    title="Friend Requests"
+                    onPress={this.handleFriendRequests}
+                />
+                <Button
+                    title="Click me to sign out"
                     onPress={this.handleSignOut}
                 />
                 <Image
-                          style={{width: 50, height: 50}}
-                          source={{uri: 'https://facebook.github.io/react-native/img/tiny_logo.png'}}
+                    style={{width: 50, height: 50}}
+                    source={require('../auth/my-icon.png')}
                 />
-           </View>
-        )
+                <Button
+                    title={"Click me set notification"}
+                    onPress={this.handleSetNotif}
+                />
+            </View>
+        );
     }
 }
 
 
 const styles = StyleSheet.create({
+    info:{
+        fontFamily: 'Cochin',
+        fontSize: 25,
+        margin: 10
+    },
     container: {
         flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
         justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#D4DBAD'
     },
 });
