@@ -4,19 +4,8 @@
  * @since 11.8.2019
  */
 import React, {Component} from 'react';
-import {
-    FlatList,
-    StyleSheet,
-    View,
-    TextInput,
-    Button,
-    Text,
-    Modal,
-    TouchableHighlight,
-    TouchableOpacity,
-    Image
-} from 'react-native';
-import ImageWrapper from "../screens/ImageWrapper.js";
+import {StyleSheet, View, Text, TouchableHighlight,} from 'react-native';
+import ImageWrapper from "../ImageWrapper.js";
 
 export default class RankView extends Component {
     constructor(props) {
@@ -89,7 +78,7 @@ const styles = StyleSheet.create({
         top: '100%',
         left: '50%'
     },
-    image:{
+    image: {
         position: 'absolute',
         width: 30,
         height: 30,

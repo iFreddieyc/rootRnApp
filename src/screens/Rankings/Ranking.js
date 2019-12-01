@@ -4,20 +4,12 @@
  * @since 11.8.2019
  */
 import React, {Component} from 'react';
-import {
-    FlatList,
-    StyleSheet,
-    SafeAreaView,
-    View,
-    Text,
-    ActivityIndicator
-} from 'react-native';
+import {FlatList, StyleSheet, SafeAreaView, View, Text, ActivityIndicator} from 'react-native';
 
-import db from "../base";
-import RankView from "../views/RankView";
-import Habit from "../data/Habit";
-import util from "../util";
-import {ImageWrapper} from "../screens/ImageWrapper.js";
+import db from "../../base";
+import RankView from "./RankView";
+import Habit from "../../Habit";
+import util from "../../util";
 
 export default class Ranking extends Component {
 

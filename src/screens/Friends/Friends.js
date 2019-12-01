@@ -4,7 +4,7 @@
  * @since  11.23.2019
  */
 import React, {Component} from 'react';
-import {StyleSheet, SafeAreaView, Button, Text} from 'react-native';
+import {StyleSheet, SafeAreaView} from 'react-native';
 import db from "../../base";
 import AddFriend from "./AddFriend";
 
@@ -54,7 +54,6 @@ export default class Friends extends Component {
     }
 }
 
-// UI Design TODO
 const styles = StyleSheet.create({
     input: {
         width: 200,

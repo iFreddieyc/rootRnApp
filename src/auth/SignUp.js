@@ -1,9 +1,9 @@
 /**
-     * SignUp screen class file, to sign up a user.
-     * @author Qingcheng You
-     * @since 10.31.2019
-     */
-    import React, {Component} from 'react';
+ * SignUp screen class file, to sign up a user.
+ * @author Qingcheng You
+ * @since 10.31.2019
+ */
+import React, {Component} from 'react';
 import {StyleSheet, View, TextInput, Button, Text, Alert, Image} from 'react-native';
 import db from "../base";
 import * as firebase from 'firebase/app';
@@ -39,22 +39,8 @@ export default class SignUp extends Component {
             // This is where to add Firebase authentication function
             db.auth().createUserWithEmailAndPassword(email, password).then(
                 // User is created, go to Main
-                () => {var user = firebase.auth().currentUser;
-                       var userid = user.uid;
-                       // TODO: There is a bug here.
-                       db.collection("users").add({
-                           userid: userid,
-                           username: email,
-                           email: email,
-                           phoneNumber: -1,
-                           userPicUrl: "Capture.PNG",
-                           friends: ["a"],
-                           incoming: ["b"],
-                           outgoing: ["c"],
-                       })
-                       this.props.navigation.navigate('App')
-                }
-	    ).catch(function (error) {
+                this.props.navigation.navigate('App')
+        ).catch(function (error) {
                 // Some error occurred, handle Errors here
                 const errorCode = error.code;
                 let errorMessage;
@@ -93,7 +79,7 @@ export default class SignUp extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Image source={require('./my-icon.png')} style={{width: 150, height: 150, top: -55, opacity: 0.8 }} />
+                <Image source={require('./my-icon.png')} style={{width: 150, height: 150, top: -55, opacity: 0.8}}/>
                 <Text> </Text>
                 <Text style={{top: -45, fontFamily: 'Cochin', fontWeight: 'bold', fontSize: 16}}>Email:</Text>
                 <TextInput style={styles.input}
@@ -118,7 +104,7 @@ export default class SignUp extends Component {
                 <Text>Already have an account?</Text>
                 <Button
                     title={"Sign In"}
-                    onPress={()=> this.props.navigation.navigate("SignIn")}
+                    onPress={() => this.props.navigation.navigate("SignIn")}
                 />
             </View>
         );

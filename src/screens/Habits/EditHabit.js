@@ -3,7 +3,6 @@
  * @author Qingcheng You
  * @since 11.24.2019
  */
-
 import React, {Component} from 'react';
 import {StyleSheet, View, Button, Text, Alert, SafeAreaView, Switch, ActivityIndicator} from 'react-native';
 import db from "../../base";

@@ -2,21 +2,8 @@
  * @author Vincent Nguyen
  */
 import React, {Component} from 'react';
-import {
-    FlatList,
-    StyleSheet,
-    SafeAreaView,
-    View,
-    Button,
-    Text,
-    TouchableHighlight,
-    ActivityIndicator
-} from 'react-native';
-
+import {StyleSheet, SafeAreaView, View, Text, TouchableHighlight} from 'react-native';
 import db from "../../base";
-import { withNavigation } from 'react-navigation';
-import util from "../../util";
-
 
 export default class FriendsProfile extends Component {
 

@@ -4,7 +4,7 @@
  * @since 11.8.2019
  */
 import React, {Component} from 'react';
-import {FlatList, StyleSheet, SafeAreaView, View, TextInput, Button, Text, Alert, Image} from 'react-native';
+import {StyleSheet, View, TextInput, Button, Alert, Image} from 'react-native';
 import db from "../../base";
 import * as firebase from 'firebase/app';
 import Constants from 'expo-constants';

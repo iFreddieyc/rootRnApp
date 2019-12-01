@@ -70,6 +70,9 @@ export default class Welcome extends Component {
                         email: db.auth().currentUser.email,
                         userPicUrl: "",
                         userId: uid,
+                        friends: [],
+                        incoming: [],
+                        outgoing: [ ],
                     }).then(function () {
                         console.log("Document successfully written!");
                         navigate('Tabs');
@@ -121,6 +124,7 @@ export default class Welcome extends Component {
                 <TextInput style={styles.input}
                            placeholder="Username"
                            autoCapitalize={"none"}
+                           autoCorrect={false}
                            onChangeText={val => this.onChangeText('username', val)}
                 />
                 <Text> </Text>

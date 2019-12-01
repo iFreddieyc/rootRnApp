@@ -4,15 +4,7 @@
  * @since 11.17.2019
  */
 import React, { Component } from 'react';
-import {
-    FlatList,
-    StyleSheet,
-    SafeAreaView,
-    View,
-    Button,
-    Text,
-    ActivityIndicator
-} from 'react-native';
+import {FlatList, StyleSheet, SafeAreaView, Button, Text, ActivityIndicator} from 'react-native';
 
 import db from "../../base";
 import HabitView from "./HabitView";

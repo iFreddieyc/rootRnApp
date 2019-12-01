@@ -5,7 +5,7 @@
  */
 import React, {Component} from 'react';
 import {StyleSheet, View, TextInput, Button, Text, Alert, Switch} from 'react-native';
-import Habit from "../../data/Habit";
+import Habit from "../../Habit";
 import db from "../../base";
 import util from "../../util";
 

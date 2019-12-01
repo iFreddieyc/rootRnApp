@@ -1,4 +1,4 @@
-/*
+/**
  * Screen to allow the user to send a friend request to another user.
  * @author Andy Duong
  * @since  11.23.2019
@@ -65,7 +65,12 @@ export default class AddFriend extends Component {
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                <TextInput onChangeText={this.handleChangeText} placeholder="Please enter a username."/>
+                <TextInput
+                    onChangeText={this.handleChangeText}
+                    placeholder="Please enter a username."
+                    autoCorrect={false}
+                    autoCapitalize={"none"}
+                />
                 <Button title={"Add Friend"} onPress={this.handleAddFriend}/>
             </SafeAreaView>
         );

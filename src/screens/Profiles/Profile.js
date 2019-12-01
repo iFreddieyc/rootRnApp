@@ -4,7 +4,7 @@
  * @since 11.8.2019
  */
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, Button,Image } from 'react-native';
+import { StyleSheet, Text, View, Button, Image } from 'react-native';
 import db from "../../base";
 
 export default class Profile extends Component {

@@ -4,8 +4,8 @@
  * @since Nov.3.2019
  */
 
-import db from "../base";
-import util from "../util";
+import db from "./base";
+import util from "./util";
 
 export default class Habit {
 

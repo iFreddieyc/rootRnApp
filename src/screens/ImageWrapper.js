@@ -1,23 +1,11 @@
 import React, {Component} from 'react';
-import {
-    FlatList,
-    StyleSheet,
-    View,
-    TextInput,
-    Button,
-    Text,
-    Modal,
-    TouchableHighlight,
-    TouchableOpacity, Image
-} from 'react-native';
+import {StyleSheet, View, Text, TouchableHighlight, Image} from 'react-native';
 import db from "../base";
 import * as firebase from 'firebase/app';
-import * as EditProfile from "./EditProfile";
 
-let userName;
 export default class ImageWrapper extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             userName:"",
             filePath:"https://firebasestorage.googleapis.com/v0/b/rootappcse110ntl.appspot.com/o/images%2Fdefault-profile.jpg?alt=media&token=e284258e-bb13-4a9b-88ea-d4bf1ccede3e"

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Button, Image, DatePickerIOS} from 'react-native';
+import {View, Button, DatePickerIOS} from 'react-native';
 import { Notifications }from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
@@ -19,6 +19,8 @@ export default class Notification extends Component {
     }
 
     setDate(newDate) {
+        Notifications.cancelAllScheduledNotificationsAsync();
+
         console.log(newDate);
         this.setState({chosenDate: newDate});
         console.log(this.state.chosenDate);
@@ -46,8 +48,6 @@ export default class Notification extends Component {
         };
 
         Notifications.scheduleLocalNotificationAsync(localNotification, schedulingOptions);
-
-
     }
 
     handleSubmit = () => {
