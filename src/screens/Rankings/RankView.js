@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
         marginTop: '5%',
         marginBottom: '5%',
         width: 350,
-        height: 50,
+        height: 70,
         //padding: 100,
         borderRadius: 6,
         borderWidth: 0.6,
@@ -80,8 +80,8 @@ const styles = StyleSheet.create({
     },
     image: {
         position: 'absolute',
-        width: 30,
-        height: 30,
+        width: 80,
+        height: 80,
         left: '85%',
         top: '15%'
 
