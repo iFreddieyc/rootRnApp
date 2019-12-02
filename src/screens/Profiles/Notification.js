@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Button, DatePickerIOS} from 'react-native';
+import {StyleSheet, SafeAreaView, Button, DatePickerIOS, Text} from 'react-native';
 import { Notifications }from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
@@ -57,19 +57,50 @@ export default class Notification extends Component {
 
     render() {
         return (
-            <View>
+            <SafeAreaView style={styles.container}>
+                <Text style={styles.title}>
+                    Set a daily reminder
+                </Text>
                 <DatePickerIOS
                     date={this.state.chosenDate}
                     onDateChange={this.setDate}
                     mode="time"
+                    style={styles.picker}
                 />
                 <Button
                     title={"Submit"}
+                    style={styles.button}
                     onPress={this.handleSubmit}
                 />
-            </View>
+            </SafeAreaView>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: '#D4DBAD',
+        flex:1
+    },
+    picker:{
+        backgroundColor: '#D4DBAD',
+        paddingTop:  "20%",
+    },
+    title: {
+        fontSize: 35,
+        color: 'black',
+        fontWeight: 'bold',
+        alignItems: 'center',
+        fontFamily: 'Cochin',
+        justifyContent: 'center',
+        paddingLeft: "5%",
+        paddingRight: "5%",
+        marginLeft: "auto",
+        marginRight: "auto"
+    },
+    button: {
+        paddingTop: "50%",
+    }
+});
 
 

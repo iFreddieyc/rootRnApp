@@ -4,36 +4,36 @@
  * @since 11.8.2019
  */
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, Button, Image } from 'react-native';
+import {StyleSheet, Text, View, Button, Image} from 'react-native';
 import db from "../../base";
 
 export default class Profile extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         let id = db.auth().currentUser.uid;
         console.log(id);
-        let docRef = db.firestore().collection('users').where("userId","==",id);
+        let docRef = db.firestore().collection('users').where("userId", "==", id);
         this.ref = docRef
         this.state = {
             username: "",
-            email:"",
-            picurl:"",
+            email: "",
+            picurl: "",
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.ref.onSnapshot(this.reloadProfile);
     }
 
-    reloadProfile = (querySnapshot) =>{
+    reloadProfile = (querySnapshot) => {
         let data = null;
         querySnapshot.forEach(function (doc) {
             data = doc.data();
         });
         this.setState({
             username: data.username,
-            email:data.email,
-            picurl:data.userPicUrl,
+            email: data.email,
+            picurl: data.userPicUrl,
         });
     }
 
@@ -45,7 +45,7 @@ export default class Profile extends Component {
         this.props.navigation.navigate('FriendRequests')
     }
 
-    handleSignOut = () =>{
+    handleSignOut = () => {
         db.auth().signOut().then(
             () => this.props.navigation.navigate('Auth')
         )
@@ -56,38 +56,39 @@ export default class Profile extends Component {
     }
 
     render() {
-        return(
+        return (
             <View style={styles.container}>
-                <Image source={{uri: this.state.filePath}} style={{width: 100, height: 100, borderRadius:20}}/>
+                <Image source={{uri: this.state.filePath}} style={{width: 100, height: 100, borderRadius: 20}}/>
                 <Text style={styles.info}>{this.state.username}</Text>
                 <Text style={styles.info}>{this.state.email}</Text>
                 <Button
                     title={"Edit Profile"}
-                    onPress={()=> this.props.navigation.navigate("EditProfile")}
+                    onPress={() => this.props.navigation.navigate("EditProfile")}
                 />
                 <Button
                     title="Add Friends"
                     onPress={this.handleFriends}
                 />
                 <Button
-                    title ="My Friends"
-                    onPress={()=> this.props.navigation.navigate("Friend", {props: this.props.navigation})}
+                    title="My Friends"
+                    onPress={() => this.props.navigation.navigate("Friend", {props: this.props.navigation})}
                 />
                 <Button
                     title="Friend Requests"
                     onPress={this.handleFriendRequests}
                 />
+
                 <Button
-                    title="Click me to sign out"
-                    onPress={this.handleSignOut}
+                    title={"Set notification"}
+                    onPress={this.handleSetNotif}
                 />
                 <Image
                     style={{width: 50, height: 50}}
                     source={require('../../auth/my-icon.png')}
                 />
                 <Button
-                    title={"Click me set notification"}
-                    onPress={this.handleSetNotif}
+                    title="Sign out"
+                    onPress={this.handleSignOut}
                 />
             </View>
         );
@@ -96,7 +97,7 @@ export default class Profile extends Component {
 
 
 const styles = StyleSheet.create({
-    info:{
+    info: {
         fontFamily: 'Cochin',
         fontSize: 25,
         margin: 10

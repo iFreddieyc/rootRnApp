@@ -124,7 +124,7 @@ export default class Welcome extends Component {
                 <TextInput style={styles.input}
                            placeholder="Username"
                            autoCapitalize={"none"}
-                           autoCorrect={false}
+                           autoCorrect={false }
                            onChangeText={val => this.onChangeText('username', val)}
                 />
                 <Text> </Text>

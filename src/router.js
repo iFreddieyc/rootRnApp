@@ -25,6 +25,14 @@ import FriendProfileView from "./screens/Profiles/FriendProfileView";
 import FriendList from "./screens/Friends/FriendList";
 import FriendHabitList from "./screens/Friends/FriendHabitList";
 import Welcome from "./screens/Welcome";
+import {StyleSheet} from "react-native";
+
+const styles = StyleSheet.create({
+    header: {
+        backgroundColor: '#C1D1AC',
+    },
+});
+
 
 // Stack Navigator for HabitPage and CreateHabit
 export const HabitNavigator = createStackNavigator({
@@ -41,7 +49,8 @@ export const HabitNavigator = createStackNavigator({
         screen: HabitView,
     }
 }, {
-    initialRouteName: 'Habits'
+    initialRouteName: 'Habits',
+    headerMode: 'none'
 })
 
 // Sign Up and Sign In Screens
@@ -59,22 +68,43 @@ export const ProfileNavigator = createStackNavigator({
         screen: Profile,
         navigationOptions: () => ({
             headerBackTitle: 'Cancel',
+            headerStyle: {backgroundColor: '#C1D1AC'}
         }),
     },
     EditProfile: {
         screen: EditProfile,
+        navigationOptions: () => ({
+            headerBackTitle: 'Cancel',
+            headerStyle: {backgroundColor: '#C1D1AC'}
+        }),
     },
     Friends: {
         screen: Friends,
+        navigationOptions: () => ({
+            headerBackTitle: 'Cancel',
+            headerStyle: {backgroundColor: '#C1D1AC'}
+        }),
     },
     FriendRequests: {
         screen: FriendRequests,
+        navigationOptions: () => ({
+            headerBackTitle: 'Cancel',
+            headerStyle: {backgroundColor: '#C1D1AC'}
+        }),
     },
     Notif:{
         screen: Notification,
+        navigationOptions: () => ({
+            headerBackTitle: 'Cancel',
+            headerStyle: {backgroundColor: '#C1D1AC'}
+        }),
     },
     Friend: {
         screen: FriendList,
+        navigationOptions: () => ({
+            headerBackTitle: 'Cancel',
+            headerStyle: {backgroundColor: '#C1D1AC'}
+        }),
     },
     FriendView: {
         screen: FriendProfileView,
@@ -84,13 +114,18 @@ export const ProfileNavigator = createStackNavigator({
     }
 
 }, {
-    initialRouteName: "Profile"
+    initialRouteName: "Profile",
 })
 
 // Tab Navigator for HabitNavigator, Ranking and Profile
 export const Tabs = createBottomTabNavigator({
     Habits: HabitNavigator,
-    Rankings: Ranking,
+    Rankings: {
+        screen:Ranking,
+        navigationOptions: () => ({
+            headerStyle: {backgroundColor: '#C1D1AC'}
+        }),
+    },
     Profiles: ProfileNavigator,
 }, {
     initialRouteName: 'Habits',
@@ -128,4 +163,5 @@ export const AppNavigator = createSwitchNavigator({
 }, {
     initialRouteName: 'AuthLoading'
 });
+
 

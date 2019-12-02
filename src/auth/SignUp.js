@@ -38,9 +38,8 @@ export default class SignUp extends Component {
             const {email, password} = this.state;
             // This is where to add Firebase authentication function
             db.auth().createUserWithEmailAndPassword(email, password).then(
-                // User is created, go to Main
-                this.props.navigation.navigate('App')
-        ).catch(function (error) {
+                // Do nothing
+            ).catch(function (error) {
                 // Some error occurred, handle Errors here
                 const errorCode = error.code;
                 let errorMessage;
