@@ -28,6 +28,7 @@ export default class Ranking extends Component {
     }
 
     getRanking() {
+        console.log("get ranking")
         this.getFriendList().then((friendsList) => {
             this.setState({
                 friends: friendsList,
@@ -62,17 +63,18 @@ export default class Ranking extends Component {
     }
 
     getFriendList = () => {
+        console.log("this");
         return new Promise((resolve, reject) => {
             let friendList = [];
             db.firestore().collection("users")
-                .where("userid", "==", db.auth().currentUser.uid)
+                .doc(db.auth().currentUser.uid)
                 .get()
-                .then(function (querySnapshot) {
-                    querySnapshot.forEach(function (doc) {
-                        // doc.data() is never undefined for query doc snapshots
+                .then(function (doc) {
+                    if (doc.exists){
                         friendList = doc.data().friends;
-                        console.log(friendList);
-                    });
+                    }else{
+                        console.log("No such document");
+                    }
                     friendList.push(db.auth().currentUser.uid);
                     resolve(friendList);
                 })
