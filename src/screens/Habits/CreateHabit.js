@@ -4,7 +4,7 @@
  * @since 11.3.2019
  */
 import React, {Component} from 'react';
-import {StyleSheet, View, TextInput, Button, Text, Alert, Switch} from 'react-native';
+import {StyleSheet, View, TextInput, Button, Text, Alert, Switch, Keyboard} from 'react-native';
 import Habit from "../../Habit";
 import db from "../../base";
 import util from "../../util";
@@ -115,6 +115,8 @@ export default class CreateHabit extends Component {
                                    onChangeText={val => this.onChangeText('description', val)}
                                    multiline={true}
                                    maxLength={50}
+                                   blurOnSubmit={true}
+                                   onSubmitEditing={()=>{Keyboard.dismiss()}}
                         />
                     </View>
                     <Text> </Text>
