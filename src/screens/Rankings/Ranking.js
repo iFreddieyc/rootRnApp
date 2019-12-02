@@ -71,6 +71,7 @@ export default class Ranking extends Component {
                 .get()
                 .then(function (doc) {
                     if (doc.exists){
+                        console.log(doc.data().friends);
                         friendList = doc.data().friends;
                     }else{
                         console.log("No such document");
@@ -94,12 +95,13 @@ export default class Ranking extends Component {
                 .get()
                 .then(function (querySnapshot) {
                     querySnapshot.forEach(function (doc) {
-                        let currentDuration = util.getDifference(doc.data().numOfDays);
-                        if (doc.exists && (highestDuration <= currentDuration)) {
+                        if (doc.exists && doc.data().numOfDays >= highestDuration) {
+                            // let currentDuration = doc.data().numOfDays;
                             habit = new Habit(doc.data().name, doc.data().userid, doc.data().startDate,
                                 doc.data().description, doc.data().visible,
                                 doc.data().numOfDays, doc.data().archived);
-                            highestDuration = currentDuration;
+                            highestDuration = doc.data().numOfDays;
+                            console.log("Habit returned is");
                             console.log(habit);
                         }
                     });
