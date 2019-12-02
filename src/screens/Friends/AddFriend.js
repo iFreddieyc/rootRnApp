@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, SafeAreaView, TextInput, Button, Alert} from 'react-native';
 import db from "../../base";
+// TODO: Figure out a way to optimize the import statement for FieldValue#arrayUnion and #arrayRemove.
 import * as firebase from 'firebase/app';
 
 export default class AddFriend extends Component {
@@ -31,34 +32,33 @@ export default class AddFriend extends Component {
      * Performs the Cloud Firestore query to record the friend request
      */
     handleAddFriend = () => {
-        let doesUserExist = false;
-        let friendDocumentRef;
-
         // Performs the user query and atomically add a new userid to the other user's "incoming" array field
         console.log("query: " + this.state.usernameQuery)
         const usernameQueryRef = db.firestore().collection('users').where("username", "==", this.state.usernameQuery)
             .get()
             .then((querySnapshot) => {
-                doesUserExist = true;
+                let friendDocumentRef;
+
+                // querySnapshot contains an array of QueryDocumentSnapshot objects, representing the query results
                 querySnapshot.forEach((doc) => {
-                    friendDocumentRef = doc;
-                    doc.update({
+                    friendDocumentRef = doc.ref;
+                    friendDocumentRef.update({
                         incoming: firebase.firestore.FieldValue.arrayUnion(db.auth().currentUser.uid),
                     });
-                })
+                });
                 console.info("Username query returned " + querySnapshot.size + " results.");
+
+                // Atomically add a new userid to the current user's "outgoing" array field
+                this.userDocumentRef.update({
+                    outgoing: firebase.firestore.FieldValue.arrayUnion(friendDocumentRef.id),
+                });
+
+                console.log("Friend request sent.");
             })
             .catch((e) => {
                 alert("Username not found. Please try again.");
                 console.warn("Username query did not yield any results: " + e);
             });
-
-        // Atomically add a new userid to the current user's "outgoing" array field
-        if (doesUserExist) {
-            this.userDocumentRef.update({
-                outgoing: firebase.firestore.FieldValue.arrayUnion(friendDocumentRef.id),
-            });
-        }
     }
 
     /**
