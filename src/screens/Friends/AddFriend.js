@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, SafeAreaView, TextInput, Button, Alert} from 'react-native';
 import db from "../../base";
+import * as firebase from 'firebase/app';
 
 export default class AddFriend extends Component {
 
@@ -34,21 +35,22 @@ export default class AddFriend extends Component {
         let friendDocumentRef;
 
         // Performs the user query and atomically add a new userid to the other user's "incoming" array field
-        // TODO: Rename fields
-        const usernameQueryRef = db.firestore().collection("users").where("username", "==", this.state.usernameQuery)
+        console.log("query: " + this.state.usernameQuery)
+        const usernameQueryRef = db.firestore().collection('users').where("username", "==", this.state.usernameQuery)
             .get()
             .then((querySnapshot) => {
                 doesUserExist = true;
-                friendDocumentRef = querySnapshot[0];
-                friendDocumentRef.update({
-                    incoming: firebase.firestore.FieldValue.arrayUnion(db.auth().currentUser.uid),
-                });
+                querySnapshot.forEach((doc) => {
+                    friendDocumentRef = doc;
+                    doc.update({
+                        incoming: firebase.firestore.FieldValue.arrayUnion(db.auth().currentUser.uid),
+                    });
+                })
                 console.info("Username query returned " + querySnapshot.size + " results.");
-                console.verbose("Username query results: " + querySnapshot);
             })
-            .catch(() => {
+            .catch((e) => {
                 alert("Username not found. Please try again.");
-                console.warn("Username query did not yield any results.");
+                console.warn("Username query did not yield any results: " + e);
             });
 
         // Atomically add a new userid to the current user's "outgoing" array field
