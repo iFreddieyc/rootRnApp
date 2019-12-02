@@ -57,14 +57,15 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         alignItems: 'center',
         fontFamily: 'Cochin',
-        left: '6%',
+        left: '5%',
         top: '10%'
     },
     image:{
         position: 'relative',
-        width: 32,
-        height: 32,
-        left: '85%',
-        top: '40%'
+        width: 50,
+        height: 50,
+        left: '80%',
+        top: '20%',
+        borderRadius: 10
     }
 });
