@@ -22,8 +22,6 @@ export default class HabitViewFriend extends Component {
         super(props);
     }
 
-    days = util.getDifference(this.props.date)
-
     handleOnPress = () => {
         console.log(this.props.description);
     }
@@ -38,7 +36,7 @@ export default class HabitViewFriend extends Component {
                         {this.props.name}
                     </Text>
                     <Text style={styles.habitDate}>
-                        {this.days}
+                        {this.props.date}
                     </Text>
                 </View>
             </TouchableHighlight>

@@ -54,7 +54,7 @@ export default class FriendHabitList extends Component {
     onCollectionUpdate = (querySnapshot) => {
          let habitsList = [];
          querySnapshot.forEach(function (doc){
-             let data = doc.data()
+             let data = doc.data();
              if(data.visible == true) {
                  habitsList.push(data);
              }
@@ -94,7 +94,7 @@ export default class FriendHabitList extends Component {
                     renderItem={({item}) =>
                         <HabitViewFriend
                             name={item.name}
-                            date={item.startDate}
+                            date={item.numOfDays}
                             description={item.description}
                             id = {item.habitId}
                         />
