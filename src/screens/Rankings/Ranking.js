@@ -4,7 +4,7 @@
  * @since 11.8.2019
  */
 import React, {Component} from 'react';
-import {FlatList, StyleSheet, SafeAreaView, View, Text, ActivityIndicator} from 'react-native';
+import {FlatList, StyleSheet, SafeAreaView, View, Text, ActivityIndicator, Button} from 'react-native';
 
 import db from "../../base";
 import RankView from "./RankView";
@@ -43,8 +43,6 @@ export default class Ranking extends Component {
                     item => item !== undefined
                 );
                 values.sort(util.compare);
-                //console.log("Done");
-                //console.log(values);
                 this.setState({
                     ranking: values,
                     isLoading: false,
@@ -128,6 +126,10 @@ export default class Ranking extends Component {
                     <Text style={styles.title}>
                         {this.state.message}
                     </Text>
+                    <Button
+                        title={"reload"}
+                        onPress={() => this.getRanking()}
+                    />
                     <FlatList
                         data={this.state.ranking}
                         renderItem={({item}) =>
