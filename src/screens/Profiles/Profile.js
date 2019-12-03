@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, Button, Image} from 'react-native';
 import db from "../../base";
+import * as firebase from "firebase";
 
 export default class Profile extends Component {
     constructor(props) {
@@ -17,12 +18,20 @@ export default class Profile extends Component {
         this.state = {
             username: "",
             email: "",
-            picurl: "",
+            filePath: '',
         }
     }
 
     componentDidMount() {
+        this.getImageFromFirebase();
         this.ref.onSnapshot(this.reloadProfile);
+    }
+
+    getImageFromFirebase = async () => {
+        let storageRef = firebase.storage().ref('images/' + db.auth().currentUser.uid);
+        const imageurl = await storageRef.getDownloadURL();
+        console.log("url: " + imageurl);
+        this.setState({filePath: imageurl});
     }
 
     reloadProfile = (querySnapshot) => {

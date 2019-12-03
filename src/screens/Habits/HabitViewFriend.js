@@ -49,12 +49,10 @@ export default class HabitViewFriend extends Component {
 const styles = StyleSheet.create({
    container: {
         flex: 1,
-        //alignItems: 'center',
         marginTop: '5%',
         marginBottom: '5%',
         width: 350,
         height: 120,
-        //padding: 100,
         borderRadius: 6,
         borderWidth: 0.6,
         borderColor: '#d6d7da',

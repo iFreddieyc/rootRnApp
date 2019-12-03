@@ -19,7 +19,7 @@ export default class Notification extends Component {
     }
 
     setDate(newDate) {
-        Notifications.cancelAllScheduledNotificationsAsync();
+        // Notifications.cancelAllScheduledNotificationsAsync();
 
         console.log(newDate);
         this.setState({chosenDate: newDate});
