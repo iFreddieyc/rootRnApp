@@ -67,38 +67,72 @@ export default class Profile extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Image source={{uri: this.state.filePath}} style={{width: 100, height: 100, borderRadius: 20}}/>
-                <Text style={styles.info}>{this.state.username}</Text>
+                <Image source={{uri: this.state.filePath}} style={styles.image}/>
+                <Text style={styles.username}>{this.state.username}</Text>
                 <Text style={styles.info}>{this.state.email}</Text>
+                <View style={{position: 'absolute', right:'11%', top: '21%',}}>
                 <Button
                     title={"Edit Profile"}
                     onPress={() => this.props.navigation.navigate("EditProfile")}
                 />
+                </View>
+
+                <View style={{position: 'absolute', flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    top: '30%', backgroundColor: '#E0EBCB', width: 300, height: 80,
+                    borderRadius: 10}}>
                 <Button
                     title="Add Friends"
                     onPress={this.handleFriends}
                 />
+                </View>
+
+                <View style={{position: 'absolute', flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    top: '42%', backgroundColor: '#E0EBCB', width: 300, height: 80,
+                    borderRadius: 10}}>
                 <Button
                     title="My Friends"
                     onPress={() => this.props.navigation.navigate("Friend", {props: this.props.navigation})}
                 />
+                </View>
+
+                <View style={{position: 'absolute', flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    top: '54%', backgroundColor: '#E0EBCB', width: 300, height: 80,
+                    borderRadius: 10}}>
                 <Button
                     title="Friend Requests"
                     onPress={this.handleFriendRequests}
                 />
+                </View>
 
+                <View style={{position: 'absolute', flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    top: '66%', backgroundColor: '#E0EBCB', width: 300, height: 80,
+                    borderRadius: 10}}>
                 <Button
-                    title={"Set notification"}
+                    title={"Set Notification"}
                     onPress={this.handleSetNotif}
                 />
-                <Image
-                    style={{width: 50, height: 50}}
-                    source={require('../../auth/my-icon.png')}
-                />
+                </View>
+
+                {/*<Image*/}
+                {/*    style={{width: 50, height: 50}}*/}
+                {/*    source={require('../../auth/my-icon.png')}*/}
+                {/*/>*/}
+                <View style={{backgroundColor: '#E0EBCB', position: 'absolute', right:'5%', bottom: '3%', borderRadius: 10}}>
                 <Button
                     title="Sign out"
+                    color='black'
+                    backgroundColor='white'
                     onPress={this.handleSignOut}
                 />
+                </View>
             </View>
         );
     }
@@ -106,10 +140,31 @@ export default class Profile extends Component {
 
 
 const styles = StyleSheet.create({
+    image: {
+        width: 120,
+        height: 120,
+        borderRadius:20,
+        position: 'absolute',
+        top: '5%',
+        right: '8%',
+    },
+    username:{
+        fontFamily: 'Copperplate-Bold',
+        fontWeight: 'bold',
+        color: '#D98888',
+        fontSize: 45,
+        position: 'absolute',
+        top: '8%',
+        left: '8%',
+
+    },
     info: {
         fontFamily: 'Cochin',
         fontSize: 25,
-        margin: 10
+        margin: 10,
+        position: 'absolute',
+        top: '13%',
+        left: '8%',
     },
     container: {
         flex: 1,
