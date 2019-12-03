@@ -24,6 +24,7 @@ export default class ImageWrapper extends Component {
     onUserDocumentUpdate = (documentSnapshot) => {
         const userName = (documentSnapshot.get("username") == null) ? [] : documentSnapshot.get("username");
         this.setState({userName: userName});
+        this.getImageFromFirebase();
     }
 
     getImageFromFirebase = async () => {

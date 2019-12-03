@@ -76,6 +76,7 @@ export const ProfileNavigator = createStackNavigator({
         navigationOptions: () => ({
             headerBackTitle: 'Cancel',
             headerStyle: {backgroundColor: '#C1D1AC'}
+
         }),
     },
     Friends: {

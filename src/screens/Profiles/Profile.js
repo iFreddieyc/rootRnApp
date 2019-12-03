@@ -42,8 +42,8 @@ export default class Profile extends Component {
         this.setState({
             username: data.username,
             email: data.email,
-            picurl: data.userPicUrl,
         });
+        this.getImageFromFirebase();
     }
 
     handleFriends = () => {
@@ -62,6 +62,10 @@ export default class Profile extends Component {
 
     handleSetNotif = () => {
         this.props.navigation.navigate('Notif');
+    }
+
+    handleReload = () => {
+
     }
 
     render() {
@@ -120,11 +124,6 @@ export default class Profile extends Component {
                     onPress={this.handleSetNotif}
                 />
                 </View>
-
-                {/*<Image*/}
-                {/*    style={{width: 50, height: 50}}*/}
-                {/*    source={require('../../auth/my-icon.png')}*/}
-                {/*/>*/}
                 <View style={{backgroundColor: '#E0EBCB', position: 'absolute', right:'5%', bottom: '3%', borderRadius: 10}}>
                 <Button
                     title="Sign out"

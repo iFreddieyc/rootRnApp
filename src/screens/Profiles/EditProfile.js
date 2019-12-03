@@ -10,6 +10,7 @@ import * as firebase from 'firebase/app';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
+import Profile from "./Profile";
 
 export default class EditProfile extends Component {
 
@@ -42,7 +43,11 @@ export default class EditProfile extends Component {
             this.uploadImage(result.uri, db.auth().currentUser.uid)
                 .then(() => {
                     this.setState({filePath: result.uri});
-                    Alert.alert("Success");
+                    // Alert.alert("Picture Successfully changed");
+                    let userRef = db.firestore().collection('users').doc(db.auth().currentUser.uid);
+                    userRef.update({
+                        picUrl: result.uri
+                    });
                 })
                 .catch((error) => {
                     Alert.alert("error" + error);
