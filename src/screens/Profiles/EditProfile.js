@@ -93,7 +93,7 @@ export default class EditProfile extends Component {
         const {name, password, filePath} = this.state;
         let userRef = db.firestore().collection('users').doc(db.auth().currentUser.uid);
         userRef.update({
-            userName: name
+            username: name
         });
         this.props.navigation.navigate('Profile');
     }

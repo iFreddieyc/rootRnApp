@@ -87,6 +87,7 @@ export default class FriendRequests extends Component {
 
     handleRemind = () => {
         // TODO: Send a push notification. Disable Remind button for 24 hours.
+        // TODO: Attached handleRemind to the Friend View
     }
 
     handleCancel = (friendUserid) => {
