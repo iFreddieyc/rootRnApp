@@ -80,30 +80,30 @@ export default class EditHabit extends Component {
         this.goBack();
     }
 
-    handleArchive = () => {
-        const {navigate} = this.props.navigation;
-        Alert.alert(
-            'Alert',
-            "Archived habit will made inactive but still show up in your formed habit section. \n There is no way to undo this. Are you sure?",
-            [
-                {
-                    text: 'Cancel',
-                    onPress: () => console.log('Cancel Pressed'),
-                    style: 'cancel',
-                },
-                {text: 'I am sure', onPress: () => {
-                    console.log('OK Pressed');
-                        this.ref.update({
-                            archived: true,
-                        }).then(() => navigate('Habits')).catch(function (error) {
-                            // The document probably doesn't exist.
-                            console.error("Error updating document: ", error);
-                        });
-                }},
-            ],
-            {cancelable: true}
-        );
-    }
+    // handleArchive = () => {
+    //     const {navigate} = this.props.navigation;
+    //     Alert.alert(
+    //         'Alert',
+    //         "Archived habit will made inactive but still show up in your formed habit section. \n There is no way to undo this. Are you sure?",
+    //         [
+    //             {
+    //                 text: 'Cancel',
+    //                 onPress: () => console.log('Cancel Pressed'),
+    //                 style: 'cancel',
+    //             },
+    //             {text: 'I am sure', onPress: () => {
+    //                 console.log('OK Pressed');
+    //                     this.ref.update({
+    //                         archived: true,
+    //                     }).then(() => navigate('Habits')).catch(function (error) {
+    //                         // The document probably doesn't exist.
+    //                         console.error("Error updating document: ", error);
+    //                     });
+    //             }},
+    //         ],
+    //         {cancelable: true}
+    //     );
+    // }
 
     handleDelete = () => {
         const {navigate} = this.props.navigation;
@@ -128,6 +128,9 @@ export default class EditHabit extends Component {
                                 }],
                                 {cancelable: true}
                             );
+                            db.firestore().collection('users').doc(db.auth().currentUser.uid).update({
+                                changed: Math.random() * (100 - 0) + 0,
+                            });
                         }).catch(function(error) {
                             console.error("Error removing document: ", error);
                         });
@@ -169,10 +172,10 @@ export default class EditHabit extends Component {
                     title={"Cancel"}
                     onPress={this.handleCancel}
                 />
-                <Button
-                    title={"Archive"}
-                    onPress={this.handleArchive}
-                />
+                {/*<Button*/}
+                {/*    title={"Archive"}*/}
+                {/*    onPress={this.handleArchive}*/}
+                {/*/>*/}
                 <Button
                     title={"Delete"}
                     onPress={this.handleDelete}

@@ -4,7 +4,18 @@
  * @since  11.23.2019
  */
 import React, {Component} from 'react';
-import {StyleSheet, SafeAreaView, TextInput, Button, Text, Alert, Picker, Switch, ActivityIndicator, FlatList} from 'react-native';
+import {
+    StyleSheet,
+    SafeAreaView,
+    TextInput,
+    Button,
+    Text,
+    Alert,
+    Picker,
+    Switch,
+    ActivityIndicator,
+    FlatList
+} from 'react-native';
 // TODO: Figure out a way to optimize the import statement for FieldValue#arrayUnion and #arrayRemove.
 import * as firebase from 'firebase/app';
 import db from "../../base";
@@ -66,6 +77,10 @@ export default class FriendRequests extends Component {
         friendDocumentRef.update({
             outgoing: firebase.firestore.FieldValue.arrayRemove(db.auth().currentUser.uid),
             friends: firebase.firestore.FieldValue.arrayUnion(db.auth().currentUser.uid),
+        }).then(this.userDocumentRef.update({
+            changed: Math.random() * (100 - 0) + 0,
+        })).catch((error) => {
+            console.log(error);
         })
     }
 
@@ -146,7 +161,7 @@ const styles = StyleSheet.create({
         top: '40%',
         justifyContent: 'center',
         alignItems: 'center',
-        borderBottomWidth:2,
+        borderBottomWidth: 2,
         borderBottomColor: 'black'
     },
     container: {
@@ -155,8 +170,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#D4DBAD'
     },
-    littleContainer:{
-        height:'50%',
+    littleContainer: {
+        height: '50%',
         width: '80%',
         flex: 1,
         justifyContent: 'center',

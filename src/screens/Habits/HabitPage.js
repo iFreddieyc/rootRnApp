@@ -30,7 +30,7 @@ export default class HabitPage extends Component {
         const habits = [];
         querySnapshot.forEach(function (doc) {
             habits.push(doc.data());
-            console.log("numOfDays: " + doc.data().numOfDays);
+            // console.log("numOfDays: " + doc.data().numOfDays);
         });
         this.setState({
             habits,
