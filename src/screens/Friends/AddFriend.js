@@ -51,16 +51,21 @@ export default class AddFriend extends Component {
                 this.userDocumentRef.get().then((docSnapshot) => {
                     let userDocumentData = docSnapshot.data();
                     console.log("Friends: " + userDocumentData.friends);
+                    // User and friend are already friends
                     if (userDocumentData.friends.includes(friendDocumentRef.id)) {
                         alert("You're already friends!");
                         console.log("User is already a friend. Add friend request canceled.");
+                    // Friend already sent User a friend request
                     } else if (userDocumentData.incoming.includes(friendDocumentRef.id)) {
                         alert("This user already sent you a friend request! Please navigate to the Friend Requests page to accept it.");
                         console.log("Username already present in incoming friend request list.");
+                    // User already sent a friend request to Friend
                     } else if (userDocumentData.outgoing.includes(friendDocumentRef.id)) {
                         alert("You already sent this user a friend request.");
                         console.log("Username already present in outgoing friend request list.");
+                    // Send the friend request
                     } else {
+                        // Atomically add a new userid to the friend's "incoming" array field
                         friendDocumentRef.update({
                             incoming: firebase.firestore.FieldValue.arrayUnion(db.auth().currentUser.uid),
                         });
