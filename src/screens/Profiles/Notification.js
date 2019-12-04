@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, SafeAreaView, Button, DatePickerIOS, Text, View} from 'react-native';
+import {StyleSheet, SafeAreaView, Button, DatePickerIOS, Alert, View} from 'react-native';
 import {Notifications} from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
@@ -8,51 +8,61 @@ export default class Notification extends Component {
     constructor(props) {
         super(props);
         this.state = {chosenDate: new Date()};
-        this.setDate = this.setDate.bind(this);
+        // this.setDate = this.setDate.bind(this);
     }
 
-    async componentDidMount() {
-        let result = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-        if (Constants.isDevice && result.status === 'granted') {
-            console.log('Notification permissions granted.')
+    componentDidMount() {
+        this.getPermissionAsync();
+    }
+
+    getPermissionAsync = async () => {
+        if (Constants.platform.ios) {
+            const {status} = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+            if (Constants.isDevice && result.status === 'granted') {
+                console.log('Notification permissions granted.')
+            }else if (status !== 'granted') {
+                alert('Sorry, we need notification permissions to make this work!');
+            }else if (!Constants.isDevice){
+                alert('Sorry, we need a real device (not a simulator) to make this work!');
+            }
         }
     }
 
-    setDate(newDate) {
-        // Notifications.cancelAllScheduledNotificationsAsync();
-
-        console.log(newDate);
+    setDate = (newDate) => {
+        //console.log(newDate);
         this.setState({chosenDate: newDate});
         console.log(this.state.chosenDate);
-        const schedulingOptions = {
-            time: this.state.chosenDate, // (date or number) — A Date object representing when to fire the notification or a number in Unix epoch time. Example: (new Date()).getTime() + 1000 is one second from now.
-            repeat: 'day'
-        };
+    }
 
+    _sendNotification = () => {
+        const {chosenDate} = this.state;
         const localNotification = {
             title: 'Reminder from Root',
-            body: 'Did you complete your habit today?', // (string) — body text of the notification.
+            body: 'Don\'t forget to complete your habit today?',
             ios: { // (optional) (object) — notification configuration specific to iOS.
                 sound: true // (optional) (boolean) — if true, play a sound. Default: false.
             },
-            android: // (optional) (object) — notification configuration specific to Android.
-                {
-                    sound: false, // (optional) (boolean) — if true, play a sound. Default: false.
-                    //icon (optional) (string) — URL of icon to display in notification drawer.
-                    //color (optional) (string) — color of the notification icon in notification drawer.
-                    priority: 'high', // (optional) (min | low | high | max) — android may present notifications according to the priority, for example a high priority notification will likely to be shown as a heads-up notification.
-                    sticky: false, // (optional) (boolean) — if true, the notification will be sticky and not dismissable by user. The notification must be programmatically dismissed. Default: false.
-                    vibrate: false // (optional) (boolean or array) — if true, vibrate the device. An array can be supplied to specify the vibration pattern, e.g. - [ 0, 500 ].
-                    // link (optional) (string) — external link to open when notification is selected.
-                }
+        }
+        const schedulingOptions = {
+            time: chosenDate, // (date or number) — A Date object representing when to fire the notification or a number in Unix epoch time. Example: (new Date()).getTime() + 1000 is one second from now.
+            repeat: 'day'
         };
 
-        Notifications.scheduleLocalNotificationAsync(localNotification, schedulingOptions);
+        console.log('Scheduling notification:', { localNotification, schedulingOptions })
+
+        Notifications.scheduleLocalNotificationAsync(localNotification, schedulingOptions)
+            .then(Alert.alert('Notification successfully scheduled.'))
+            .catch(err => console.error(err));
     }
 
+    /**
+     * WHen the user clickes the submit button
+     */
     handleSubmit = () => {
-        const {navigate} = this.props.navigation;
-        navigate('Profile');
+        // Cancel all previously scheduled notification first
+        Notifications.cancelAllScheduledNotificationsAsync()
+            .then(this._sendNotification)
+            .catch((error)=>{console.log(error)});
     }
 
     render() {
