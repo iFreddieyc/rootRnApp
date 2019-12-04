@@ -46,8 +46,12 @@ export default class Profile extends Component {
         this.getImageFromFirebase();
     }
 
-    handleFriends = () => {
+    handleAddFriends = () => {
         this.props.navigation.navigate('AddFriend')
+    }
+
+    handleFriendList = () => {
+        this.props.navigation.navigate('MyFriend')
     }
 
     handleFriendRequests = () => {
@@ -90,7 +94,7 @@ export default class Profile extends Component {
                 }}>
                     <Button
                         title="Add Friends"
-                        onPress={this.handleFriends}
+                        onPress={this.handleAddFriends}
                     />
                 </View>
 
@@ -103,7 +107,7 @@ export default class Profile extends Component {
                 }}>
                     <Button
                         title="My Friends"
-                        onPress={() => this.props.navigation.navigate("MyFriend", {props: this.props.navigation})}
+                        onPress={this.handleFriendList}
                     />
                 </View>
 

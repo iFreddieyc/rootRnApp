@@ -25,6 +25,7 @@ import FriendProfileView from "./screens/Profiles/FriendProfileView";
 import FriendList from "./screens/Friends/FriendList";
 import FriendHabitList from "./screens/Friends/FriendHabitList";
 import Welcome from "./screens/Welcome";
+import AddFriend from "./screens/Friends/AddFriend";
 import {StyleSheet} from "react-native";
 
 const styles = StyleSheet.create({
@@ -146,7 +147,7 @@ export const ProfileNavigator = createStackNavigator({
         }),
     },
     AddFriend: {
-        screen: Friends,
+        screen: AddFriend,
         navigationOptions: () => ({
             headerBackTitle: 'Cancel',
             title: 'Add friend',

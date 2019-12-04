@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import {FlatList, View, Text, ActivityIndicator, StyleSheet, SafeAreaView} from 'react-native';
 import db from "../../base";
 import AddFriend from "./AddFriend";
+import MyFriendView from "./MyFriendView";
 
 export default class Friends extends Component {
 
