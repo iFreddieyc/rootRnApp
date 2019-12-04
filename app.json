@@ -3,6 +3,7 @@
     "name": "Root",
     "slug": "rootRnApp",
     "privacy": "public",
+    "description": "This project is the class project for Team Nevertheless in UCSD CSE 110 Fall 2019. For source code and additional info, visit github.com/iFreddieyc/rootRnApp.",
     "sdkVersion": "35.0.0",
     "platforms": [
       "ios",
