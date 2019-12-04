@@ -60,6 +60,7 @@ export default class Welcome extends Component {
         const uid = db.auth().currentUser.uid;
         const {navigate} = this.props.navigation;
         console.log(username);
+        // Check if username is longer than 5 characters
         if (username.length < 5) {
             Alert.alert(
                 'Alert',
@@ -70,9 +71,11 @@ export default class Welcome extends Component {
                 {cancelable: true}
             );
         } else {
+            // Check if username already exists
             db.firestore().collection('users').where("username", "==", username)
                 .get()
                 .then(function (querySnapshot) {
+                    // If no duplicating usernames
                     if (querySnapshot.empty) {
                         // Create a doc
                         db.firestore().collection('users').doc(uid).set({
@@ -87,6 +90,7 @@ export default class Welcome extends Component {
                             console.log("Document successfully written!");
                             navigate('Tabs');
                         });
+                        // Username is already taken
                     } else {
                         Alert.alert(
                             'Alert',

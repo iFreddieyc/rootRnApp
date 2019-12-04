@@ -28,7 +28,7 @@ export default class ImageWrapper extends Component {
     }
 
     getImageFromFirebase = async () => {
-        let storageRef = firebase.storage().ref('images/' + db.auth().currentUser.uid);
+        let storageRef = firebase.storage().ref('images/' + this.props.id);
         storageRef.getDownloadURL().then((url) =>{
             this.setState({filePath: url});
         }).catch((error) => {

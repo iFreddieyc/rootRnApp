@@ -206,9 +206,15 @@ export const ProfileNavigator = createStackNavigator({
     },
     FriendView: {
         screen: FriendProfileView,
+        navigationOptions: () => ({
+            headerStyle: {backgroundColor: '#C1D1AC'},
+        }),
     },
     FriendHabit: {
         screen: FriendHabitList,
+        navigationOptions: () => ({
+            headerStyle: {backgroundColor: '#C1D1AC'},
+        }),
     }
 
 }, {
