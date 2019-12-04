@@ -111,6 +111,7 @@ export default class EditProfile extends Component {
                         // There is no duplicate username
                         userRef.update({
                             username: name,
+                            changed: Math.random() * (100 - 0) + 0,
                         }).then(function () {
                             console.log("Document successfully written!");
                         }).catch((error) => {
