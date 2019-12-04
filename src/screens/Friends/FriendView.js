@@ -29,7 +29,6 @@ export default class FriendView extends Component {
                 return (
                     <View style={styles.container}>
                         <Text style={styles.authorName}>{this.props.friendUserid}</Text>
-                        <Button title={"Remind"} onPress={() => {this.props.handleRemind(this.props.friendUserid)}}/>
                         <Button title={"Cancel"} onPress={() => {this.props.handleCancel(this.props.friendUserid)}}/>
                     </View>
                 );

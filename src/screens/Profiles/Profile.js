@@ -47,7 +47,7 @@ export default class Profile extends Component {
     }
 
     handleFriends = () => {
-        this.props.navigation.navigate('Friends')
+        this.props.navigation.navigate('Friend')
     }
 
     handleFriendRequests = () => {

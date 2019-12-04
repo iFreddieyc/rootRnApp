@@ -4,7 +4,7 @@
  * @since  11.23.2019
  */
 import React, {Component} from 'react';
-import {StyleSheet, SafeAreaView} from 'react-native';
+import {FlatList, View, Text, ActivityIndicator, StyleSheet, SafeAreaView} from 'react-native';
 import db from "../../base";
 import AddFriend from "./AddFriend";
 
@@ -13,7 +13,9 @@ export default class Friends extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            friends: []
+            isLoading: true,
+            friends: [],
+            message: "No friends yet. Add a friend so they can support you on your habit!",
         };
 
         // Set the Firebase db path for the current user
@@ -38,19 +40,56 @@ export default class Friends extends Component {
      * Updates the friends list screen as friends are added or removed from the database
      */
     onUserDocumentUpdate = (documentSnapshot) => {
+        // TODO: Is the friend field going to be included in the user document by default?
         const friends = (documentSnapshot.get("friends") == null) ? [] : documentSnapshot.get("friends");
-        this.setState({friends: friends,});
+        this.setState({
+            isLoading: false,
+            friends: friends,
+        });
+
+        // Update friends list message
+        if (friends.size > 0) {
+            this.setState({
+                message:"My Friends",
+            })
+        } else {
+            this.setState({
+                message: "No friends yet. Add a friend so they can support you on your habit!",
+            })
+        }
     }
 
     /**
      * Renders the friends list screen
      */
     render() {
-        return (
-            <SafeAreaView style={styles.container}>
-                <AddFriend/>
-            </SafeAreaView>
-        );
+        if (this.state.isLoading) {
+                return (
+                    <SafeAreaView>
+                        <ActivityIndicator size="large" color="#0000ff"/>
+                    </SafeAreaView>
+                )
+        } else {
+            return (
+                <SafeAreaView style={styles.container} forceInset={{bottom: 'never'}}>
+                    <Text style={styles.title}>
+                        {this.state.message}
+                    </Text>
+                    <View>
+                        <FlatList
+                            data={this.state.friends}
+                            renderItem={({item}) =>
+                                <MyFriendView
+                                    navigation={this.props.navigation}
+                                    uid={item}
+                                />
+                            }
+                            keyExtractor={(item, index) => index.toString()}
+                        />
+                    </View>
+                </SafeAreaView>
+            );
+        }
     }
 }
 
