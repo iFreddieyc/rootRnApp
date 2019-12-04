@@ -78,9 +78,14 @@ export default class Profile extends Component {
                 <Image source={{uri: this.state.filePath}} style={styles.image}/>
                     <Text style={styles.username}>{this.state.username}</Text>
                     <Text style={styles.info}>{this.state.email}</Text>
-                <View style={{position: 'absolute', right: '11%', top: '21%',}}>
+                <View style={{backgroundColor: '#E0EBCB',
+                    position: 'absolute',
+                    left: '5%',
+                    bottom: '3%',
+                    borderRadius: 10}}>
                     <Button
                         title={"Edit Profile"}
+                        color={'black'}
                         onPress={() => this.props.navigation.navigate("EditProfile")}
                     />
                 </View>
@@ -89,7 +94,7 @@ export default class Profile extends Component {
                     position: 'absolute', flex: 1,
                     justifyContent: 'center',
                     alignItems: 'center',
-                    top: '30%', backgroundColor: '#E0EBCB', width: 300, height: 80,
+                    top: '35%', backgroundColor: '#E0EBCB', width: 300, height: 80,
                     borderRadius: 10
                 }}>
                     <Button
@@ -102,7 +107,7 @@ export default class Profile extends Component {
                     position: 'absolute', flex: 1,
                     justifyContent: 'center',
                     alignItems: 'center',
-                    top: '42%', backgroundColor: '#E0EBCB', width: 300, height: 80,
+                    top: '47%', backgroundColor: '#E0EBCB', width: 300, height: 80,
                     borderRadius: 10
                 }}>
                     <Button
@@ -115,7 +120,7 @@ export default class Profile extends Component {
                     position: 'absolute', flex: 1,
                     justifyContent: 'center',
                     alignItems: 'center',
-                    top: '54%', backgroundColor: '#E0EBCB', width: 300, height: 80,
+                    top: '59%', backgroundColor: '#E0EBCB', width: 300, height: 80,
                     borderRadius: 10
                 }}>
                     <Button
@@ -128,7 +133,7 @@ export default class Profile extends Component {
                     position: 'absolute', flex: 1,
                     justifyContent: 'center',
                     alignItems: 'center',
-                    top: '66%', backgroundColor: '#E0EBCB', width: 300, height: 80,
+                    top: '71%', backgroundColor: '#E0EBCB', width: 300, height: 80,
                     borderRadius: 10
                 }}>
                     <Button
@@ -158,12 +163,12 @@ export default class Profile extends Component {
 
 const styles = StyleSheet.create({
     image: {
-        width: 120,
-        height: 120,
+        width: '28%',
+        height: '15%',
         borderRadius:20,
         position: 'absolute',
         top: '5%',
-        right: '8%',
+        right: '36%',
     },
     username:{
         fontFamily: 'Copperplate-Bold',
@@ -171,8 +176,9 @@ const styles = StyleSheet.create({
         color: '#D98888',
         fontSize: 45,
         position: 'absolute',
-        top: '8%',
-        left: '8%',
+        top: '21%',
+        alignItems: 'center',
+        justifyContent: 'center'
 
     },
     info: {
@@ -180,8 +186,9 @@ const styles = StyleSheet.create({
         fontSize: 25,
         margin: 10,
         position: 'absolute',
-        top: '13%',
-        left: '8%',
+        top: ' 25%',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     container: {
         flex: 1,
