@@ -60,37 +60,48 @@ export default class Welcome extends Component {
         const uid = db.auth().currentUser.uid;
         const {navigate} = this.props.navigation;
         console.log(username);
-        db.firestore().collection('users').where("username", "==", username)
-            .get()
-            .then(function (querySnapshot) {
-                if (querySnapshot.empty) {
-                    // Create a doc
-                    db.firestore().collection('users').doc(uid).set({
-                        username: username,
-                        email: db.auth().currentUser.email,
-                        userPicUrl: "",
-                        userId: uid,
-                        friends: [],
-                        incoming: [],
-                        outgoing: [ ],
-                    }).then(function () {
-                        console.log("Document successfully written!");
-                        navigate('Tabs');
-                    });
-                } else {
-                    Alert.alert(
-                        'Alert',
-                        "Username already exists, choose a new username",
-                        [{
-                            text: 'Ok', onPress: () => console.log('Ok is pressed')
-                        }],
-                        {cancelable: true}
-                    );
-                }
-            })
-            .catch(function (error) {
-                console.log("Error getting documents: ", error)
-            });
+        if (username.length < 5) {
+            Alert.alert(
+                'Alert',
+                "Username is too short",
+                [{
+                    text: 'Ok', onPress: () => console.log('Ok is pressed')
+                }],
+                {cancelable: true}
+            );
+        } else {
+            db.firestore().collection('users').where("username", "==", username)
+                .get()
+                .then(function (querySnapshot) {
+                    if (querySnapshot.empty) {
+                        // Create a doc
+                        db.firestore().collection('users').doc(uid).set({
+                            username: username,
+                            email: db.auth().currentUser.email,
+                            userPicUrl: "",
+                            userId: uid,
+                            friends: [],
+                            incoming: [],
+                            outgoing: [],
+                        }).then(function () {
+                            console.log("Document successfully written!");
+                            navigate('Tabs');
+                        });
+                    } else {
+                        Alert.alert(
+                            'Alert',
+                            "Username already exists, choose a new username",
+                            [{
+                                text: 'Ok', onPress: () => console.log('Ok is pressed')
+                            }],
+                            {cancelable: true}
+                        );
+                    }
+                })
+                .catch(function (error) {
+                    console.log("Error getting documents: ", error)
+                });
+        }
     }
 
 
@@ -109,7 +120,8 @@ export default class Welcome extends Component {
 
         return (
             <View style={styles.container}>
-                <Image source={require('../auth/my-icon.png')} style={{width: 150, height: 150, position: 'absolute', top: '20%', opacity: 0.8 }} />
+                <Image source={require('../auth/my-icon.png')}
+                       style={{width: 150, height: 150, position: 'absolute', top: '20%', opacity: 0.8}}/>
                 <Text style={styles.title}>
                     Welcome to Root!
                 </Text>
@@ -117,23 +129,30 @@ export default class Welcome extends Component {
                 <Text> </Text>
                 <Text> </Text>
                 <Text> </Text>
-                <Text style={{color: 'black', fontFamily: 'Cochin', fontSize: 18, padding: 10, position: 'absolute', bottom: '50%'}}>
+                <Text style={{
+                    color: 'black',
+                    fontFamily: 'Cochin',
+                    fontSize: 18,
+                    padding: 10,
+                    position: 'absolute',
+                    bottom: '50%'
+                }}>
                     Begin your journey by choosing a username first.
                 </Text>
 
                 <TextInput style={styles.input}
                            placeholder="Username"
                            autoCapitalize={"none"}
-                           autoCorrect={false }
+                           autoCorrect={false}
                            onChangeText={val => this.onChangeText('username', val)}
                 />
                 <Text> </Text>
                 <View style={styles.button}>
-                <Button
-                    title={"Submit"}
-                    color={'white'}
-                    onPress={this.handleSubmit}
-                />
+                    <Button
+                        title={"Submit"}
+                        color={'white'}
+                        onPress={this.handleSubmit}
+                    />
                 </View>
             </View>
         );
@@ -153,7 +172,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    title:{
+    title: {
         fontFamily: 'Cochin',
         fontSize: 40,
         fontWeight: 'bold',

@@ -54,7 +54,7 @@ export default class EditProfile extends Component {
                 });
         }
     }
-    
+
     uploadImage = async (uri, imageName) => {
         const response = await fetch(uri);
         const blob = await response.blob();
@@ -83,7 +83,7 @@ export default class EditProfile extends Component {
 
     getImageFromFirebase = async () => {
         let storageRef = firebase.storage().ref('images/' + db.auth().currentUser.uid);
-        storageRef.getDownloadURL().then((url) =>{
+        storageRef.getDownloadURL().then((url) => {
             this.setState({filePath: url});
         }).catch((error) => {
             this.setState({filePath: 'https://firebasestorage.googleapis.com/v0/b/rootappcse110ntl.appspot.com/o/images%2Fdefault-profile.jpg?alt=media&token=e284258e-bb13-4a9b-88ea-d4bf1ccede3e'});
@@ -91,55 +91,94 @@ export default class EditProfile extends Component {
     }
 
     saveProfile = () => {
-        const {name, password, filePath} = this.state;
-        let userRef = db.firestore().collection('users').doc(db.auth().currentUser.uid);
-        userRef.update({
-            username: name
-        });
-        this.props.navigation.navigate('Profile');
+        const {navigate} = this.props.navigation;
+        const {name} = this.state;
+        if (name.length < 5) {
+            Alert.alert(
+                'Alert',
+                "Username is too short",
+                [{
+                    text: 'Ok', onPress: () => console.log('Ok is pressed')
+                }],
+                {cancelable: true}
+            );
+        } else {
+            let userRef = db.firestore().collection('users').doc(db.auth().currentUser.uid);
+            db.firestore().collection('users').where("username", "==", name)
+                .get()
+                .then(function (querySnapshot) {
+                    if (querySnapshot.empty) {
+                        // There is no duplicate username
+                        userRef.update({
+                            username: name,
+                        }).then(function () {
+                            console.log("Document successfully written!");
+                        }).catch((error) => {
+                            console.log("Something went wrong updating the document" + error);
+                        });
+                        // Go to profile
+                        navigate('Profile');
+                    } else {
+                        // There is a duplicate username
+                        Alert.alert(
+                            'Alert',
+                            "Username already exists, choose a new username",
+                            [{
+                                text: 'Ok', onPress: () => console.log('Ok is pressed')
+                            }],
+                            {cancelable: true}
+                        );
+                    }
+                })
+                .catch(function (error) {
+                    console.log("Error getting documents: ", error)
+                });
+        }
+
+        // this.props.navigation.navigate('Profile');
     }
 
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.picture}>
-                <Image source={{uri: this.state.filePath}} style={{width: 100, height: 100, borderRadius:20}}/>
-                <Button
-                    title={"Upload Picture"}
-                    onPress={(e) => {
-                        this.onChooseImagePress();
-                    }}
-                />
+                    <Image source={{uri: this.state.filePath}} style={{width: 100, height: 100, borderRadius: 20}}/>
+                    <Button
+                        title={"Upload Picture"}
+                        onPress={(e) => {
+                            this.onChooseImagePress();
+                        }}
+                    />
                 </View>
                 <View style={styles.name}>
-                <TextInput style={styles.input}
-                           placeholder="What's Your New Name?"
-                           autoCapitalize={"none"}
-                           onChangeText={val => this.onChangeText('name', val)}
-                />
-                <Button
-                    title={"Save New Name"}
-                    onPress={this.saveProfile}
+                    <TextInput style={styles.input}
+                               placeholder="What's Your New Name?"
+                               autoCapitalize={"none"}
+                               onChangeText={val => this.onChangeText('name', val)}
+                    />
+                    <Button
+                        title={"Save New Name"}
+                        onPress={this.saveProfile}
 
-                />
+                    />
                 </View>
-                <View style={styles.password}>
-                <TextInput style={styles.input}
-                           placeholder="What's Your New Password?"
-                           secureTextEntry={true}
-                           autoCapitalize={"none"}
-                           onChangeText={val => this.onChangeText('password', val)}
-                />
-                <Button
-                    title={"Save New Password"}
-                    onPress={(e) => {
-                        const {name, password, filePath} = this.state;
-                        console.log(password);
-                        firebase.auth().currentUser.updatePassword(password);
-                        this.props.navigation.navigate('Profile');
-                    }}
-                />
-                </View>
+                {/*<View style={styles.password}>*/}
+                {/*<TextInput style={styles.input}*/}
+                {/*           placeholder="What's Your New Password?"*/}
+                {/*           secureTextEntry={true}*/}
+                {/*           autoCapitalize={"none"}*/}
+                {/*           onChangeText={val => this.onChangeText('password', val)}*/}
+                {/*/>*/}
+                {/*<Button*/}
+                {/*    title={"Save New Password"}*/}
+                {/*    onPress={(e) => {*/}
+                {/*        const {name, password, filePath} = this.state;*/}
+                {/*        console.log(password);*/}
+                {/*        firebase.auth().currentUser.updatePassword(password);*/}
+                {/*        this.props.navigation.navigate('Profile');*/}
+                {/*    }}*/}
+                {/*/>*/}
+                {/*</View>*/}
             </View>
         );
     }
