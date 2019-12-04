@@ -24,7 +24,12 @@ export default class Profile extends Component {
 
     componentDidMount() {
         this.getImageFromFirebase();
-        this.ref.onSnapshot(this.reloadProfile);
+        this.unsubscribe = this.ref.onSnapshot(this.reloadProfile);
+    }
+
+    componentWillUnmount() {
+        // Cancel all subscriptions to prevent memory leaks
+        this.unsubscribe();
     }
 
     getImageFromFirebase = async () => {
