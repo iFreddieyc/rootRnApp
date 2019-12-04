@@ -40,8 +40,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         //alignItems: 'center',
-        marginTop: '5%',
-        marginBottom: '5%',
+        marginTop: '4%',
+        marginBottom: '1%',
         width: 350,
         height: 70,
         //padding: 100,

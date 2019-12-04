@@ -21,13 +21,15 @@ export default class Ranking extends Component {
             ranking: [],
             message: "Add a friend to see their progress!"
         };
+        this.ref = db.firestore().collection("users").doc(db.auth().currentUser.uid);
     }
 
     componentDidMount() {
         this.getRanking();
+        this.ref.onSnapshot(this.getRanking);
     }
 
-    getRanking() {
+    getRanking = () => {
         console.log("get ranking")
         this.getFriendList().then((friendsList) => {
             this.setState({
@@ -68,10 +70,10 @@ export default class Ranking extends Component {
                 .doc(db.auth().currentUser.uid)
                 .get()
                 .then(function (doc) {
-                    if (doc.exists){
+                    if (doc.exists) {
                         console.log(doc.data().friends);
                         friendList = doc.data().friends;
-                    }else{
+                    } else {
                         console.log("No such document");
                     }
                     friendList.push(db.auth().currentUser.uid);
@@ -114,7 +116,6 @@ export default class Ranking extends Component {
 
     render() {
         if (this.state.isLoading) {
-            console.log("Hello");
             return (
                 <View style={styles.activity}>
                     <ActivityIndicator size="large" color="#0000ff"/>
@@ -123,13 +124,9 @@ export default class Ranking extends Component {
         } else {
             return (
                 <SafeAreaView style={styles.container}>
-                    <Text style={styles.title}>
-                        {this.state.message}
-                    </Text>
-                    <Button
-                        title={"reload"}
-                        onPress={() => this.getRanking()}
-                    />
+                    {/*<Text style={styles.title}>*/}
+                    {/*    {this.state.message}*/}
+                    {/*</Text>*/}
                     <FlatList
                         data={this.state.ranking}
                         renderItem={({item}) =>
@@ -167,12 +164,9 @@ const styles = StyleSheet.create({
         fontWeight: 'bold', alignItems: 'center',
     },
     activity: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        top: 0,
-        bottom: 0,
+        flex: 1,
+        justifyContent: 'center',
         alignItems: 'center',
-        justifyContent: 'center'
-    }
+        backgroundColor: '#D4DBAD'
+    },
 });

@@ -64,10 +64,7 @@ export default class FriendList extends Component {
             )
         }
         return (
-            <SafeAreaView style={styles.container} forceInset={{bottom: 'never'}}>
-                <Text style={styles.title}>
-                    {this.state.message}
-                </Text>
+            <SafeAreaView style={styles.container}>
                 <View>
                     <FlatList
                         data={this.state.friendList}

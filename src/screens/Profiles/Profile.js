@@ -47,7 +47,7 @@ export default class Profile extends Component {
     }
 
     handleFriends = () => {
-        this.props.navigation.navigate('Friends')
+        this.props.navigation.navigate('AddFriend')
     }
 
     handleFriendRequests = () => {
@@ -72,65 +72,79 @@ export default class Profile extends Component {
         return (
             <View style={styles.container}>
                 <Image source={{uri: this.state.filePath}} style={styles.image}/>
-                <Text style={styles.username}>{this.state.username}</Text>
-                <Text style={styles.info}>{this.state.email}</Text>
-                <View style={{position: 'absolute', right:'11%', top: '21%',}}>
-                <Button
-                    title={"Edit Profile"}
-                    onPress={() => this.props.navigation.navigate("EditProfile")}
-                />
+                    <Text style={styles.username}>{this.state.username}</Text>
+                    <Text style={styles.info}>{this.state.email}</Text>
+                <View style={{position: 'absolute', right: '11%', top: '21%',}}>
+                    <Button
+                        title={"Edit Profile"}
+                        onPress={() => this.props.navigation.navigate("EditProfile")}
+                    />
                 </View>
 
-                <View style={{position: 'absolute', flex: 1,
+                <View style={{
+                    position: 'absolute', flex: 1,
                     justifyContent: 'center',
                     alignItems: 'center',
                     top: '30%', backgroundColor: '#E0EBCB', width: 300, height: 80,
-                    borderRadius: 10}}>
-                <Button
-                    title="Add Friends"
-                    onPress={this.handleFriends}
-                />
+                    borderRadius: 10
+                }}>
+                    <Button
+                        title="Add Friends"
+                        onPress={this.handleFriends}
+                    />
                 </View>
 
-                <View style={{position: 'absolute', flex: 1,
+                <View style={{
+                    position: 'absolute', flex: 1,
                     justifyContent: 'center',
                     alignItems: 'center',
                     top: '42%', backgroundColor: '#E0EBCB', width: 300, height: 80,
-                    borderRadius: 10}}>
-                <Button
-                    title="My Friends"
-                    onPress={() => this.props.navigation.navigate("Friend", {props: this.props.navigation})}
-                />
+                    borderRadius: 10
+                }}>
+                    <Button
+                        title="My Friends"
+                        onPress={() => this.props.navigation.navigate("MyFriend", {props: this.props.navigation})}
+                    />
                 </View>
 
-                <View style={{position: 'absolute', flex: 1,
+                <View style={{
+                    position: 'absolute', flex: 1,
                     justifyContent: 'center',
                     alignItems: 'center',
                     top: '54%', backgroundColor: '#E0EBCB', width: 300, height: 80,
-                    borderRadius: 10}}>
-                <Button
-                    title="Friend Requests"
-                    onPress={this.handleFriendRequests}
-                />
+                    borderRadius: 10
+                }}>
+                    <Button
+                        title="Friend Requests"
+                        onPress={this.handleFriendRequests}
+                    />
                 </View>
 
-                <View style={{position: 'absolute', flex: 1,
+                <View style={{
+                    position: 'absolute', flex: 1,
                     justifyContent: 'center',
                     alignItems: 'center',
                     top: '66%', backgroundColor: '#E0EBCB', width: 300, height: 80,
-                    borderRadius: 10}}>
-                <Button
-                    title={"Set Notification"}
-                    onPress={this.handleSetNotif}
-                />
+                    borderRadius: 10
+                }}>
+                    <Button
+                        title={"Set Notification"}
+                        onPress={this.handleSetNotif}
+                    />
                 </View>
-                <View style={{backgroundColor: '#E0EBCB', position: 'absolute', right:'5%', bottom: '3%', borderRadius: 10}}>
-                <Button
-                    title="Sign out"
-                    color='black'
-                    backgroundColor='white'
-                    onPress={this.handleSignOut}
-                />
+                <View style={{
+                    backgroundColor: '#E0EBCB',
+                    position: 'absolute',
+                    right: '5%',
+                    bottom: '3%',
+                    borderRadius: 10
+                }}>
+                    <Button
+                        title="Sign out"
+                        color='black'
+                        backgroundColor='white'
+                        onPress={this.handleSignOut}
+                    />
                 </View>
             </View>
         );

@@ -22,6 +22,7 @@ class HabitView extends Component {
     constructor(props) {
         super(props);
         this.state = {modalVisible: false};
+        this.ref = db.firestore().collection("users").doc(db.auth().currentUser.uid);
     }
 
     setModalVisible(visible) {
@@ -43,6 +44,7 @@ class HabitView extends Component {
      * Otherwise, alert the user that they can only checkoff once a day.
      */
     handleYes = () => {
+        const ref = this.ref;
         let docRef = db.firestore().collection("habits").doc(this.props.id)
         docRef.get().then(function (doc) {
             if (doc.exists) {
@@ -55,6 +57,12 @@ class HabitView extends Component {
                     })
                         .then(() => {
                                 console.log("Updated latest successful, current value is:" + util.getCurrentDate());
+                                ref.update({
+                                    // Weird fix but ok
+                                    changed: Math.random() * (100 - 0) + 0,
+                                }).then().catch((error) => {
+                                    console.log("Error updating changed: " + error);
+                                })
                             }
                         ).catch((error) => {
                         console.log("Error updating document" + error);

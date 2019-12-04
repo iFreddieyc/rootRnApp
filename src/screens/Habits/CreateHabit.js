@@ -21,6 +21,7 @@ export default class CreateHabit extends Component {
             visible: true,
             description: '',
         };
+        this.ref = db.firestore().collection('users').doc(db.auth().currentUser.uid);
     }
 
     /**
@@ -61,7 +62,13 @@ export default class CreateHabit extends Component {
                 let startDate = util.getCurrentDate();
                 let habit = new Habit(name, userid, startDate, description, visible, 0,false);
                 habit.pushToFirestore()
-                    .then(this.props.navigation.navigate('Habits'))
+                    .then(
+                        this.ref.update({
+                            changed: Math.random() * (100 - 0) + 0,
+                        }).then(
+                            this.props.navigation.navigate('Habits')
+                        )
+                    )
                     .catch(function(error){
                         // do nothing
                     });

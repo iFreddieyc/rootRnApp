@@ -34,13 +34,17 @@ export default class ImageWrapper extends Component {
         this.setState({filePath: imageurl});
     }
 
+    toProfile = () => {
+
+    }
+
     render() {
         return (
             <View>
                 <Text style={styles.authorName}>
                     {this.state.userName}
                 </Text>
-                <TouchableHighlight>
+                <TouchableHighlight onPress={this.toProfile}>
                     <Image
                         source={{uri: this.state.filePath}}
                         style={styles.image}/>

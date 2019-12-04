@@ -46,7 +46,7 @@ export default class EditProfile extends Component {
                     // Alert.alert("Picture Successfully changed");
                     let userRef = db.firestore().collection('users').doc(db.auth().currentUser.uid);
                     userRef.update({
-                        picUrl: result.uri
+                        changed: Math.random() * (100 - 0) + 0,
                     });
                 })
                 .catch((error) => {

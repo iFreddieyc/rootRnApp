@@ -67,7 +67,7 @@ export default class AddFriend extends Component {
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                <TextInput
+                <TextInput style={styles.input}
                     onChangeText={this.handleChangeText}
                     placeholder="Please enter a username."
                     autoCorrect={false}
@@ -82,13 +82,16 @@ export default class AddFriend extends Component {
 // UI Design TODO
 const styles = StyleSheet.create({
     input: {
-        width: '100%',
-        height: '100%',
+        width: '70%',
+        height: '6%',
+        borderRadius: 10,
+        position: 'absolute',
         top: '40%',
+        fontSize: 21,
+        margin: 5,
         justifyContent: 'center',
         alignItems: 'center',
-        borderBottomWidth:2,
-        borderBottomColor: 'black'
+        backgroundColor: '#E0EBCB'
     },
     container: {
         flex: 1,

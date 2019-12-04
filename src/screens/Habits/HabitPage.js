@@ -3,8 +3,8 @@
  * @author Qiuling Chen, Qingcheng You
  * @since 11.17.2019
  */
-import React, { Component } from 'react';
-import {FlatList, StyleSheet, SafeAreaView, Button, Text, ActivityIndicator} from 'react-native';
+import React, {Component} from 'react';
+import {FlatList, StyleSheet, SafeAreaView, Button, Text, ActivityIndicator, View} from 'react-native';
 
 import db from "../../base";
 import HabitView from "./HabitView";
@@ -36,7 +36,7 @@ export default class HabitPage extends Component {
             habits,
             isLoading: false,
         });
-        if(habits.length > 0){
+        if (habits.length > 0) {
             this.setState({
                 message: "My Habits"
             });
@@ -58,9 +58,9 @@ export default class HabitPage extends Component {
         // If loading is finished.
         return (
             <SafeAreaView style={styles.container} forceInset={{bottom: 'never'}}>
-		<Text style={styles.title}>
-                    {this.state.message}
-                </Text>
+                {/*<Text style={styles.title}>*/}
+                {/*    {this.state.message}*/}
+                {/*</Text>*/}
                 <FlatList
                     data={this.state.habits}
                     renderItem={({item}) =>
@@ -68,15 +68,17 @@ export default class HabitPage extends Component {
                             name={item.name}
                             numOfDays={item.numOfDays}
                             description={item.description}
-                            id = {item.habitId}
+                            id={item.habitId}
                         />
                     }
                     keyExtractor={(item, index) => index.toString()}
                 />
-                <Button
-                    onPress={this.directToCreateNewHabit}
-                    title={"+"}
-                />
+                <View style={styles.button}>
+                    <Button
+                        onPress={this.directToCreateNewHabit}
+                        title={"+"}
+                    />
+                </View>
             </SafeAreaView>
         );
     }
@@ -110,5 +112,17 @@ const styles = StyleSheet.create({
         bottom: 0,
         alignItems: 'center',
         justifyContent: 'center'
-    }
+    },
+    button:
+        {
+            width: 50,
+            height: 50,
+            borderRadius: 50 / 2,
+            position: 'absolute',
+            bottom: '5%',
+            right: '5%',
+            backgroundColor: '#E0EBCB',
+            alignItems: 'center',
+            justifyContent: 'center'
+        }
 });

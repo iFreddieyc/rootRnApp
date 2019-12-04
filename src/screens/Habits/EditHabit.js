@@ -184,6 +184,12 @@ export default class EditHabit extends Component {
 }
 
 const styles = StyleSheet.create({
+    activity: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#D4DBAD'
+    },
     top:{
         position: 'absolute',
         top: 120,

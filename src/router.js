@@ -38,19 +38,54 @@ const styles = StyleSheet.create({
 export const HabitNavigator = createStackNavigator({
     Habits:{
         screen: HabitPage,
+        navigationOptions: () => ({
+            title: 'My Habits',
+            headerStyle: {backgroundColor: '#D4DBAD'},
+            headerTitleStyle: {
+                fontSize: 30,
+                color: 'black',
+                fontWeight: 'bold',
+                alignItems: 'center',
+                fontFamily: 'Cochin',
+            },
+        }),
+
     },
     CreateNew: {
         screen: CreateHabit,
+        navigationOptions: () => ({
+            title: 'New Habit',
+            headerBackTitle: 'Back',
+            headerStyle: {backgroundColor: '#D4DBAD'},
+            headerTitleStyle: {
+                fontSize: 30,
+                color: 'black',
+                fontWeight: 'bold',
+                alignItems: 'center',
+                fontFamily: 'Cochin',
+            },
+        }),
     },
     Edit: {
         screen: EditHabit,
+        navigationOptions: () => ({
+            title: 'Edit Habit',
+            headerBackTitle: 'Back',
+            headerStyle: {backgroundColor: '#D4DBAD'},
+            headerTitleStyle: {
+                fontSize: 30,
+                color: 'black',
+                fontWeight: 'bold',
+                alignItems: 'center',
+                fontFamily: 'Cochin',
+            },
+        }),
     },
     View: {
         screen: HabitView,
     }
 }, {
     initialRouteName: 'Habits',
-    headerMode: 'none'
 })
 
 // Sign Up and Sign In Screens
@@ -62,49 +97,110 @@ export const SignedOut = createSwitchNavigator({
     initialRouteName: 'SignIn'
 });
 
+export const RankingNavigator = createStackNavigator({
+    Ranking: {
+        screen: Ranking,
+            navigationOptions: () => ({
+            title: 'HabitRank',
+            headerBackTitle: 'Back',
+            headerStyle: {backgroundColor: '#D4DBAD'},
+            headerTitleStyle: {
+                fontSize: 30,
+                color: 'black',
+                fontWeight: 'bold',
+                alignItems: 'center',
+                fontFamily: 'Cochin',
+            },
+        }),
+    }
+});
+
 // Profile Screen
 export const ProfileNavigator = createStackNavigator({
     Profile: {
         screen: Profile,
         navigationOptions: () => ({
-            headerBackTitle: 'Cancel',
-            headerStyle: {backgroundColor: '#C1D1AC'}
+            title: "Settings",
+            headerStyle: {backgroundColor: '#D4DBAD'},
+            headerTitleStyle: {
+                fontSize: 30,
+                color: 'black',
+                fontWeight: 'bold',
+                alignItems: 'center',
+                fontFamily: 'Cochin',
+            },
         }),
     },
     EditProfile: {
         screen: EditProfile,
         navigationOptions: () => ({
             headerBackTitle: 'Cancel',
-            headerStyle: {backgroundColor: '#C1D1AC'}
-
+            headerStyle: {backgroundColor: '#D4DBAD'},
+            headerTitleStyle: {
+                fontSize: 30,
+                color: 'black',
+                fontWeight: 'bold',
+                alignItems: 'center',
+                fontFamily: 'Cochin',
+            },
         }),
     },
-    Friends: {
+    AddFriend: {
         screen: Friends,
         navigationOptions: () => ({
             headerBackTitle: 'Cancel',
-            headerStyle: {backgroundColor: '#C1D1AC'}
+            title: 'Add friend',
+            headerStyle: {backgroundColor: '#D4DBAD'},
+            headerTitleStyle: {
+                fontSize: 30,
+                color: 'black',
+                fontWeight: 'bold',
+                alignItems: 'center',
+                fontFamily: 'Cochin',
+            },
         }),
     },
     FriendRequests: {
         screen: FriendRequests,
         navigationOptions: () => ({
             headerBackTitle: 'Cancel',
-            headerStyle: {backgroundColor: '#C1D1AC'}
+            headerStyle: {backgroundColor: '#D4DBAD'},
+            headerTitleStyle: {
+                fontSize: 30,
+                color: 'black',
+                fontWeight: 'bold',
+                alignItems: 'center',
+                fontFamily: 'Cochin',
+            },
         }),
     },
     Notif:{
         screen: Notification,
         navigationOptions: () => ({
-            headerBackTitle: 'Cancel',
-            headerStyle: {backgroundColor: '#C1D1AC'}
+            title:"Daily Reminder",
+            headerStyle: {backgroundColor: '#D4DBAD'},
+            headerTitleStyle: {
+                fontSize: 30,
+                color: 'black',
+                fontWeight: 'bold',
+                alignItems: 'center',
+                fontFamily: 'Cochin',
+            },
         }),
     },
-    Friend: {
+    MyFriend: {
         screen: FriendList,
         navigationOptions: () => ({
             headerBackTitle: 'Cancel',
-            headerStyle: {backgroundColor: '#C1D1AC'}
+            title: 'My Friends',
+            headerStyle: {backgroundColor: '#C1D1AC'},
+            headerTitleStyle: {
+                fontSize: 30,
+                color: 'black',
+                fontWeight: 'bold',
+                alignItems: 'center',
+                fontFamily: 'Cochin',
+            },
         }),
     },
     FriendView: {
@@ -121,13 +217,8 @@ export const ProfileNavigator = createStackNavigator({
 // Tab Navigator for HabitNavigator, Ranking and Profile
 export const Tabs = createBottomTabNavigator({
     Habits: HabitNavigator,
-    Rankings: {
-        screen:Ranking,
-        navigationOptions: () => ({
-            headerStyle: {backgroundColor: '#C1D1AC'}
-        }),
-    },
-    Profiles: ProfileNavigator,
+    Ranking: RankingNavigator,
+    Setting: ProfileNavigator,
 }, {
     initialRouteName: 'Habits',
     tabBarOptions: {
