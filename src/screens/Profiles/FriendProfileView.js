@@ -61,7 +61,11 @@ export default class FriendsProfile extends Component {
             >
                 <View>
                     <Text style={styles.habitAccess}>{this.state.username + "'s Habits"}</Text>
+                    <Text style={styles.habitPress}>
+                        {"Press to see Habit"}
+                     </Text>
                 </View>
+
             </TouchableHighlight>
             </SafeAreaView>
         );
@@ -95,6 +99,15 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         alignItems: 'center',
         fontFamily: 'Cochin',
+   },
+   habitPress: {
+        fontSize: 15,
+        color: 'pink',
+        fontWeight: 'bold',
+        alignItems: 'center',
+        fontFamily: 'Cochin',
+        left: 70,
+        right: 100,
    },
    habitAccess: {
         fontSize: 30,
