@@ -131,6 +131,7 @@ export default class Welcome extends Component {
                 <View style={styles.button}>
                 <Button
                     title={"Submit"}
+                    color={'white'}
                     onPress={this.handleSubmit}
                 />
                 </View>
@@ -145,6 +146,12 @@ const styles = StyleSheet.create({
     button: {
         position: 'absolute',
         bottom: '30%',
+        backgroundColor: '#75B54E',
+        borderRadius: 10,
+        width: '28%',
+        height: '4%',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     title:{
         fontFamily: 'Cochin',
