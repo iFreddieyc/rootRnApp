@@ -28,12 +28,13 @@ export default class ImageWrapper extends Component {
     }
 
     getImageFromFirebase = async () => {
-        let storageRef = firebase.storage().ref('images/' + this.props.id);
-        const imageurl = await storageRef.getDownloadURL();
-        console.log("url: " + imageurl);
-        this.setState({filePath: imageurl});
+        let storageRef = firebase.storage().ref('images/' + db.auth().currentUser.uid);
+        storageRef.getDownloadURL().then((url) =>{
+            this.setState({filePath: url});
+        }).catch((error) => {
+            this.setState({filePath: 'https://firebasestorage.googleapis.com/v0/b/rootappcse110ntl.appspot.com/o/images%2Fdefault-profile.jpg?alt=media&token=e284258e-bb13-4a9b-88ea-d4bf1ccede3e'});
+        });
     }
-
     toProfile = () => {
 
     }

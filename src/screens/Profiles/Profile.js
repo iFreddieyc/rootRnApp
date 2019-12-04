@@ -29,9 +29,11 @@ export default class Profile extends Component {
 
     getImageFromFirebase = async () => {
         let storageRef = firebase.storage().ref('images/' + db.auth().currentUser.uid);
-        const imageurl = await storageRef.getDownloadURL();
-        console.log("url: " + imageurl);
-        this.setState({filePath: imageurl});
+        storageRef.getDownloadURL().then((url) =>{
+            this.setState({filePath: url});
+        }).catch((error) => {
+            this.setState({filePath: 'https://firebasestorage.googleapis.com/v0/b/rootappcse110ntl.appspot.com/o/images%2Fdefault-profile.jpg?alt=media&token=e284258e-bb13-4a9b-88ea-d4bf1ccede3e'});
+        });
     }
 
     reloadProfile = (querySnapshot) => {
@@ -66,10 +68,6 @@ export default class Profile extends Component {
 
     handleSetNotif = () => {
         this.props.navigation.navigate('Notif');
-    }
-
-    handleReload = () => {
-
     }
 
     render() {
