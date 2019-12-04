@@ -38,22 +38,42 @@ export default class AddFriend extends Component {
             .get()
             .then((querySnapshot) => {
                 let friendDocumentRef;
+                let friendDocumentData;
 
                 // querySnapshot contains an array of QueryDocumentSnapshot objects, representing the query results
                 querySnapshot.forEach((doc) => {
                     friendDocumentRef = doc.ref;
-                    friendDocumentRef.update({
-                        incoming: firebase.firestore.FieldValue.arrayUnion(db.auth().currentUser.uid),
-                    });
+                    friendDocumentData = doc.data();
                 });
                 console.info("Username query returned " + querySnapshot.size + " results.");
 
-                // Atomically add a new userid to the current user's "outgoing" array field
-                this.userDocumentRef.update({
-                    outgoing: firebase.firestore.FieldValue.arrayUnion(friendDocumentRef.id),
-                });
+                // Only populate friend request lists if you aren't already friends
+                this.userDocumentRef.get().then((docSnapshot) => {
+                    let userDocumentData = docSnapshot.data();
+                    console.log("Friends: " + userDocumentData.friends);
+                    if (userDocumentData.friends.includes(friendDocumentRef.id)) {
+                        alert("You're already friends!");
+                        console.log("User is already a friend. Add friend request canceled.");
+                    } else if (userDocumentData.incoming.includes(friendDocumentRef.id)) {
+                        alert("This user already sent you a friend request! Please navigate to the Friend Requests page to accept it.");
+                        console.log("Username already present in incoming friend request list.");
+                    } else if (userDocumentData.outgoing.includes(friendDocumentRef.id)) {
+                        alert("You already sent this user a friend request.");
+                        console.log("Username already present in outgoing friend request list.");
+                    } else {
+                        friendDocumentRef.update({
+                            incoming: firebase.firestore.FieldValue.arrayUnion(db.auth().currentUser.uid),
+                        });
 
-                console.log("Friend request sent.");
+                        // Atomically add a new userid to the current user's "outgoing" array field
+                        this.userDocumentRef.update({
+                            outgoing: firebase.firestore.FieldValue.arrayUnion(friendDocumentRef.id),
+                        });
+
+                        alert("Friend request sent.");
+                        console.log("Friend request sent.");
+                    }
+                })
             })
             .catch((e) => {
                 alert("Username not found. Please try again.");
