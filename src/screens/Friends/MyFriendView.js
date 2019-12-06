@@ -18,6 +18,7 @@ import {
 
 import db from "../../base";
 import { withNavigation } from 'react-navigation';
+import ImageWrapper from "../ImageWrapper.js";
 
 export default class MyFriendView extends Component {
 
@@ -53,17 +54,18 @@ export default class MyFriendView extends Component {
     }
 
     render() {
-        return (
-            <TouchableHighlight style={styles.container}
+         return (
+             <TouchableHighlight style={styles.container}
                                 onPress={this.handleViewFriend}
-            >
-                <View>
-                    <Text style={styles.friendName}>
-                        {this.state.username}
-                    </Text>
-                </View>
-            </TouchableHighlight>
-        );
+             >
+                 <View>
+                     <ImageWrapper
+                         id={this.props.uid}
+                         navigation={this.props.navigation}
+                     />
+                 </View>
+             </TouchableHighlight>
+         );
     }
 }
 
@@ -72,10 +74,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         //alignItems: 'center',
-        marginTop: '5%',
-        marginBottom: '5%',
+        marginTop: '4%',
+        marginBottom: '1%',
         width: 350,
-        height: 60,
+        height: 70,
         //padding: 100,
         borderRadius: 6,
         borderWidth: 0.6,
