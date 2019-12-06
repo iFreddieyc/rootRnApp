@@ -113,6 +113,12 @@ export const RankingNavigator = createStackNavigator({
                 fontFamily: 'Cochin',
             },
         }),
+    },
+    FriendViews: {
+        screen: FriendProfileView,
+        navigationOptions: () => ({
+            headerStyle: {backgroundColor: '#C1D1AC'},
+        }),
     }
 });
 
