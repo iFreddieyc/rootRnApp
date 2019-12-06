@@ -40,7 +40,8 @@ export default class Notification extends Component {
             title: 'Reminder from Root',
             body: 'Don\'t forget to complete your habit today?',
             ios: { // (optional) (object) — notification configuration specific to iOS.
-                sound: true // (optional) (boolean) — if true, play a sound. Default: false.
+                sound: true, // (optional) (boolean) — if true, play a sound. Default: false.
+                _displayInForeground: true,
             },
         }
         const schedulingOptions = {
@@ -65,6 +66,14 @@ export default class Notification extends Component {
             .catch((error)=>{console.log(error)});
     }
 
+    handleCancel = () => {
+        Notifications.cancelAllScheduledNotificationsAsync()
+            .then(
+                Alert.alert("Notification cancelled.")
+            )
+            .catch((error)=>{console.log(error)});
+    }
+
     render() {
         return (
             <SafeAreaView style={styles.container}>
@@ -80,6 +89,14 @@ export default class Notification extends Component {
                         style={styles.button}
                         color={"green"}
                         onPress={this.handleSubmit}
+                    />
+                </View>
+                <View style={{backgroundColor: '#E0EBCB', width: '80%', top: ' 15%' , borderRadius: 10, left: '10%'}}>
+                    <Button
+                        title={"Cancel Existing Notification"}
+                        style={styles.button}
+                        color={"green"}
+                        onPress={this.handleCancel}
                     />
                 </View>
             </SafeAreaView>

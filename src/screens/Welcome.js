@@ -29,12 +29,12 @@ export default class Welcome extends Component {
 
     componentDidMount() {
         const uid = db.auth().currentUser.uid;
-        console.log(uid);
+        //console.log(uid);
         let docRef = db.firestore().collection('users').doc(uid);
         let prom = new Promise((resolve, reject) => {
             docRef.get().then(function (doc) {
                 if (doc.exists) {
-                    console.log("Document data:", doc.data());
+                    //console.log("Document data:", doc.data());
                     resolve(true)
                 } else {
                     console.log("No such document!");

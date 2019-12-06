@@ -114,31 +114,40 @@ class HabitView extends Component {
                             Alert.alert('Modal has been closed.');
                         }}>
                         <SafeAreaView style={styles.modalContent}>
-                            <Button
-                                title={"Back"}
-                                onPress={() => {
-                                    this.setModalVisible(!this.state.modalVisible);
-                                }}
-                            />
-                            <Text>
-                                {this.props.name}
-                            </Text>
-                            <Text>
-                                {this.props.description}
-                            </Text>
-                            <Text>
-                                Have you finished this habit today?
-                            </Text>
-                            <Button
-                                title="Yes"
-                                onPress={this.handleYes}
-                            />
-                            <Button
-                                title="Not yet"
-                                onPress={() => {
-                                    this.setModalVisible(!this.state.modalVisible);
-                                }}
-                            />
+                            <View style={styles.backButton}>
+                                <Button
+                                    title={"Back"}
+                                    onPress={() => {
+                                        this.setModalVisible(!this.state.modalVisible);
+                                    }}
+                                />
+                            </View>
+                            <View style={styles.textBox}>
+                                <Text style={styles.info}>
+                                    {this.props.name}
+                                </Text>
+                                <Text style={styles.info}>
+                                    {this.props.description}
+                                </Text>
+                                <Text style={styles.question}>
+                                    {"\n"}Have you finished this habit today?
+                                </Text>
+                            </View>
+
+                            <View style={styles.yesButton}>
+                                <Button
+                                    title="Yes"
+                                    onPress={this.handleYes}
+                                />
+                            </View>
+                            <View style={styles.notyetButton}>
+                                <Button
+                                    title="Not yet"
+                                    onPress={() => {
+                                        this.setModalVisible(!this.state.modalVisible);
+                                    }}
+                                />
+                            </View>
                         </SafeAreaView>
                     </Modal>
                 </View>
@@ -195,12 +204,48 @@ const styles = StyleSheet.create({
         marginTop: 300,
         marginLeft: 50,
         marginRight: 50,
-        height: 300,
-        backgroundColor: "white",
+        height: 400,
         padding: 22,
         justifyContent: "center",
         alignItems: "center",
         borderRadius: 10,
-        borderColor: "rgba(0, 0, 0, 0.1)"
+        borderColor: "rgba(0, 0, 0, 0.1)",
+        backgroundColor: '#E0EBCB',
+    },
+    backButton: {
+        backgroundColor: '#E0EBCB',
+        position: 'absolute',
+        left: '5%',
+        top: '5%',
+        borderRadius: 10
+    },
+    notyetButton: {
+        backgroundColor: '#E0EBCB',
+        position: 'absolute',
+        left: '5%',
+        bottom: '5%',
+        borderRadius: 10
+    },
+    yesButton: {
+        backgroundColor: '#E0EBCB',
+        position: 'absolute',
+        right: '5%',
+        bottom: '5%',
+        borderRadius: 10
+    },
+    info: {
+        color: 'black',
+        fontFamily: 'Cochin',
+        fontSize: 35,
+        textAlign: 'center',
+    },
+    textBox:{
+        margin: 10,
+    },
+    question:{
+        color: 'black',
+        fontFamily: 'Cochin',
+        fontSize: 20,
+        textAlign: 'center',
     }
 });

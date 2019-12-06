@@ -195,7 +195,7 @@ export const ProfileNavigator = createStackNavigator({
             title:"Daily Reminder",
             headerStyle: {backgroundColor: '#D4DBAD'},
             headerTitleStyle: {
-                fontSize: 30,
+                fontSize: 25,
                 color: 'black',
                 fontWeight: 'bold',
                 alignItems: 'center',

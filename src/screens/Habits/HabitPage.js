@@ -26,6 +26,10 @@ export default class HabitPage extends Component {
         this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
     }
 
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
+
     onCollectionUpdate = (querySnapshot) => {
         const habits = [];
         querySnapshot.forEach(function (doc) {
