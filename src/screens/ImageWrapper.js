@@ -36,7 +36,7 @@ export default class ImageWrapper extends Component {
         });
     }
     toProfile = () => {
-
+        this.props.navigation.navigate('FriendViews', {text: this.props.id});
     }
 
     render() {
