@@ -10,6 +10,7 @@ import ImageWrapper from "../ImageWrapper.js";
 export default class RankView extends Component {
     constructor(props) {
         super(props);
+        console.log(props)
     }
 
     render() {
@@ -27,6 +28,7 @@ export default class RankView extends Component {
                     </View>
                     <ImageWrapper
                         id={this.props.userId}
+                        navigation={this.props.navigation}
                     />
                 </View>
             </TouchableHighlight>
