@@ -84,6 +84,14 @@ export default class FriendList extends Component {
 
 
 const styles = StyleSheet.create({
+    image: {
+        position: 'absolute',
+        width: 80,
+        height: 80,
+        left: '85%',
+        top: '15%'
+
+    },
     container: {
         flex: 1,
         justifyContent: 'center',
