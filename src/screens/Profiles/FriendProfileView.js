@@ -2,8 +2,9 @@
  * @author Vincent Nguyen
  */
 import React, {Component} from 'react';
-import {StyleSheet, SafeAreaView, View, Text, TouchableHighlight} from 'react-native';
+import {StyleSheet, SafeAreaView, View, Text, TouchableHighlight, Image, Button} from 'react-native';
 import db from "../../base";
+import * as firebase from "firebase";
 
 export default class FriendsProfile extends Component {
 
@@ -16,13 +17,22 @@ export default class FriendsProfile extends Component {
         this.state = {
              habits: [],
              username: '',
-             email: '',
-             picurl: '',
+             filePath: '',
         };
     }
 
     componentDidMount() {
+       this.getImageFromFirebase();
        this.userDocumentRef.onSnapshot(this.onUserDocumentUpdate);
+    }
+
+    getImageFromFirebase = async () => {
+        let storageRef = firebase.storage().ref('images/' + this.uid);
+        storageRef.getDownloadURL().then((url) =>{
+            this.setState({filePath: url});
+        }).catch((error) => {
+            this.setState({filePath: 'https://firebasestorage.googleapis.com/v0/b/rootappcse110ntl.appspot.com/o/images%2Fdefault-profile.jpg?alt=media&token=e284258e-bb13-4a9b-88ea-d4bf1ccede3e'});
+        });
     }
 
     onUserDocumentUpdate = (querySnapshot) => {
@@ -31,18 +41,10 @@ export default class FriendsProfile extends Component {
             data = doc.data();
         });
         this.setState({
-            email: data.email
+            email: data.email,
+            username: data.username
         });
-        if(data.username != null){
-            this.setState({
-                username: data.username
-            });
-        }
-        if(data.picurl != null) {
-            this.setState({
-                picurl: data.userPicUrl,
-            });
-        }
+        this.getImageFromFirebase();
     }
 
     handleViewHabit = () => {
@@ -51,71 +53,59 @@ export default class FriendsProfile extends Component {
 
     render() {
         return (
-            <SafeAreaView style={styles.container}>
-            <View>
-              <Text style={styles.info}>{this.state.username}</Text>
-              <Text style={styles.info}>{this.state.email}</Text>
-            </View>
-            <TouchableHighlight style={styles.habitContainer}
-                onPress={this.handleViewHabit}
-            >
-                <View>
-                    <Text style={styles.habitAccess}>{this.state.username + "'s Habits"}</Text>
-                    <Text style={styles.habitPress}>
-                        {"Press to see Habit"}
-                     </Text>
+            <View style={styles.container}>
+                <Image source={{uri: this.state.filePath}} style={styles.image}/>
+                    <Text style={styles.username}>{this.state.username}</Text>
+                    <Text style={styles.info}>{this.state.email}</Text>
+                <View style={{
+                    position: 'absolute', flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    top: '35%', backgroundColor: '#E0EBCB', width: 300, height: 80,
+                    borderRadius: 10
+                }}>
+                    <Button
+                        title={this.state.username +"'s Habits"}
+                        onPress={this.handleViewHabit}
+                    />
                 </View>
-
-            </TouchableHighlight>
-            </SafeAreaView>
+            </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    info:{
-        fontFamily: 'Cochin',
-        fontSize: 25,
-        margin: 10
-   },
-   habitContainer: {
-        width: 350,
-        height: 80,
-        borderRadius: 6,
-        borderWidth: 0.6,
-        alignItems: 'center',
-        borderColor: '#d6d7da',
-        backgroundColor: '#E0EBCB'
+    image: {
+        width: '28%',
+        height: '15%',
+        borderRadius:20,
+        position: 'absolute',
+        top: '5%',
+        right: '36%',
     },
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#D4DBAD'
-    },
-    title: {
-        fontSize: 30,
-        color: 'black',
-        fontWeight: 'bold',
-        alignItems: 'center',
-        fontFamily: 'Cochin',
+   username:{
+       fontFamily: 'Copperplate-Bold',
+       fontWeight: 'bold',
+       color: '#D98888',
+       fontSize: 45,
+       position: 'absolute',
+       top: '21%',
+       alignItems: 'center',
+       justifyContent: 'center'
    },
-   habitPress: {
-        fontSize: 15,
-        color: 'pink',
-        fontWeight: 'bold',
-        alignItems: 'center',
-        fontFamily: 'Cochin',
-        left: 70,
-        right: 100,
+   info: {
+       fontFamily: 'Cochin',
+       fontSize: 25,
+       margin: 10,
+       position: 'absolute',
+       top: ' 25%',
+       alignItems: 'center',
+       justifyContent: 'center'
    },
-   habitAccess: {
-        fontSize: 30,
-        color: 'pink',
-        fontWeight: 'bold',
-        alignItems: 'center',
-        fontFamily: 'Cochin',
-        left: 10,
-        right: 10,
-    }
+   container: {
+       flex: 1,
+       justifyContent: 'center',
+       alignItems: 'center',
+       backgroundColor: '#D4DBAD'
+   },
 });
