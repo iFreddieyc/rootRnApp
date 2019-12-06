@@ -24,6 +24,8 @@ import Notification from "./screens/Profiles/Notification";
 import FriendProfileView from "./screens/Profiles/FriendProfileView";
 import FriendList from "./screens/Friends/FriendList";
 import FriendHabitList from "./screens/Friends/FriendHabitList";
+import FriendRankProfileView from "./screens/Profiles/FriendRankProfileView";
+import FriendRankHabitList from "./screens/Friends/FriendRankHabitList";
 import Welcome from "./screens/Welcome";
 import AddFriend from "./screens/Friends/AddFriend";
 import {StyleSheet} from "react-native";
@@ -115,7 +117,13 @@ export const RankingNavigator = createStackNavigator({
         }),
     },
     FriendViews: {
-        screen: FriendProfileView,
+        screen: FriendRankProfileView,
+        navigationOptions: () => ({
+            headerStyle: {backgroundColor: '#C1D1AC'},
+        }),
+    },
+    FriendHabits: {
+        screen: FriendRankHabitList,
         navigationOptions: () => ({
             headerStyle: {backgroundColor: '#C1D1AC'},
         }),
