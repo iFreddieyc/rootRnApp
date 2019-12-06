@@ -18,7 +18,7 @@ import {
 
 import db from "../../base";
 import { withNavigation } from 'react-navigation';
-import ImageWrapper from "../ImageWrapper.js";
+import ImageFriendWrapper from "../ImageFriendWrapper.js";
 
 export default class MyFriendView extends Component {
 
@@ -59,7 +59,7 @@ export default class MyFriendView extends Component {
                                 onPress={this.handleViewFriend}
              >
                  <View>
-                     <ImageWrapper
+                     <ImageFriendWrapper
                          id={this.props.uid}
                          navigation={this.props.navigation}
                      />
