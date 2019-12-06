@@ -25,28 +25,19 @@ export default class Ranking extends Component {
     }
 
     componentDidMount() {
-        // this.getRanking();
-        this.unsub = this.ref.onSnapshot(this.getRanking);
-    }
-
-    componentWillUnmount() {
-        this.unsub();
+        this.getRanking();
+        this.ref.onSnapshot(this.getRanking);
     }
 
     getRanking = () => {
-        // Reset the states
-        this.setState({
-            friends: [],
-            ranking: [],
-        });
-        console.log("-------------------------------get ranking-------------------------------")
+        console.log("get ranking")
         this.getFriendList().then((friendsList) => {
             this.setState({
                 friends: friendsList,
             });
             const arr = [];
             for (const id of friendsList) {
-                // console.log(id);
+                console.log(id);
                 arr.push(this.getHabitFromUid(id));
             }
             Promise.all(arr).then((values) => {
@@ -63,7 +54,7 @@ export default class Ranking extends Component {
                         message: "HabitRank",
                     });
                 }
-                // console.log(values);
+                console.log(values);
             }).catch(function (error) {
                     console.log("Something went wrong", error);
                 }
@@ -72,6 +63,7 @@ export default class Ranking extends Component {
     }
 
     getFriendList = () => {
+        console.log("this");
         return new Promise((resolve, reject) => {
             let friendList = [];
             db.firestore().collection("users")
@@ -79,7 +71,7 @@ export default class Ranking extends Component {
                 .get()
                 .then(function (doc) {
                     if (doc.exists) {
-                        // console.log(doc.data().friends);
+                        console.log(doc.data().friends);
                         friendList = doc.data().friends;
                     } else {
                         console.log("No such document");
@@ -109,8 +101,8 @@ export default class Ranking extends Component {
                                 doc.data().description, doc.data().visible,
                                 doc.data().numOfDays, doc.data().archived);
                             highestDuration = doc.data().numOfDays;
-                            // console.log("Habit returned is");
-                            // console.log(habit);
+                            console.log("Habit returned is");
+                            console.log(habit);
                         }
                     });
                     resolve(habit);
@@ -142,6 +134,7 @@ export default class Ranking extends Component {
                                 userId={item.userid}
                                 habitName={item.name}
                                 duration={item.duration}
+                                navigation={this.props.navigation}
                             />
                         }
                         keyExtractor={(item, index) => index.toString()}
