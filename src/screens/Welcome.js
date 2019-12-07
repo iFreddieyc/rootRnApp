@@ -149,6 +149,7 @@ export default class Welcome extends Component {
                            autoCapitalize={"none"}
                            autoCorrect={false}
                            onChangeText={val => this.onChangeText('username', val)}
+                           maxLength={10}
                 />
                 <Text> </Text>
                 <View style={styles.button}>
