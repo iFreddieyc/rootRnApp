@@ -46,6 +46,11 @@ export default class AddFriend extends Component {
                     friendDocumentData = doc.data();
                 });
                 console.info("Username query returned " + querySnapshot.size + " results.");
+                if (querySnapshot.size == 0) {
+                    alert("Username not found. Please try again.")
+                    console.log("Username query did not return any results.");
+                    return;
+                }
 
                 // Only populate friend request lists if you aren't already friends
                 this.userDocumentRef.get().then((docSnapshot) => {
@@ -82,7 +87,7 @@ export default class AddFriend extends Component {
             })
             .catch((e) => {
                 alert("Username not found. Please try again.");
-                console.warn("Username query did not yield any results: " + e);
+                console.error("Error occurred while finding username: " + e);
             });
     }
 
