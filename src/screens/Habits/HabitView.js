@@ -126,7 +126,7 @@ class HabitView extends Component {
                                 <Text style={styles.info}>
                                     {this.props.name}
                                 </Text>
-                                <Text style={styles.info}>
+                                <Text style={styles.info2}>
                                     {this.props.description}
                                 </Text>
                                 <Text style={styles.question}>
@@ -136,13 +136,15 @@ class HabitView extends Component {
 
                             <View style={styles.yesButton}>
                                 <Button
-                                    title="Yes"
+                                    title=" YES!  "
+                                    color={'black'}
                                     onPress={this.handleYes}
                                 />
                             </View>
                             <View style={styles.notyetButton}>
                                 <Button
-                                    title="Not yet"
+                                    title="NOT YET"
+                                    color={'black'}
                                     onPress={() => {
                                         this.setModalVisible(!this.state.modalVisible);
                                     }}
@@ -201,7 +203,7 @@ const styles = StyleSheet.create({
         left: 10
     },
     modalContent: {
-        marginTop: 300,
+        marginTop: 200,
         marginLeft: 50,
         marginRight: 50,
         height: 400,
@@ -209,25 +211,24 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         borderRadius: 10,
-        borderColor: "rgba(0, 0, 0, 0.1)",
-        backgroundColor: '#E0EBCB',
+        borderColor: "rgba(0, 0, 0, 1)",
+        backgroundColor: '#F1FAE2', //'white', //'#E0EBCB',
     },
     backButton: {
-        backgroundColor: '#E0EBCB',
         position: 'absolute',
         left: '5%',
         top: '5%',
         borderRadius: 10
     },
     notyetButton: {
-        backgroundColor: '#E0EBCB',
+        backgroundColor: '#F78282',
         position: 'absolute',
         left: '5%',
         bottom: '5%',
         borderRadius: 10
     },
     yesButton: {
-        backgroundColor: '#E0EBCB',
+        backgroundColor: '#75B74E',
         position: 'absolute',
         right: '5%',
         bottom: '5%',
@@ -236,7 +237,14 @@ const styles = StyleSheet.create({
     info: {
         color: 'black',
         fontFamily: 'Cochin',
+        fontWeight: 'bold',
         fontSize: 35,
+        textAlign: 'center',
+    },
+    info2: {
+        color: 'black',
+        fontFamily: 'Cochin',
+        fontSize: 22,
         textAlign: 'center',
     },
     textBox:{
