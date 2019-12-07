@@ -45,7 +45,8 @@ export default class ImageWrapper extends Component {
                 <Text style={styles.authorName}>
                     {this.state.userName}
                 </Text>
-                <TouchableHighlight onPress={this.toProfile}>
+                <TouchableHighlight onPress={this.toProfile}
+                                    underlayColor={'#E7ABAB'}>
                     <Image
                         source={{uri: this.state.filePath}}
                         style={styles.image}/>
