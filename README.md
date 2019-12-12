@@ -1,6 +1,6 @@
 # rootRnApp
 
-This is a working project by Team Nevertheless at UCSD CSE110 Fall 2019. 
+This is a finished class project by Team Nevertheless at UCSD CSE110 Fall 2019. 
 
 **Root**  is a habit forming app with social media features that allow you and your friends to see each other's progress.
 
